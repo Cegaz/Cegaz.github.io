@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body>
+    {% if error is defined %}
+        <h2 class="fade-away">try again !</h2>
+    {% endif %}
+        <form class="form_pass" method="post" action="/home">
+            <h2>the magic word ?...<br>
+                <input type="password" name="password"/>
+                <input type="submit" value="go!"/>
+            </h2>
+        </form>
+    </body>
+{% endblock %}
