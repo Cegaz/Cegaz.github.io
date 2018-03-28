@@ -43,15 +43,12 @@ class ClasssController extends Controller
     public function oneClassAction($classLetter, $sorting = 'name'){
         if($this->accessGranted()){
             $em = $this->getDoctrine()->getManager();
-
             $class = $em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
-
             $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
 
-            return $this->render('default/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classL' => $class.classLetter]);
+            return $this->render('default/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
         } else {
             return $this->redirect('/');
         }
-
     }
 }

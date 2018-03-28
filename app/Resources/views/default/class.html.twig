@@ -3,30 +3,36 @@
 {% block body %}
 <body>
 <header>
-    <h1>CLASS {{ classL }}</h1>
+    <h1>CLASS {{ class.classLetter }}</h1>
     <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
 </header>
 
 <section>
     <table>
         <tr>
-            <th><a href="/class/{{ classL }}/name">NAME ↓</a></th>
-            <th><a href="/class/{{ classL }}/surname">SURNAME ↓</a></th>
-            <th><a href="/class/{{ classL }}/last_call">LAST ↓</a></th>
-            <th><a href="/class/{{ classL }}/call_nb">NB ↓</a></th>
+            <th><a href="/class/{{ class.classLetter }}/name">NAME ↓</a></th>
+            <th><a href="/class/{{ class.classLetter }}/surname">SURNAME ↓</a></th>
+            <th><a href="/class/{{ class.classLetter }}/last_call">LAST ↓</a></th>
+            <th><a href="/class/{{ class.classLetter }}/call_nb">NB ↓</a></th>
         </tr>
+        {% set lastCall = 0 %}
 
         {% for student in students %}
+            {% for intervention in student.interventions %}
+                {% if date(intervention.interventionDate) > date(lastCall) %}
+                    {% set lastCall = intervention.interventionDate %}
+                {% endif %}
+            {% endfor %}
         <tr>
             <td class="name">{{ student.name | upper }}</td>
-            <td class="surname"><{{ student.surname | title }}</td>
-            <td class="lastcall">date last call</td>
-            <td class="contributions">nb interventions</td>
-            <td class="right_columns">{{ student.id }}
-                <a href="/update/{{ student.id }}"><img src="assets/images/handup.png"></a>
+            <td class="surname">{{ student.surname | capitalize }}</td>
+            <td class="lastcall">{{ lastCall|date('d/m')}}</td>
+            <td class="contributions">{{ student.interventions|length}}</td>
+            <td class="right_columns">
+                <a href="/update/{{ student.id }}"><img src="/assets/images/handup.png"></a>
             </td>
             <td class="right_columns">
-                <a href="/student/{{ student.id }}"><img src="assets/images/plus.png"></a>
+                <a href="/student/{{ student.id }}"><img src="/assets/images/plus.png"></a>
             </td>
         </tr>
         {% endfor %}
