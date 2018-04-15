@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+
 use Doctrine\ORM\EntityRepository;
 
 class StudentRepository extends EntityRepository
@@ -11,10 +12,25 @@ class StudentRepository extends EntityRepository
             ->select('s')
             ->where('s.class = :class')
             ->setParameter('class', $class)
-            ->leftJoin('s.interventions', 'i')
-            ->orderBy('s.name', 'DESC')
-            ->getQuery();
+            ->leftJoin('s.interventions', 'i');
 
-        return $qb->getResult();
+        switch ($sorting) {
+            case 'name':
+            case 'surname':
+            case 'island':
+                $qb->orderBy('s.' . $sorting, 'ASC');
+                break;
+
+            case 'last_call':
+                $qb->orderBy('last_call', 'ASC');
+            case 'call_nb':
+                $qb->orderBy('call_nb', 'DESC');
+                break;
+            default:
+                $qb->orderBy('s.name', 'ASC');
+                break;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

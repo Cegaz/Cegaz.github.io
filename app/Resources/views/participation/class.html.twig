@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+<header>
+    <h1>CLASS {{ class.classLetter }}</h1>
+    <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
+</header>
+
+<div>
+    <a href="/participation/class/{{ class.classLetter }}/island">
+        <button>PAR ILOTS</button>
+    </a>
+</div>
+
+<section>
+    <table id="students-list" class="table table-striped">
+        <tr>
+            <th>
+                NAME
+                <a href="/participation/class/{{ class.classLetter }}/name">
+                    <img src="/assets/images/sorting.png" alt="sorting">
+                </a>
+            </th>
+            <th>
+                SURNAME
+                <a href="/participation/class/{{ class.classLetter }}/surname">
+                    <img src="/assets/images/sorting.png" alt="sorting">
+                </a>
+            </th>
+            <th>
+                LAST
+                <a href="/participation/class/{{ class.classLetter }}/last_call">
+                    <img src="/assets/images/sorting.png" alt="sorting">
+                </a>
+            </th>
+            <th>
+                NB
+                <a href="/participation/class/{{ class.classLetter }}/call_nb">
+                    <img src="/assets/images/sorting.png" alt="sorting">
+                </a>
+            </th>
+        </tr>
+
+        {% for student in students %}
+            {% set callNb = student.interventions|length %}
+
+            {% set lastCall = "now"|date_modify ("-1 year") %}
+            {% for intervention in student.interventions %}
+                {% if intervention.interventionDate > lastCall %}
+                    {% set lastCall = intervention.interventionDate %}
+                {% endif %}
+            {% endfor %}
+
+        <tr>
+            <td class="name">{{ student.name | upper }}</td>
+            <td class="surname">{{ student.surname | capitalize }}</td>
+            <td class="lastcall">{{ lastCall|date('d/m') }}</td>
+            <td class="contributions">{{ callNb }}</td>
+            <td class="hand-up right_columns" data-id="{{ student.id }}">
+                <img src="/assets/images/dialog.png">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+</body>
+    </body>
+{% endblock %}

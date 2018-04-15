@@ -3,21 +3,13 @@
 {% block body %}
 <body>
     <header>
-        <h1>My english classes</h1>
+        <h1>My apps</h1>
         <a href="/logout"><img src="assets/images/logout.png" class="icon"></a>
     </header>
 
     <section>
-        {% for class in classes %}
-            <a href="/class/{{ class }}">
-                <div class="class-encart">
-                    CLASS {{ class }}
-                </div>
-            </a>
-        {% endfor %}
-
-        <h2><a href="/add-class">ADD A NEW CLASS</a></h2>
-        <h2><a href="/import-class">IMPORT A NEW CLASS</a></h2>
+        <a href="/participation"><button>PARTICIPATION</button></a>
+        <a href="/dashboard"><button>DASHBOARD</button></a>
     </section>
 </body>
 {% endblock %}

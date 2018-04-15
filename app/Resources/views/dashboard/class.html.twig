@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body>
+    <header>
+        <h1>CLASS {{ class.classLetter }}</h1>
+        <a href="/dashboard"><img src="/assets/images/class.png" alt="dashboard" class="icon"/></a>
+        <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
+    </header>
+
+    <section>
+        <table id="students-list" class="table table-striped">
+            {% for student in students %}
+                {% set callNb = student.interventions|length %}
+
+                {% set lastCall = "now"|date_modify ("-1 year") %}
+                {% for intervention in student.interventions %}
+                    {% if intervention.interventionDate > lastCall %}
+                        {% set lastCall = intervention.interventionDate %}
+                    {% endif %}
+                {% endfor %}
+
+                <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent{{ student.id }}">
+                    <td class="name">{{ student.name | upper }}</a></td>
+                    <td class="surname">{{ student.surname | capitalize }}</td>
+                </tr>
+                {% include('dashboard/showStudentModal.html.twig') %}
+            {% endfor %}
+        </table>
+    </section>
+
+    {% include('dashboard/addStudentModal.html.twig') %}
+
+    <section>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudent">
+            ADD A STUDENT
+        </button>
+    </section>
+
+    </body>
+{% endblock %}

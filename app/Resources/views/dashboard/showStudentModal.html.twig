@@ -1,0 +1,43 @@
+<!-- Modale showStudent-->
+<div class="modal" id="showStudent{{ student.id }}" tabindex="-1" role="dialog" aria-labelledby="showStudent" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ student.surname|capitalize }} {{ student.name|upper }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container">
+                <div class="row">
+                    <div class="col">
+                        <p class="text-left">class {{ student.class.classLetter }} -
+                        island {% if student.island is not null %}{{ student.island.label }}{% endif %}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">20/20</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ student.interventions|length }} PARTICIPATION{% if student.interventions|length > 1 %}S{% endif %}
+                    </div>
+                </div>
+                {#{% for intervention in student.interventions %}#}
+                    {#<div class="col-">{{ intervention.interventionDate|date('d/m') }}</div>#}
+                {#{% endfor %}#}
+
+                <div class="row" id="comments">
+                    <div class="col">
+                        COMMENTAIRES
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>

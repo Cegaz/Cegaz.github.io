@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Student;
 
 /**
  * Intervention
@@ -33,32 +34,6 @@ class Intervention
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-
-
-    /**
-     * Set intervention
-     *
-     * @param \DateTime $intervention
-     *
-     * @return Intervention
-     */
-    public function setIntervention($intervention)
-    {
-        $this->intervention = $intervention;
-
-        return $this;
-    }
-
-    /**
-     * Get intervention
-     *
-     * @return \DateTime
-     */
-    public function getIntervention()
-    {
-        return $this->intervention;
-    }
 
 
     /**
@@ -98,11 +73,11 @@ class Intervention
     /**
      * Set student
      *
-     * @param \AppBundle\Entity\Students $student
+     * @param Student $student
      *
      * @return Intervention
      */
-    public function setStudent(\AppBundle\Entity\Students $student = null)
+    public function setStudent(Student $student = null)
     {
         $this->student = $student;
 
@@ -112,7 +87,7 @@ class Intervention
     /**
      * Get student
      *
-     * @return \AppBundle\Entity\Students
+     * @return Student
      */
     public function getStudent()
     {

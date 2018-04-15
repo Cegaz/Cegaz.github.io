@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+<header>
+    <h1>CLASS {{ class.classLetter }}</h1>
+    <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
+</header>
+
+<div>
+    <a href="/participation/class/{{ class.classLetter }}/name">
+        <button>PAR CLASSE</button>
+    </a>
+</div>
+
+<section>
+    <table id="students-list">
+        {% for student in students %}
+        <tr>
+            <td class="island">{{ student.0.island }}</td>
+            <td class="name">{{ student.0.name | upper }}</td>
+            <td class="surname">{{ student.0.surname | capitalize }}</td>
+            <td class="lastcall">{{ student.lastCall|date('d/m')}}</td>
+            <td class="contributions">{{ student.callNb}}</td>
+            <td class="hand-up right_columns" data-id="{{ student.0.id }}">
+                <img src="/assets/images/handup.png">
+            </td>
+            <td class="right_columns">
+                <a href="/student/{{ student.0.id }}"><img src="/assets/images/plus.png"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+</body>
+    </body>
+{% endblock %}

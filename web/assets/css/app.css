@@ -1,5 +1,4 @@
 body {
-  font-family: 'Bubbler One', sans-serif;
   background: #AAA;
   position: relative;
   height: 90vh; }
@@ -72,7 +71,6 @@ td {
   font-weight: bold; }
 
 footer {
-  font-family: 'Pangolin', cursive;
   color: #FFF; }
 
 span, .try {
@@ -97,5 +95,3 @@ span, .try {
   border: 1px solid #AAA;
   padding: 0;
   width: 35px; }
-
-/*# sourceMappingURL=app.css.map */

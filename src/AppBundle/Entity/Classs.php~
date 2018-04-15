@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Classs
  *
- * @ORM\Table(name="classss")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassssRepository")
+ * @ORM\Table(name="classs")
+ * @ORM\Entity(repositoryClass="ClasssRepository")
  */
 class Classs
 {
@@ -29,9 +29,14 @@ class Classs
     private $classLetter;
 
     /**
-     * @ORM\OneToMany(targetEntity="Students", mappedBy="class")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="class")
      */
     private $students;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Island", mappedBy="class")
+     */
+    private $islands;
 
 
     public function __toString()
@@ -71,5 +76,70 @@ class Classs
     public function getClassLetter()
     {
         return $this->classLetter;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new ArrayCollection();
+    }
+
+    /**
+     * Add student
+     *
+     * @param \AppBundle\Entity\Student $student
+     *
+     * @return Classs
+     */
+    public function addStudent(Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \AppBundle\Entity\Student $student
+     */
+    public function removeStudent(Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Add island
+     *
+     * @param \AppBundle\Entity\Island $island
+     *
+     * @return Classs
+     */
+    public function addIsland(Island $island)
+    {
+        $this->islands[] = $island;
+
+        return $this;
+    }
+
+    /**
+     * Remove island
+     *
+     * @param Island $island
+     */
+    public function removeIsland(Island $island)
+    {
+        $this->islands->removeElement($island);
+    }
+
+    /**
+     * Get islands
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIslands()
+    {
+        return $this->islands;
     }
 }

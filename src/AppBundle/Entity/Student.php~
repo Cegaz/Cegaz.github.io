@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Student
  *
  * @ORM\Table(name="student")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\StudentRepository")
  */
 class Student
 {
@@ -40,7 +40,7 @@ class Student
      */
     private $comments;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity="Classs", inversedBy="students")
      */
     private $class;
@@ -49,6 +49,11 @@ class Student
      * @ORM\OneToMany(targetEntity="Intervention", mappedBy="student")
      */
     private $interventions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Island", inversedBy="students")
+     */
+    private $island;
 
     /**
      * @var integer
@@ -182,6 +187,40 @@ class Student
     }
 
     /**
+     * Add intervention
+     *
+     * @param Intervention $intervention
+     *
+     * @return Student
+     */
+    public function addIntervention(Intervention $intervention)
+    {
+        $this->interventions[] = $intervention;
+
+        return $this;
+    }
+
+    /**
+     * Remove intervention
+     *
+     * @param Intervention $intervention
+     */
+    public function removeIntervention(Intervention $intervention)
+    {
+        $this->interventions->removeElement($intervention);
+    }
+
+    /**
+     * Get Interventions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInterventions()
+    {
+        return $this->interventions;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -198,37 +237,4 @@ class Student
         $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add intervention
-     *
-     * @param \AppBundle\Entity\Intervention $intervention
-     *
-     * @return Student
-     */
-    public function addIntervention(\AppBundle\Entity\Intervention $intervention)
-    {
-        $this->interventions[] = $intervention;
-
-        return $this;
-    }
-
-    /**
-     * Remove intervention
-     *
-     * @param \AppBundle\Entity\Intervention $intervention
-     */
-    public function removeIntervention(\AppBundle\Entity\Intervention $intervention)
-    {
-        $this->interventions->removeElement($intervention);
-    }
-
-    /**
-     * Get interventions
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInterventions()
-    {
-        return $this->interventions;
-    }
 }

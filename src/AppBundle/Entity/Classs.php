@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Repository\ClasssRepository;
 
 /**
  * Classs
@@ -32,6 +33,11 @@ class Classs
      * @ORM\OneToMany(targetEntity="Student", mappedBy="class")
      */
     private $students;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Island", mappedBy="class")
+     */
+    private $islands;
 
 
     public function __toString()
@@ -77,17 +83,17 @@ class Classs
      */
     public function __construct()
     {
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     /**
      * Add student
      *
-     * @param \AppBundle\Entity\Students $student
+     * @param \AppBundle\Entity\Student $student
      *
      * @return Classs
      */
-    public function addStudent(\AppBundle\Entity\Students $student)
+    public function addStudent(Student $student)
     {
         $this->students[] = $student;
 
@@ -97,9 +103,9 @@ class Classs
     /**
      * Remove student
      *
-     * @param \AppBundle\Entity\Students $student
+     * @param \AppBundle\Entity\Student $student
      */
-    public function removeStudent(\AppBundle\Entity\Students $student)
+    public function removeStudent(Student $student)
     {
         $this->students->removeElement($student);
     }
@@ -113,4 +119,39 @@ class Classs
     {
         return $this->students;
     }
+
+    /**
+     * Add island
+     *
+     * @param \AppBundle\Entity\Island $island
+     *
+     * @return Classs
+     */
+    public function addIsland(Island $island)
+    {
+        $this->islands[] = $island;
+
+        return $this;
+    }
+
+    /**
+     * Remove island
+     *
+     * @param Island $island
+     */
+    public function removeIsland(Island $island)
+    {
+        $this->islands->removeElement($island);
+    }
+
+    /**
+     * Get islands
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIslands()
+    {
+        return $this->islands;
+    }
+
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+    <header>
+        <h1>Dashboard</h1>
+        <a href="/logout"><img src="/assets/images/logout.png" class="icon"></a>
+    </header>
+
+    <section>
+        <h3>MY CLASSES</h3>
+        {% for class in classes %}
+            <a href="/dashboard/class/{{ class }}">
+                <button>CLASS {{ class }}</button>
+            </a>
+        {% endfor %}
+        <a href="/dashboard/class/add"><button>ADD A CLASS</button></a>
+    </section>
+</body>
+{% endblock %}

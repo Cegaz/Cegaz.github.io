@@ -20,6 +20,15 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/home", name="homepage")
+     * @Method({"POST", "GET"})
+     */
+    public function homeAction()
+    {
+        return $this->render('default/home.html.twig');
+    }
+
+    /**
      * @Route("/logout", name="logout")
      */
     public function logoutAction()

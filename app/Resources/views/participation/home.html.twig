@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<body>
+    <header>
+        <h1>Participation</h1>
+        <a href="/logout"><img src="assets/images/logout.png" class="icon"></a>
+    </header>
+
+    <section>
+        {% for class in classes %}
+            <a href="/participation/class/{{ class }}">
+                <div class="class-encart">
+                    CLASS {{ class }}
+                </div>
+            </a>
+        {% endfor %}
+    </section>
+</body>
+{% endblock %}
