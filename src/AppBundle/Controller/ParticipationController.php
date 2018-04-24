@@ -34,15 +34,42 @@ class ParticipationController extends Controller
      * @return RedirectResponse|Response
      */
     public function oneClassAction($classLetter, $sorting = 'name'){
-            $em = $this->getDoctrine()->getManager();
-            $class = $em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
-            $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
+        $em = $this->getDoctrine()->getManager();
+        $class = $em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
+        $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
 
-            if($sorting == 'island') {
-                return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
-            } else {
-                return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
+        for($i = 0; $i < count($students); $i++) {
+            $student = $em->getRepository('AppBundle:Student')->find($students[$i]['id']);
+            $participations = $em->getRepository('AppBundle:Intervention')->findByStudent($student);
+            // calcule le nombre de participations
+            $students[$i]['nbParticipations'] = count($participations);
+            // calcule la + grande date de participation
+            $dates = [];
+            foreach($participations as $participation) {
+                $dates[] = $participation->getInterventionDate();
             }
+            if(!empty($dates)) {
+                $students[$i]['lastParticipation'] = max($dates)->format('d/m');
+            } else {
+                $students[$i]['lastParticipation'] = '';
+            }
+        }
+
+        if($sorting == 'sort-nb-participations') {
+            usort($students, function ($a, $b) {
+                return ($a['nbParticipations'] <= $b['nbParticipations']) ? -1 : 1;
+            });
+        } else if($sorting == 'sort-last-participation') {
+            usort($students, function ($a, $b) {
+                return ($a['lastParticipation'] <= $b['lastParticipation']) ? -1 : 1;
+            });
+        }
+
+        if($sorting == 'island') {
+            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
+        } else {
+            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
+        }
     }
 
     /**

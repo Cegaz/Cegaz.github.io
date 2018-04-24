@@ -30,33 +30,33 @@
             </th>
             <th>
                 LAST
-                <a href="/participation/class/{{ class.classLetter }}/last_call">
+                <a href="/participation/class/{{ class.classLetter }}/sort-last-participation">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
             <th>
                 NB
-                <a href="/participation/class/{{ class.classLetter }}/call_nb">
+                <a href="/participation/class/{{ class.classLetter }}/sort-nb-participations">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
         </tr>
 
         {% for student in students %}
-            {% set callNb = student.interventions|length %}
+            {#{% set callNb = student.interventions|length %}#}
 
-            {% set lastCall = "now"|date_modify ("-1 year") %}
-            {% for intervention in student.interventions %}
-                {% if intervention.interventionDate > lastCall %}
-                    {% set lastCall = intervention.interventionDate %}
-                {% endif %}
-            {% endfor %}
+            {#{% set lastCall = "now"|date_modify ("-1 year") %}#}
+            {#{% for intervention in student.interventions %}#}
+                {#{% if intervention.interventionDate > lastCall %}#}
+                    {#{% set lastCall = intervention.interventionDate %}#}
+                {#{% endif %}#}
+            {#{% endfor %}#}
 
         <tr>
             <td class="name">{{ student.name | upper }}</td>
             <td class="surname">{{ student.surname | capitalize }}</td>
-            <td class="lastcall">{{ lastCall|date('d/m') }}</td>
-            <td class="contributions">{{ callNb }}</td>
+            <td class="lastcall">{{ student.lastParticipation }}</td>
+            <td class="contributions">{{ student.nbParticipations }}</td>
             <td class="hand-up right_columns" data-id="{{ student.id }}">
                 <img src="/assets/images/dialog.png">
             </td>

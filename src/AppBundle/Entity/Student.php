@@ -246,7 +246,7 @@ class Student
      *
      * @return Student
      */
-    public function setIsland(\AppBundle\Entity\Island $island = null)
+    public function setIsland(Island $island = null)
     {
         $this->island = $island;
 
@@ -262,4 +262,5 @@ class Student
     {
         return $this->island;
     }
+
 }
