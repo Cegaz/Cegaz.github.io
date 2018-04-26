@@ -38,20 +38,21 @@ class ParticipationController extends Controller
         $class = $em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
         $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
 
-        for($i = 0; $i < count($students); $i++) {
-            $student = $em->getRepository('AppBundle:Student')->find($students[$i]['id']);
+//        for($i = 0; $i < count($students); $i++) {
+        foreach($students as &$student) {
+//            $student = $em->getRepository('AppBundle:Student')->find($students[$i]['id']);
             $participations = $em->getRepository('AppBundle:Intervention')->findByStudent($student);
             // calcule le nombre de participations
-            $students[$i]['nbParticipations'] = count($participations);
+            $student['nbParticipations'] = count($participations);
             // calcule la + grande date de participation
             $dates = [];
             foreach($participations as $participation) {
                 $dates[] = $participation->getInterventionDate();
             }
             if(!empty($dates)) {
-                $students[$i]['lastParticipation'] = max($dates)->format('d/m');
+                $student['lastParticipation'] = max($dates)->format('d/m');
             } else {
-                $students[$i]['lastParticipation'] = '';
+                $student['lastParticipation'] = '';
             }
         }
 
@@ -104,6 +105,26 @@ class ParticipationController extends Controller
         $data['lastCall'] = $lastCall->format('d/m');
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/cancel", name="cancel-participation")
+     * @return mixed
+     */
+    public function cancelLastAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $lastInterventionDate = $em->getRepository('AppBundle:Intervention')->getLastIntervention()[1];
+        $lastInterventionDateTime = new \DateTime($lastInterventionDate);
+        $lastIntervention = $em->getRepository('AppBundle:Intervention')->findOneByInterventionDate($lastInterventionDateTime);
+
+        $student = $lastIntervention->getStudent();
+        $studentId = $student->getId();
+
+        $em->remove($lastIntervention);
+        $em->flush();
+
+        return new JsonResponse($studentId);
     }
 
 }

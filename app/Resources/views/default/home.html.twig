@@ -2,14 +2,9 @@
 
 {% block body %}
 <body>
-    <header>
-        <h1>My apps</h1>
-        <a href="/logout"><img src="assets/images/logout.png" class="icon"></a>
-    </header>
-
-    <section>
-        <a href="/participation"><button>PARTICIPATION</button></a>
-        <a href="/dashboard"><button>DASHBOARD</button></a>
+    <section id="app-menu">
+        <a href="/participation"><button class="btn">PARTICIPATION</button></a>
+        <a href="/dashboard"><button class="btn">DASHBOARD</button></a>
     </section>
 </body>
 {% endblock %}

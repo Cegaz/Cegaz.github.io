@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class StudentRepository extends EntityRepository
 {
-    public function getStudentsByClassSorted($class, $sorting)
+    public function getStudentsByClassSorted($class, $sorting='name')
     {
         $qb = $this->createQueryBuilder('s')
             ->where('s.class = :class')

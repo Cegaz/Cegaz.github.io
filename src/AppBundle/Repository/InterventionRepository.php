@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class InterventionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastIntervention()
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->select('MAX(i.interventionDate)');
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

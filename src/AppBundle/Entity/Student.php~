@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Repository\StudentRepository;
 
 /**
  * Student
@@ -54,6 +55,20 @@ class Student
      * @ORM\ManyToOne(targetEntity="Island", inversedBy="students")
      */
     private $island;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_participation", type="date")
+     */
+    private $lastParticipation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nb_particpations", type="integer")
+     */
+    private $nbParticipations;
 
     /**
      * @var integer
@@ -235,6 +250,55 @@ class Student
     public function __construct()
     {
         $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Set island
+     *
+     * @param \AppBundle\Entity\Island $island
+     *
+     * @return Student
+     */
+    public function setIsland(Island $island = null)
+    {
+        $this->island = $island;
+
+        return $this;
+    }
+
+    /**
+     * Get island
+     *
+     * @return \AppBundle\Entity\Island
+     */
+    public function getIsland()
+    {
+        return $this->island;
+    }
+
+    /**
+     * Set lastParticipation
+     *
+     * @param \DateTime $lastParticipation
+     *
+     * @return Student
+     */
+    public function setLastParticipation($lastParticipation)
+    {
+        $this->lastParticipation = $lastParticipation;
+
+        return $this;
+    }
+
+    /**
+     * Get lastParticipation
+     *
+     * @return \DateTime
+     */
+    public function getLastParticipation()
+    {
+        return $this->lastParticipation;
     }
 
 }

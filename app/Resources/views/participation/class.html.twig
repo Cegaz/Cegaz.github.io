@@ -4,7 +4,12 @@
 <body>
 <header>
     <h1>CLASS {{ class.classLetter }}</h1>
-    <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
+    <div id="cancel">
+        <img src="/assets/images/rewind.png" alt="cancel" class="icon">
+    </div>
+    <a href="/home">
+        <img src="/assets/images/home.png" alt="home" class="icon"/>
+    </a>
 </header>
 
 <div>
@@ -58,7 +63,7 @@
             <td class="lastcall">{{ student.lastParticipation }}</td>
             <td class="contributions">{{ student.nbParticipations }}</td>
             <td class="hand-up right_columns" data-id="{{ student.id }}">
-                <img src="/assets/images/dialog.png">
+                <img src="/assets/images/dialog.png" alt="participate" class="icon">
             </td>
         </tr>
         {% endfor %}

@@ -1,6 +1,8 @@
 $grey: #AAA;
 $grey2: #CCC;
 $white: #FFF;
+$green: #79D279;
+$red: #FF8080;
 
 body {
   background: $grey;
@@ -20,8 +22,23 @@ h1{
   margin: auto;
   padding: 10px 0;
 }
-.hand-up {
+.hand-up, #cancel {
   cursor: pointer;
+}
+#list-classes {
+  text-align: center;
+  margin-top: 10%;
+}
+.green-line {
+  background-color: $green;
+}
+.red-line {
+  background-color: $red;
+}
+
+.active {
+  background-color: $grey;
+  border-radius: .25rem;
 }
 //h2{
 //  font-size: 3em;

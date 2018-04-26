@@ -2,17 +2,14 @@
 
 {% block body %}
 <body>
-    <header>
-        <h1>Participation</h1>
-        <a href="/logout"><img src="/assets/images/logout.png" class="icon"></a>
-    </header>
-
-    <section>
+    <section id="list-classes">
         {% for class in classes %}
             <a href="/participation/class/{{ class }}">
-                <div class="class-encart">
-                    CLASS {{ class }}
-                </div>
+                <button class="btn">
+                    <div class="class-encart">
+                        CLASS {{ class }}
+                    </div>
+                </button>
             </a>
         {% endfor %}
     </section>
