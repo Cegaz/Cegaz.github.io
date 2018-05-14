@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Student;
+use AppBundle\Service\ClassService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,8 +34,11 @@ class DashboardController extends Controller
     public function showClassAction($classLetter, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $class = $em->getRepository('AppBundle:Classs')->findOneBy(['classLetter' => $classLetter]);
-        $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class);
+        $service = new ClassService($em);
+        $result = $service->getClass($classLetter);
+
+        $students = $result['students'];
+        $class = $result['class'];
 
         $student = new Student();
         $form = $this->createFormBuilder($student)
@@ -74,13 +79,14 @@ class DashboardController extends Controller
     /**
      * @Route("/student/{student}")
      */
-    public function showStudentAction($student, Request $request)
+    public function showStudentAction($student)
     {
         $em = $this->getDoctrine()->getManager();
-        $student = $em->getRepository('AppBundle:Student')->find($student);
+        $student = $em->getRepository('AppBundle:Student')->getCompleteStudent($student)[0];
+        $student['nbInterventions'] = count($student['interventions']);
 
         return $this->render('/dashboard/showStudentModal.html.twig', [
-            'student' => $student,
+            'student' => $student
         ]);
     }
 }

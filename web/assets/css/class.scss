@@ -1,0 +1,20 @@
+#students-list {
+  td {
+    vertical-align: middle;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+.hand-up, #cancel {
+  cursor: pointer;
+}
+#list-classes {
+  text-align: center;
+  margin-top: 10%;
+  button {
+    margin-top: 10px;
+  }
+}
+.student-row {
+  height: 50px;
+}

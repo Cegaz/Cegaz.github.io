@@ -2,9 +2,12 @@
 
 {% block body %}
 <body>
-    <section id="app-menu">
-        <a href="/participation"><button class="btn">PARTICIPATION</button></a>
-        <a href="/dashboard"><button class="btn">DASHBOARD</button></a>
+    <section id="app-menu" class="container">
+        <div class="row">
+            <a class="col-6" href="/dashboard"><img src="/assets/images/class.png"><button class="btn">DASHBOARD</button></a>
+            <a class="col-6" href="/participation"><img src="/assets/images/hand-up.png"><button class="btn">PARTICIPATION</button></a>
+            <a class="col-6" href="/"><img src="/assets/images/dialog.png"><button class="btn">CHAT</button></a>
+        </div>
     </section>
 </body>
 {% endblock %}

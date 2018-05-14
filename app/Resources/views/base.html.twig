@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+            <link href="https://fonts.googleapis.com/css?family=Pangolin|Open+Sans" rel="stylesheet">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -19,7 +20,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="menu-apps">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item{% if app.request.uri matches '#dashboard#' %} active{% endif %}">
                             <a class="nav-link" href="/dashboard">
@@ -31,45 +32,33 @@
                                 Participation
                             </a>
                         </li>
+                        <li class="nav-item{% if app.request.uri matches '#chat#' %} active{% endif %}">
+                            <a class="nav-link" href="/chat">
+                                Chat
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                More
+                                More...
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/support">Support</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#">...</a>
+                                <a class="dropdown-item" href="#">...</a>
                             </div>
                         </li>
                     </ul>
+                    <div class="form-inline my-2 my-lg-0 ui-select">
+                        <select name="classes" class="form-control mr-sm-2">
+                            <option value="class A">Class A</option>
+                            <option value="class B">Class B</option>
+                        </select>
+                    </div>
                     <a class="navbar-brand" href="/logout">
                         <img src="/assets/images/logout.png" alt="logout" class="icon"/>
                     </a>
                 </div>
             </nav>
-            {#<nav class="navbar navbar-dark bg-dark">#}
-                {#<a class="nav-link" href="/home">#}
-                    {#<img src="/assets/images/home.png" alt="home" class="icon"/>#}
-                {#</a>#}
-                {#<div>#}
-                    {#<ul class="navbar-nav mr-auto">#}
-                        {#<li class="nav-item dropdown">#}
-                            {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-                                {#Dropdown#}
-                            {#</a>#}
-                            {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-                                {#<a class="dropdown-item" href="#">Action</a>#}
-                                {#<a class="dropdown-item" href="#">Another action</a>#}
-                                {#<div class="dropdown-divider"></div>#}
-                                {#<a class="dropdown-item" href="#">Something else here</a>#}
-                            {#</div>#}
-                        {#</li>#}
-                    {#</ul>#}
-                {#</div>#}
-                {#<a class="nav-link" href="/participation">PARTICIPATION</a>#}
-                {#<a class="nav-link" href="/dashboard">DASHBOARD</a>#}
-            {#</nav>#}
         {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}

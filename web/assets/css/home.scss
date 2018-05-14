@@ -1,0 +1,15 @@
+#app-menu {
+  font-family: $funkyFont;
+  margin: 5%;
+  .row .col-6 {
+    text-align: center;
+  }
+  .btn {
+    margin: 20px;
+    font-size: 2rem;
+    width: 250px;
+  }
+  img {
+    height: 30px;
+  }
+}

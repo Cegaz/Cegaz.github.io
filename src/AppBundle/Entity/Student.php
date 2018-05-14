@@ -35,13 +35,6 @@ class Student
     private $grade;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comments", type="text", length=65535, nullable=true)
-     */
-    private $comments;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Classs", inversedBy="students")
      */
     private $class;
@@ -55,6 +48,11 @@ class Student
      * @ORM\ManyToOne(targetEntity="Island", inversedBy="students")
      */
     private $island;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="student")
+     */
+    private $comments;
 
     /**
      * @var integer
@@ -137,30 +135,6 @@ class Student
     public function getGrade()
     {
         return $this->grade;
-    }
-
-    /**
-     * Set comments
-     *
-     * @param string $comments
-     *
-     * @return Student
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return string
-     */
-    public function getComments()
-    {
-        return $this->comments;
     }
 
     /**
@@ -263,4 +237,38 @@ class Student
         return $this->island;
     }
 
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Student
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

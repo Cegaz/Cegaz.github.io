@@ -3,31 +3,22 @@
 {% block body %}
     <body>
     <header>
-        <h1>CLASS {{ class.classLetter }}</h1>
         <a href="/dashboard"><img src="/assets/images/class.png" alt="dashboard" class="icon"/></a>
-        <a href="/home"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
     </header>
 
     <section>
         <table id="students-list" class="table table-striped">
             {% for student in students %}
-                {% set callNb = student.interventions|length %}
-
-                {% set lastCall = "now"|date_modify ("-1 year") %}
-                {% for intervention in student.interventions %}
-                    {% if intervention.interventionDate > lastCall %}
-                        {% set lastCall = intervention.interventionDate %}
-                    {% endif %}
-                {% endfor %}
-
-                <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent{{ student.id }}">
+                <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
                     <td class="name">{{ student.name | upper }}</a></td>
                     <td class="surname">{{ student.surname | capitalize }}</td>
                 </tr>
-                {% include('dashboard/showStudentModal.html.twig') %}
             {% endfor %}
         </table>
     </section>
+
+    <div class="modal" id="showStudent" tabindex="-1" role="dialog" aria-labelledby="showStudent" aria-hidden="false">
+    </div>
 
     {% include('dashboard/addStudentModal.html.twig') %}
 

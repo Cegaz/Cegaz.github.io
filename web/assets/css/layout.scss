@@ -3,18 +3,44 @@ $grey2: #CCC;
 $white: #FFF;
 $green: #79D279;
 $red: #FF8080;
+$funkyFont: 'Pangolin', cursive;
+$regularFont: 'Open Sans', sans-serif;
 
 body {
   background: $grey;
   position: relative;
   height: 90vh;
+  font-family: $regularFont;
+  font-size: 1rem;
 }
 header{
   display: flex;
   margin: 30px;
-  justify-content: center;
+  justify-content: right;
 }
-h1, h2, p{
+#menu-apps {
+  select {
+    -moz-appearance: listbox;
+    -webkit-appearance: none;
+    padding-right: 20px;
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  @-moz-document url-prefix() {
+    .ui-select {
+      padding-right: 20px;
+    }
+  }
+}
+.nav-item {
+  margin-right: 30px;
+}
+h1, h2{
   text-align: center;
 }
 h1{
@@ -22,107 +48,21 @@ h1{
   margin: auto;
   padding: 10px 0;
 }
-.hand-up, #cancel {
-  cursor: pointer;
-}
-#list-classes {
-  text-align: center;
-  margin-top: 10%;
-}
 .green-line {
   background-color: $green;
 }
 .red-line {
   background-color: $red;
 }
-
 .active {
   background-color: $grey;
   border-radius: .25rem;
 }
-//h2{
-//  font-size: 3em;
-//  font-weight: bold;
-//}
-//@keyframes fadeAway{
-//  from {color: black;}
-//  to {color: $grey;}
-//}
-//.fade-away{
-//  color: $grey;
-//  animation-name: fadeAway;
-//  animation-duration: 2s;
-//}
-//.class-encart{
-//  text-align: center;
-//  border: 1px solid black;
-//  width: 200px;
-//  height: 50px;
-//  margin: 20px auto;
-//  padding: 20px;
-//  background: $grey2;
-//  font-size: 2em;
-//  border-radius: 15px;
-//  &:hover{
-//    background: darken($grey2, 30%);
-//  }
-//}
-//
-//#class{
-//  width: 90%;
-//}
-//
-//table
-//{
-//  border-collapse: collapse;
-//  margin: 40px auto;
-//  width: 90%;
-//}
-//
-//th
-//{
-//  font-size: 1.4em;
-//}
-
 a
 {
   text-decoration: none;
   color: black;
 }
-//
-//.name, .surname
-//{
-//  font-weight: bold;
-//}
-//
-//footer
-//{
-//  color: $white;
-//}
-//
-//.form_pass {
-//  height: 50%;
-//  width: 100%;
-//  margin: auto;
-//}
-//.lastcall, .contributions
-//{
-//  text-align: center;
-//}
-//
 .logout, .icon {
   margin: 10px;
 }
-//.logout, .icon
-//{
-//  position: absolute;
-//  top: 20px;
-//  right: 10px;
-//}
-//
-//.right_columns
-//{
-//  border: 1px solid $grey;
-//  padding: 0;
-//  width:35px;
-//}

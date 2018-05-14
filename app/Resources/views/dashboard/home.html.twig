@@ -2,8 +2,8 @@
 
 {% block body %}
 <body>
-    <section>
-        <h3>MY CLASSES</h3>
+<section id="list-classes">
+    <div>
         {% for class in classes %}
             <a href="/dashboard/class/{{ class }}">
                 <button class="btn">
@@ -11,7 +11,10 @@
                 </button>
             </a>
         {% endfor %}
+    </div>
+    <div>
         <a href="/dashboard/class/add"><button class="btn">ADD A CLASS</button></a>
+    </div>
     </section>
 </body>
 {% endblock %}

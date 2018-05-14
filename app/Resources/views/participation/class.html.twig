@@ -3,13 +3,9 @@
 {% block body %}
 <body>
 <header>
-    <h1>CLASS {{ class.classLetter }}</h1>
     <div id="cancel">
         <img src="/assets/images/rewind.png" alt="cancel" class="icon">
     </div>
-    <a href="/home">
-        <img src="/assets/images/home.png" alt="home" class="icon"/>
-    </a>
 </header>
 
 <div>
@@ -48,22 +44,18 @@
         </tr>
 
         {% for student in students %}
-            {#{% set callNb = student.interventions|length %}#}
-
-            {#{% set lastCall = "now"|date_modify ("-1 year") %}#}
-            {#{% for intervention in student.interventions %}#}
-                {#{% if intervention.interventionDate > lastCall %}#}
-                    {#{% set lastCall = intervention.interventionDate %}#}
-                {#{% endif %}#}
-            {#{% endfor %}#}
+            {% set lastIntervention = 0 %}
+            {% for intervention in student.interventions %}
+                {% set lastIntervention = max(intervention.interventionDate|date('d/m'), lastIntervention) %}
+            {% endfor %}
 
         <tr>
             <td class="name">{{ student.name | upper }}</td>
             <td class="surname">{{ student.surname | capitalize }}</td>
-            <td class="lastcall">{{ student.lastParticipation }}</td>
-            <td class="contributions">{{ student.nbParticipations }}</td>
+            <td class="lastcall">{{ lastIntervention }}</td>
+            <td class="contributions">{{ student.interventions|length }}</td>
             <td class="hand-up right_columns" data-id="{{ student.id }}">
-                <img src="/assets/images/dialog.png" alt="participate" class="icon">
+                <img src="/assets/images/hand-up.png" alt="participate" class="icon">
             </td>
         </tr>
         {% endfor %}

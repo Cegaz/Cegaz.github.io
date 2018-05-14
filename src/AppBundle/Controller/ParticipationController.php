@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Intervention;
+use AppBundle\Service\ClassService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,36 +36,11 @@ class ParticipationController extends Controller
      */
     public function oneClassAction($classLetter, $sorting = 'name'){
         $em = $this->getDoctrine()->getManager();
-        $class = $em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
-        $students = $em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
+        $service = new ClassService($em);
+        $result = $service->getClass($classLetter, $sorting);
 
-//        for($i = 0; $i < count($students); $i++) {
-        foreach($students as &$student) {
-//            $student = $em->getRepository('AppBundle:Student')->find($students[$i]['id']);
-            $participations = $em->getRepository('AppBundle:Intervention')->findByStudent($student);
-            // calcule le nombre de participations
-            $student['nbParticipations'] = count($participations);
-            // calcule la + grande date de participation
-            $dates = [];
-            foreach($participations as $participation) {
-                $dates[] = $participation->getInterventionDate();
-            }
-            if(!empty($dates)) {
-                $student['lastParticipation'] = max($dates)->format('d/m');
-            } else {
-                $student['lastParticipation'] = '';
-            }
-        }
-
-        if($sorting == 'sort-nb-participations') {
-            usort($students, function ($a, $b) {
-                return ($a['nbParticipations'] <= $b['nbParticipations']) ? -1 : 1;
-            });
-        } else if($sorting == 'sort-last-participation') {
-            usort($students, function ($a, $b) {
-                return ($a['lastParticipation'] <= $b['lastParticipation']) ? -1 : 1;
-            });
-        }
+        $students = $result['students'];
+        $class = $result['class'];
 
         if($sorting == 'island') {
             return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
@@ -85,6 +61,7 @@ class ParticipationController extends Controller
         $studentId = $request->request->get('student_id');
         $student = $em->getRepository('AppBundle:Student')->find($studentId);
 
+        //TODO CG ou directement setIntervention sur $student ?
         $intervention = new Intervention();
         $intervention
             ->setInterventionDate(new \DateTime('now'))

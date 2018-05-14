@@ -35,13 +35,6 @@ class Student
     private $grade;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comments", type="text", length=65535, nullable=true)
-     */
-    private $comments;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Classs", inversedBy="students")
      */
     private $class;
@@ -57,18 +50,9 @@ class Student
     private $island;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="last_participation", type="date")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="student")
      */
-    private $lastParticipation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nb_particpations", type="integer")
-     */
-    private $nbParticipations;
+    private $comments;
 
     /**
      * @var integer
@@ -151,30 +135,6 @@ class Student
     public function getGrade()
     {
         return $this->grade;
-    }
-
-    /**
-     * Set comments
-     *
-     * @param string $comments
-     *
-     * @return Student
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return string
-     */
-    public function getComments()
-    {
-        return $this->comments;
     }
 
     /**
@@ -275,30 +235,6 @@ class Student
     public function getIsland()
     {
         return $this->island;
-    }
-
-    /**
-     * Set lastParticipation
-     *
-     * @param \DateTime $lastParticipation
-     *
-     * @return Student
-     */
-    public function setLastParticipation($lastParticipation)
-    {
-        $this->lastParticipation = $lastParticipation;
-
-        return $this;
-    }
-
-    /**
-     * Get lastParticipation
-     *
-     * @return \DateTime
-     */
-    public function getLastParticipation()
-    {
-        return $this->lastParticipation;
     }
 
 }
