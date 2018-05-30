@@ -5,9 +5,16 @@
     padding-bottom: 0;
   }
 }
+
 .hand-up, #cancel {
   cursor: pointer;
 }
+
+.right-columns {
+  border: none;
+  background-color: $backgroundColor;
+}
+
 #list-classes {
   text-align: center;
   margin-top: 10%;
@@ -15,6 +22,16 @@
     margin-top: 10px;
   }
 }
+
 .student-row {
   height: 50px;
+}
+
+#showStudent {
+  .modal-footer {
+    justify-content: flex-start;
+  }
+  #send-mail {
+    cursor: pointer;
+  }
 }

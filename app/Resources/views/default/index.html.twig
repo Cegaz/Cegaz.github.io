@@ -2,14 +2,12 @@
 
 {% block body %}
     <body>
-    {% if error is defined %}
-        <h2 class="fade-away">try again !</h2>
-    {% endif %}
-        <form class="form_pass" method="post" action="/home">
-            <h2>the magic word ?...<br>
-                <input type="password" name="password"/>
-                <input type="submit" value="go!"/>
-            </h2>
-        </form>
+    <section id="app-menu" class="container">
+        <div class="row">
+            <a class="col-12" href="/dashboard"><img src="/assets/images/class.png"><button class="btn">DASHBOARD</button></a>
+            <a class="col-12" href="/participation"><img src="/assets/images/hand-up.png"><button class="btn">PARTICIPATION</button></a>
+            <a class="col-12" href="https://my-english-class-chat.slack.com" target="_blank"><img src="/assets/images/dialog.png"><button class="btn">CHAT</button></a>
+        </div>
+    </section>
     </body>
 {% endblock %}

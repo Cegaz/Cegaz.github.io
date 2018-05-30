@@ -3,6 +3,7 @@ $("#students-list").find(".student-row").click(function() {
 
     $.post("/dashboard/student/"+student_id, function(data) {
         $("#showStudent").html(data);
+        console.log(data);
     });
 })
 
@@ -25,4 +26,18 @@ $("#comment-save").click(function() {
         $("#comment-form").css('display','none');
         $("#add-comment").css('display','block');
     });
+});
+
+$("#more-comments").click(function() {
+    if($(".hidden-comment").css('display') == 'block') {
+        $(".hidden-comment").css('display', 'none');
+    } else {
+        $(".hidden-comment").css('display', 'block');
+    }
+
+    if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
+        $(this).find('img').attr("src", "/assets/images/arrow-down.png");
+    } else {
+        $(this).find('img').attr("src", "/assets/images/arrow-top.png");
+    }
 });

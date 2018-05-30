@@ -3,11 +3,12 @@ $grey2: #CCC;
 $white: #FFF;
 $green: #79D279;
 $red: #FF8080;
+$backgroundColor: $grey;
 $funkyFont: 'Pangolin', cursive;
 $regularFont: 'Open Sans', sans-serif;
 
 body {
-  background: $grey;
+  background: $backgroundColor;
   position: relative;
   height: 90vh;
   font-family: $regularFont;
@@ -49,13 +50,13 @@ h1{
   padding: 10px 0;
 }
 .green-line {
-  background-color: $green;
+  background-color: $green !important;
 }
 .red-line {
-  background-color: $red;
+  background-color: $red !important;
 }
 .active {
-  background-color: $grey;
+  background-color: $backgroundColor;
   border-radius: .25rem;
 }
 a

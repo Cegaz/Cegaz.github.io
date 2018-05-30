@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li class="nav-item{% if app.request.uri matches '#chat#' %} active{% endif %}">
-                            <a class="nav-link" href="/chat">
+                            <a class="nav-link" href="https://my-english-class-chat.slack.com" target="_blank">
                                 Chat
                             </a>
                         </li>
@@ -43,23 +43,21 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/support">Support</a>
-                                <a class="dropdown-item" href="#">...</a>
+                                <a class="dropdown-item" href="#">Customization</a>
                                 <a class="dropdown-item" href="#">...</a>
                             </div>
                         </li>
                     </ul>
-                    <div class="form-inline my-2 my-lg-0 ui-select">
-                        <select name="classes" class="form-control mr-sm-2">
-                            <option value="class A">Class A</option>
-                            <option value="class B">Class B</option>
-                        </select>
-                    </div>
+
+                    {% block class %}
+                    {% endblock class %}
+
                     <a class="navbar-brand" href="/logout">
                         <img src="/assets/images/logout.png" alt="logout" class="icon"/>
                     </a>
                 </div>
             </nav>
-        {% endblock %}
+        {% endblock header %}
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

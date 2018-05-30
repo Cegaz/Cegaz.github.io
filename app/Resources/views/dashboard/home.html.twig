@@ -5,7 +5,7 @@
 <section id="list-classes">
     <div>
         {% for class in classes %}
-            <a href="/dashboard/class/{{ class }}">
+            <a href="/dashboard/class/{{ class.id }}">
                 <button class="btn">
                     CLASS {{ class }}
                 </button>
@@ -13,7 +13,7 @@
         {% endfor %}
     </div>
     <div>
-        <a href="/dashboard/class/add"><button class="btn">ADD A CLASS</button></a>
+        <a href="/dashboard/class/add"><button class="btn btn-primary">ADD A CLASS</button></a>
     </div>
     </section>
 </body>

@@ -29,13 +29,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * @Route("/class/{classLetter}")
+     * @Route("/class/{classId}")
      */
-    public function showClassAction($classLetter, Request $request)
+    public function showClassAction($classId, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $service = new ClassService($em);
-        $result = $service->getClass($classLetter);
+        $result = $service->getClass($classId);
 
         $students = $result['students'];
         $class = $result['class'];
@@ -66,7 +66,7 @@ class DashboardController extends Controller
             $em->persist($student);
             $em->flush();
 
-            return $this->redirect('/dashboard/class/'.$classLetter);
+            return $this->redirect('/dashboard/class/'.$classId);
         }
 
         return $this->render('/dashboard/class.html.twig', [

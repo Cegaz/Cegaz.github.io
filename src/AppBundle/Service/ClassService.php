@@ -20,14 +20,14 @@ class ClassService
     }
 
     /**
-     * @param $classLetter
+     * @param int $classId
      * @param string $sorting
      * @return mixed
      * @throws \Doctrine\ORM\ORMException
      */
-    public function getClass($classLetter, $sorting = 'name')
+    public function getClass($classId, $sorting = 'name')
     {
-        $class = $this->em->getRepository('AppBundle:Classs')->findOneByClassLetter($classLetter);
+        $class = $this->em->getRepository('AppBundle:Classs')->find($classId);
         $students = $this->em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
 
         foreach($students as &$student) {
@@ -43,11 +43,11 @@ class ClassService
             }
         }
 
-        if($sorting == 'sort-nb-participations') {
+        if($sorting == 'nb-participations') {
             usort($students, function ($a, $b) {
                 return (count($a['interventions']) <= count($b['interventions'])) ? -1 : 1;
             });
-        } else if($sorting == 'sort-last-participation') {
+        } else if($sorting == 'last-participation') {
             usort($students, function ($a, $b) {
                 return ($a['lastIntervention'] >= $b['lastIntervention']) ? -1 : 1;
             });

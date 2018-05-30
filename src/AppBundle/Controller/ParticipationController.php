@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/participation")
@@ -18,36 +19,53 @@ use Symfony\Component\HttpFoundation\Response;
 class ParticipationController extends Controller
 {
     /**
-     * @Route("/")
-     */
-    public function homeAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $classes = $em->getRepository('AppBundle:Classs')->findAll();
-
-        return $this->render('participation/home.html.twig', ['classes' => $classes]);
-    }
-
-    /**
-     * @Route("/class/{classLetter}/{sorting}", name="one-class-page")
-     * @param $classLetter string
-     * @param $sorting string
+     * @Route("/sort-by-{sorting}", name="homepage-participation-sorted")
+     * @Route("/", name="homepage-participation")
+     * $param $sorting string
      * @return RedirectResponse|Response
      */
-    public function oneClassAction($classLetter, $sorting = 'name'){
+    public function homeAction($sorting = 'name', SessionInterface $session)
+    {
         $em = $this->getDoctrine()->getManager();
         $service = new ClassService($em);
-        $result = $service->getClass($classLetter, $sorting);
+
+        $classId = $session->get('classId');
+        $result = $service->getClass($classId, $sorting);
 
         $students = $result['students'];
+
         $class = $result['class'];
 
-        if($sorting == 'island') {
-            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
+        $classes = $em->getRepository('AppBundle:Classs')->findAll();
+
+        if ($sorting == 'island') {
+            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class, 'classes' => $classes]);
         } else {
-            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
+            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes]);
         }
+
     }
+
+//    /**
+//     * @Route("/class/{classLetter}/{sorting}", name="one-class-page")
+//     * @param $classLetter string
+//     * @param $sorting string
+//     * @return RedirectResponse|Response
+//     */
+//    public function oneClassAction($classLetter, $sorting = 'name'){
+//        $em = $this->getDoctrine()->getManager();
+//        $service = new ClassService($em);
+//        $result = $service->getClass($classLetter, $sorting);
+//
+//        $students = $result['students'];
+//        $class = $result['class'];
+//
+//        if($sorting == 'island') {
+//            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
+//        } else {
+//            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
+//        }
+//    }
 
     /**
      * @Route("/new", name="new-participation")
@@ -98,10 +116,16 @@ class ParticipationController extends Controller
         $student = $lastIntervention->getStudent();
         $studentId = $student->getId();
 
+        $nbInterventions = count($em->getRepository('AppBundle:Intervention')->findByStudent($studentId)) - 1;
+
         $em->remove($lastIntervention);
         $em->flush();
 
-        return new JsonResponse($studentId);
+        $data = ['lastIntervention' => $lastIntervention,
+            'studentId' => $studentId,
+            'nbInterventions' => $nbInterventions];
+
+        return new JsonResponse($data);
     }
 
 }

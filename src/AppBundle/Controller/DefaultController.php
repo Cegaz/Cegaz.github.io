@@ -27,7 +27,7 @@ class DefaultController extends Controller
      */
     public function homeAction()
     {
-        return $this->render('default/home.html.twig');
+        return $this->render('default/index.html.twig');
     }
 
     /**
@@ -41,15 +41,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/change-class", name="change-class")
-     * @param SessionInterface $session
+     * @Route("/change-class")
      */
-    public function changeClassAction(Request $request, SessionInterface $session)
+    public function changeClass(Request $request, SessionInterface $session)
     {
-        //TODO comprendre pourquoi ça marche pas...
-        $class = $request->request->get('newClass');
-        $session->set('class', $class);
+        $classId = $request->request->get('newClassId');
+        $session->set('classId', $classId);
 
-        return new JsonResponse($class);
+        return new JsonResponse($classId);
     }
+
 }

@@ -1,5 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block class %}
+ <div class="form-inline my-2 my-lg-0 ui-select">
+        <select name="classes" class="form-control mr-sm-2">
+            {% for class in classes %}
+                <option value="{{ class.id }}"
+                {% if (app.session.get('classId') == class.id) %} selected {% endif %}
+                >Class {{ class.classLetter }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock class %}
+
 {% block body %}
 <body>
 <header>
@@ -8,36 +20,37 @@
     </div>
 </header>
 
-<div>
-    <a href="/participation/class/{{ class.classLetter }}/island">
-        <button>PAR ILOTS</button>
-    </a>
-</div>
+{#<div>#}
+    {#<a href="/participation/class/{{ class.classLetter }}/island">#}
+        {#<button>PAR ILOTS</button>#}
+    {#</a>#}
+{#</div>#}
 
 <section>
+
     <table id="students-list" class="table table-striped">
         <tr>
             <th>
                 NAME
-                <a href="/participation/class/{{ class.classLetter }}/name">
+                <a href="/participation/sort-by-name">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
             <th>
                 SURNAME
-                <a href="/participation/class/{{ class.classLetter }}/surname">
+                <a href="/participation/sort-by-surname">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
             <th>
                 LAST
-                <a href="/participation/class/{{ class.classLetter }}/sort-last-participation">
+                <a href="/participation/sort-by-last-participation">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
             <th>
                 NB
-                <a href="/participation/class/{{ class.classLetter }}/sort-nb-participations">
+                <a href="/participation/sort-by-nb-participations">
                     <img src="/assets/images/sorting.png" alt="sorting">
                 </a>
             </th>
@@ -54,7 +67,7 @@
             <td class="surname">{{ student.surname | capitalize }}</td>
             <td class="lastcall">{{ lastIntervention }}</td>
             <td class="contributions">{{ student.interventions|length }}</td>
-            <td class="hand-up right_columns" data-id="{{ student.id }}">
+            <td class="hand-up right-columns" data-id="{{ student.id }}">
                 <img src="/assets/images/hand-up.png" alt="participate" class="icon">
             </td>
         </tr>
