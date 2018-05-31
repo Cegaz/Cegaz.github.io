@@ -6,7 +6,7 @@
             {% for class in classes %}
                 <option value="{{ class.id }}"
                 {% if (app.session.get('classId') == class.id) %} selected {% endif %}
-                >Class {{ class.classLetter }}</option>
+                >Class {{ class.label }}</option>
             {% endfor %}
         </select>
     </div>
@@ -21,7 +21,7 @@
 </header>
 
 {#<div>#}
-    {#<a href="/participation/class/{{ class.classLetter }}/island">#}
+    {#<a href="/participation/class/{{ class.label }}/island">#}
         {#<button>PAR ILOTS</button>#}
     {#</a>#}
 {#</div>#}

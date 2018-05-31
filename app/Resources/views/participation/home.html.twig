@@ -5,15 +5,12 @@
 <section id="list-classes">
     <div>
         {% for class in classes %}
-            <a href="/participation">
-                <button class="btn">
-                    CLASS {{ class.classLetter }}
+            {#<a href="/participation">#}
+                <button class="btn class-btn" data-classid="{{ class.id }}">
+                    CLASS {{ class.label }}
                 </button>
-            </a>
+            {#</a>#}
         {% endfor %}
-    </div>
-    <div>
-        <a href="/dashboard/class/add"><button class="btn btn-primary">ADD A CLASS</button></a>
     </div>
     </section>
 </body>

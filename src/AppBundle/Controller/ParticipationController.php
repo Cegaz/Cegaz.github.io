@@ -30,6 +30,11 @@ class ParticipationController extends Controller
         $service = new ClassService($em);
 
         $classId = $session->get('classId');
+        // si pas de classeId définie en session, retour à homepage participation
+        if(!isset($classId)) {
+            $classes = $em->getRepository('AppBundle:Classs')->findAll();
+            return $this->render('participation/home.html.twig', ['classes' => $classes]);
+        }
         $result = $service->getClass($classId, $sorting);
 
         $students = $result['students'];
@@ -47,15 +52,15 @@ class ParticipationController extends Controller
     }
 
 //    /**
-//     * @Route("/class/{classLetter}/{sorting}", name="one-class-page")
-//     * @param $classLetter string
+//     * @Route("/class/{label}/{sorting}", name="one-class-page")
+//     * @param $label string
 //     * @param $sorting string
 //     * @return RedirectResponse|Response
 //     */
-//    public function oneClassAction($classLetter, $sorting = 'name'){
+//    public function oneClassAction($label, $sorting = 'name'){
 //        $em = $this->getDoctrine()->getManager();
 //        $service = new ClassService($em);
-//        $result = $service->getClass($classLetter, $sorting);
+//        $result = $service->getClass($label, $sorting);
 //
 //        $students = $result['students'];
 //        $class = $result['class'];
