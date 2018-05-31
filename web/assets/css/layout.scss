@@ -1,5 +1,6 @@
 $grey: #AAA;
-$grey2: #CCC;
+$grey2: #BBB;
+$dark: #636363;
 $white: #FFF;
 $green: #79D279;
 $red: #FF8080;
@@ -54,6 +55,9 @@ h1{
 }
 .red-line {
   background-color: $red !important;
+}
+.dark {
+  background-color: $dark;
 }
 .active {
   background-color: $backgroundColor;
