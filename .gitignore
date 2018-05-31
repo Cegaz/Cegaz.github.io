@@ -17,5 +17,6 @@
 /vendor/
 /web/bundles/
 /node_modules/
-/assets/
+/web/assets/css
+/web/assets/js
 /.idea/
