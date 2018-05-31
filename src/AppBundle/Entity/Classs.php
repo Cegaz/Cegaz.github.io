@@ -25,9 +25,9 @@ class Classs
     /**
      * @var string
      *
-     * @ORM\Column(name="class_letter", type="string", length=2)
+     * @ORM\Column(name="label", type="string", length=16)
      */
-    private $classLetter;
+    private $label;
 
     /**
      * @ORM\OneToMany(targetEntity="Student", mappedBy="class")
@@ -42,7 +42,7 @@ class Classs
 
     public function __toString()
     {
-        return $this->getClassLetter();
+        return $this->getLabel();
     }
 
     /**
@@ -55,29 +55,6 @@ class Classs
         return $this->id;
     }
 
-    /**
-     * Set classLetter
-     *
-     * @param string $classLetter
-     *
-     * @return Classs
-     */
-    public function setClassLetter($classLetter)
-    {
-        $this->classLetter = $classLetter;
-
-        return $this;
-    }
-
-    /**
-     * Get classLetter
-     *
-     * @return string
-     */
-    public function getClassLetter()
-    {
-        return $this->classLetter;
-    }
     /**
      * Constructor
      */
@@ -154,4 +131,28 @@ class Classs
         return $this->islands;
     }
 
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return Classs
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 }
