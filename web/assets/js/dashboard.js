@@ -132,16 +132,6 @@ $("#showStudent").find('#cancel-contact').click(function() {
     elems.css('display', 'none');
 });
 
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-function validatePhone(phone) {
-    var re = /^0[1-79][\s\.-]?([0-9][\s\.-]?){8}$/;
-    return re.test(phone);
-}
-
 // $("#student-email, #student-phone").focus(function() {
 //     if($(this).text() === "pas d'email enregistré" ||
 //         $(this).text() === "pas de numéro de tél enregistré") {

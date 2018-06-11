@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints\Email;
 
 /**
@@ -20,23 +21,21 @@ use Symfony\Component\Validator\Constraints\Email;
 class DashboardController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage-dashboard")
+     * @return RedirectResponse|Response
      */
-    public function homeAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $classes = $em->getRepository('AppBundle:Classs')->findAll();
-
-        return $this->render('dashboard/home.html.twig', ['classes' => $classes]);
-    }
-
-    /**
-     * @Route("/class/{classId}")
-     */
-    public function showClassAction($classId, Request $request)
+    public function homeAction(Request $request, SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
         $service = new ClassService($em);
+
+        $classes = $em->getRepository('AppBundle:Classs')->findAll();
+
+        $classId = $session->get('classId');
+        // si pas de classeId définie en session, retour à homepage dashboard
+        if(!isset($classId)) {
+            return $this->render('default/home.html.twig', ['classes' => $classes]);
+        } //TODO CG déplacer home
         $result = $service->getClass($classId);
 
         $students = $result['students'];
@@ -79,6 +78,7 @@ class DashboardController extends Controller
 
         return $this->render('/dashboard/class.html.twig', [
                 'class' => $class,
+                'classes' => $classes,
                 'students' => $students,
                 'form' => $form->createView(),
             ]);

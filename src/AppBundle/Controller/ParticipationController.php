@@ -29,19 +29,17 @@ class ParticipationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $service = new ClassService($em);
 
+        $classes = $em->getRepository('AppBundle:Classs')->findAll();
+
         $classId = $session->get('classId');
         // si pas de classeId définie en session, retour à homepage participation
         if(!isset($classId)) {
-            $classes = $em->getRepository('AppBundle:Classs')->findAll();
-            return $this->render('participation/home.html.twig', ['classes' => $classes]);
+            return $this->render('default/home.html.twig', ['classes' => $classes]);
         }
         $result = $service->getClass($classId, $sorting);
 
         $students = $result['students'];
-
         $class = $result['class'];
-
-        $classes = $em->getRepository('AppBundle:Classs')->findAll();
 
         if ($sorting == 'island') {
             return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class, 'classes' => $classes]);

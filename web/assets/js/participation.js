@@ -26,21 +26,3 @@ $("#cancel").click(function () {
             }, 2000);
     });
 });
-
-$("#menu-apps").find("select").change(function() {
-    var newClassId = $(this).val();
-    var params = {newClassId: newClassId};
-
-    $.post("/change-class", params, function() {
-        window.location.href = "/participation";
-    });
-});
-
-$("#list-classes").find(".class-btn").click(function() {
-    var newClassId = $(this).data('classid');
-    var params = {newClassId: newClassId};
-
-    $.post("/change-class", params, function() {
-        window.location.href = "/participation";
-    });
-});
