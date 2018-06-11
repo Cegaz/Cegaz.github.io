@@ -2,7 +2,7 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{ student.surname|capitalize }} {{ student.name|upper }}</h5>
+            <h5 class="modal-title" id="showStudent">{{ student.surname|capitalize }} {{ student.name|upper }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -61,7 +61,7 @@
                     <div id="comment-form">
                         <input type="text" name="text" id="input-text" placeholder="enter comment here">
                         <input type="hidden" id="input-id" value="{{ student.id }}">
-                        <button class="btn btn-success" id="comment-save">ok</button>
+                        <button class="btn btn-success" id="save-comment">ok</button>
                     </div>
                     <button class="btn btn-success" id="add-comment">add a comment</button>
                 </div>
@@ -69,14 +69,34 @@
         </div>
 
         <div class="modal-footer">
-            <p>
-                CONTACT<br>
-                06 00 00 00 00<br>
-                truc@chouette.fr
-                <img id="send-mail" src="/assets/images/envelope.png" alt="send-email" class="icon"/>
-            </p>
-        </div>
+            <p>CONTACT<img src="/assets/images/pencil.png" id="modify-contact"></p>
+            <div id="block-email">
+            {% if student.email is not null %}
+                <em id="student-email">{{ student.email }}</em>
+            {% else %}
+                <span id="student-email">pas d'email enregistré</span>
+            {% endif %}
+                <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email" class="icon"/></a>
+            </div>
+            <br>
+            {% if student.phoneNumber is not null %}
+                <em id="student-phone">{{ student.phoneNumber }}</em>
+                    {#{% for i in [0, 2, 4, 6, 8] %}#}
+                        {#{{  student.phoneNumber | slice(i,2)}}#}
+                    {#{% endfor %}#}
+            {% else %}
+                <span id="student-phone">pas de numéro de tél enregistré</span><br>
+            {% endif %}
 
+            <div>
+                <button class="btn btn-secondary" id="cancel-contact">cancel</button>
+                <button class="btn btn-success" id="save-contact" data-id="{{ student.id }}">save</button>
+            </div>
+
+            {#<div>#}
+            {#<img src="/assets/images/bin.png" id="delete-student" data-id="{{ student.id }}">#}
+            {#</div>#}
+        </div>
     </div>
 </div>
 

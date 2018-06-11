@@ -3,7 +3,10 @@ $grey2: #BBB;
 $dark: #636363;
 $white: #FFF;
 $green: #79D279;
+$green-strong: #28a745;
 $red: #FF8080;
+$red-strong: #dc3545;
+
 $backgroundColor: $grey;
 $funkyFont: 'Pangolin', cursive;
 $regularFont: 'Open Sans', sans-serif;
@@ -55,6 +58,9 @@ h1{
 }
 .red-line {
   background-color: $red !important;
+}
+.red {
+  color: $red;
 }
 .dark {
   background-color: $dark;

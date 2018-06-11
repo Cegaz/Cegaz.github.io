@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Repository\StudentRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Student
@@ -33,6 +34,24 @@ class Student
      * @ORM\Column(name="grade", type="integer", nullable=true)
      */
     private $grade;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone_number", type="string", length=10, nullable=true)
+     * @Assert\Regex(
+     *     pattern = "/^0[1-79][0-9]{8}$/",
+     *     message = "Le numéro de télélphone n'est pas valide.")
+     */
+    private $phoneNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=64, nullable=true)
+     * @Assert\Email(message = "L'email '{{ value }}' n'est pas valide.")
+     */
+    private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity="Classs", inversedBy="students")
@@ -270,5 +289,54 @@ class Student
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     *
+     * @return Student
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Student
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }
