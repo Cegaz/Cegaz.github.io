@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Island
+ * Skill
  *
- * @ORM\Table(name="island")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\IslandRepository")
+ * @ORM\Table(name="skill")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SkillRepository")
  */
-class Island
+class Skill
 {
     /**
      * @var int
@@ -22,11 +22,6 @@ class Island
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="classs", inversedBy="islands")
-     */
-    private $class;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="label", type="string", length=32)
@@ -34,7 +29,7 @@ class Island
     private $label;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="island")
+     * @ORM\OneToMany(targetEntity="SkillStudent", mappedBy="skill")
      */
     private $students;
 
@@ -50,35 +45,11 @@ class Island
     }
 
     /**
-     * Set class
-     *
-     * @param integer $class
-     *
-     * @return Island
-     */
-    public function setClass($class)
-    {
-        $this->class = $class;
-
-        return $this;
-    }
-
-    /**
-     * Get class
-     *
-     * @return int
-     */
-    public function getClass()
-    {
-        return $this->class;
-    }
-
-    /**
      * Set label
      *
      * @param string $label
      *
-     * @return Island
+     * @return Skill
      */
     public function setLabel($label)
     {
@@ -104,19 +75,14 @@ class Island
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->label;
-    }
-
     /**
      * Add student
      *
-     * @param \AppBundle\Entity\Student $student
+     * @param \AppBundle\Entity\skillStudent $student
      *
-     * @return Island
+     * @return Skill
      */
-    public function addStudent(\AppBundle\Entity\Student $student)
+    public function addStudent(\AppBundle\Entity\skillStudent $student)
     {
         $this->students[] = $student;
 
@@ -126,9 +92,9 @@ class Island
     /**
      * Remove student
      *
-     * @param \AppBundle\Entity\Student $student
+     * @param \AppBundle\Entity\skillStudent $student
      */
-    public function removeStudent(\AppBundle\Entity\Student $student)
+    public function removeStudent(\AppBundle\Entity\skillStudent $student)
     {
         $this->students->removeElement($student);
     }

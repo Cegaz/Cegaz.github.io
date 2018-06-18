@@ -52,7 +52,6 @@ $("#showStudent").find("#modify-contact").click(function() {
     var elem = $("#student-email, #student-phone");
     elem.addClass('pseudo-input');
     elem.attr('contenteditable', 'true');
-    // $("#send-email").css('display', 'none');
     var elems = $("#save-contact, #cancel-contact");
     elems.css('display', 'inline');
 

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body>
+    <div id="app-grades" class="row">
+        <div id="skills" class="col-12 col-md">
+            <h1>SKILLS</h1>
+            <div id="skills-list">
+                {% for skill in skills %}
+                    <button class="btn class-btn" data-skillid="{{ skill.id }}">
+                        {{ skill.label | capitalize}}
+                    </button>
+                {% endfor %}
+            </div>
+            <div>
+                <button class="btn btn-primary" id="add-skill">ADD A SKILL</button>
+            </div>
+            <div id="skill-form">
+                <input type="text" name="text" id="input-text" placeholder="enter skill here">
+                <button class="btn btn-success" id="save-skill">ok</button>
+            </div>
+        </div>
+        <div id="grades" class="col-12 col-md">
+            <h1>GRADES</h1>
+        </div>
+    </div>
+
+    </body>
+{% endblock %}

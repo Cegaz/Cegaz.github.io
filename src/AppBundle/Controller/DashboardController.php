@@ -35,11 +35,13 @@ class DashboardController extends Controller
         // si pas de classeId définie en session, retour à homepage dashboard
         if(!isset($classId)) {
             return $this->render('default/home.html.twig', ['classes' => $classes]);
-        } //TODO CG déplacer home
+        }
         $result = $service->getClass($classId);
 
         $students = $result['students'];
         $class = $result['class'];
+
+        $skills = $em->getRepository('AppBundle:Skill')->findAll();
 
         $student = new Student();
         $form = $this->createFormBuilder($student)
@@ -80,6 +82,7 @@ class DashboardController extends Controller
                 'class' => $class,
                 'classes' => $classes,
                 'students' => $students,
+                'skills' => $skills,
                 'form' => $form->createView(),
             ]);
     }
@@ -91,10 +94,11 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $student = $em->getRepository('AppBundle:Student')->getCompleteStudent($student)[0];
-        $student['nbInterventions'] = count($student['interventions']);
+        $nbInterventions = count($student->getInterventions());
 
         return $this->render('/dashboard/showStudentModal.html.twig', [
-            'student' => $student
+            'student' => $student,
+            'nbInterventions' => $nbInterventions
         ]);
     }
 

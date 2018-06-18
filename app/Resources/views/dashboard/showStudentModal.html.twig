@@ -22,7 +22,23 @@
 
             <div class="row">
                 <div class="col">
-                    {{ student.nbInterventions }} PARTICIPATION{% if student.nbInterventions > 1 %}S{% endif %}
+                    {{ nbInterventions }} PARTICIPATION{% if nbInterventions > 1 %}S{% endif %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row" id="skill-row">
+                <div class="col-12">
+                    SKILLS
+                </div>
+                <div class="col-12">
+                    {% for skill in student.skills %}
+                        <button class="btn">
+                            {{ skill.skill.label }}
+                            <strong class="bold">{{ skill.grade }}</strong>
+                        </button>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -44,7 +60,6 @@
                             <p contenteditable="true">
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
-                                {#<img id="comment-modif" src="/assets/images/crayon.png">#}
                             </p>
                         {% endfor %}
 
@@ -52,7 +67,6 @@
                             <p contenteditable="true" class="hidden-comment">
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
-                                {#<img id="comment-modif" src="/assets/images/crayon.png">#}
                             </p>
                         {% endfor %}
 

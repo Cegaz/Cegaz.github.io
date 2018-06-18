@@ -38,14 +38,15 @@ class StudentRepository extends EntityRepository
     public function getCompleteStudent($student)
     {
         $qb = $this->createQueryBuilder('s')
-            ->select('s', 'i', 'c', 'int', 'com')
+            ->select('s', 'i', 'c', 'int', 'com', 'sk')
             ->where('s.id = :id')
             ->setParameter('id', $student)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
             ->leftJoin('s.interventions', 'int')
-            ->leftJoin('s.comments', 'com');
+            ->leftJoin('s.comments', 'com')
+            ->leftJoin('s.skills', 'sk');
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 }

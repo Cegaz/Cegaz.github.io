@@ -74,6 +74,11 @@ class Student
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="SkillStudent", mappedBy="student")
+     */
+    private $skills;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -338,5 +343,39 @@ class Student
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Add skill
+     *
+     * @param \AppBundle\Entity\SkillStudent $skill
+     *
+     * @return Student
+     */
+    public function addSkill(\AppBundle\Entity\SkillStudent $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \AppBundle\Entity\SkillStudent $skill
+     */
+    public function removeSkill(\AppBundle\Entity\SkillStudent $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }
