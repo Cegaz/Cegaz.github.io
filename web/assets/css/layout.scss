@@ -6,6 +6,16 @@ $green: #79D279;
 $green-strong: #28a745;
 $red: #FF8080;
 $red-strong: #dc3545;
+//TODO CG tests backs/appli
+//$blueBack: #55ABC8;
+//$yellowBack: #C5C855;
+//$redBack: #C85555;
+// fonds d'écran
+$blueBack: #5bc0eb;
+$yellowBack: #fde74c;
+$greenBack: #9bc53d;
+$redBack: #e55934;
+$orangeBack: #fa7921;
 
 $backgroundColor: $grey;
 $funkyFont: 'Pangolin', cursive;
@@ -17,6 +27,30 @@ body {
   height: 90vh;
   font-family: $regularFont;
   font-size: 1rem;
+}
+.dashboard {
+  background: $blueBack !important;
+}
+.btn-dashboard {
+  &:hover {
+    background: $blueBack;
+  }
+}
+.participation {
+  background: $greenBack !important;
+}
+.btn-participation {
+  &:hover {
+    background: $greenBack;
+  }
+}
+.grades {
+  background: $orangeBack !important;
+}
+.btn-grades {
+  &:hover {
+    background: $orangeBack;
+  }
 }
 header{
   display: flex;

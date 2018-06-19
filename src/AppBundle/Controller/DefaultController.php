@@ -13,19 +13,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="password-page")
+     * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
-    {
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-    }
-
-    /**
-     * @Route("/home", name="homepage")
-     */
-    public function homeAction()
     {
         return $this->render('default/index.html.twig');
     }

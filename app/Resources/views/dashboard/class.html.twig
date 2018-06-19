@@ -13,16 +13,22 @@
 {% endblock class %}
 
 {% block body %}
-    <body>
+    <body class="dashboard">
+    <header>
+    </header>
+
     <section>
-        <table id="students-list" class="table table-striped">
-            {% for student in students %}
-                <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
-                    <td class="name">{{ student.name | upper }}</a></td>
-                    <td class="surname">{{ student.surname | capitalize }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="table-responsive">
+
+            <table id="students-list" class="table table-striped">
+                {% for student in students %}
+                    <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
+                        <td class="name">{{ student.name | upper }}</a></td>
+                        <td class="surname">{{ student.surname | capitalize }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </section>
 
     <div class="modal" id="showStudent" tabindex="-1" role="dialog" aria-labelledby="showStudent" aria-hidden="false">
@@ -31,13 +37,15 @@
     {% include('dashboard/addStudentModal.html.twig') %}
 
     <section>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudent">
-            ADD A STUDENT
-        </button>
+        {#<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudent">#}
+        {#ADD A STUDENT#}
+        {#</button>#}
+        <img src="/assets/images/plus.png" alt="add a student" class="icon" data-toggle="modal" data-target="#addStudent">
+        <img src="/assets/images/import.png" alt="import a file" class="icon" data-toggle="modal" data-target="#importStudents">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importStudents">
-            IMPORT STUDENTS
-        </button>
+        {#<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importStudents">#}
+        {#IMPORT STUDENTS#}
+        {#</button>#}
     </section>
 
     </body>

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block class %}
- <div class="form-inline my-2 my-lg-0 ui-select">
+    <div class="form-inline my-2 my-lg-0 ui-select">
         <select name="classes" class="form-control mr-sm-2">
             {% for class in classes %}
                 <option value="{{ class.id }}"
-                {% if (app.session.get('classId') == class.id) %} selected {% endif %}
+                        {% if (app.session.get('classId') == class.id) %} selected {% endif %}
                 >Class {{ class.label }}</option>
             {% endfor %}
         </select>
@@ -13,68 +13,60 @@
 {% endblock class %}
 
 {% block body %}
-<body>
-<header>
-    <div id="cancel">
-        <img src="/assets/images/rewind.png" alt="cancel" class="icon">
-    </div>
-</header>
+    <body class="participation">
+    <header>
+        <img src="/assets/images/rewind.png" alt="cancel" class="icon" id="cancel">
+    </header>
 
-{#<div>#}
-    {#<a href="/participation/class/{{ class.label }}/island">#}
-        {#<button>PAR ILOTS</button>#}
-    {#</a>#}
-{#</div>#}
+    <section>
+        <div class="table-responsive">
+            <table id="students-list" class="table table-striped">
+                <tr>
+                    <th>
+                        NAME
+                        <a href="/participation/sort-by-name">
+                            <img src="/assets/images/sorting.png" alt="sorting">
+                        </a>
+                    </th>
+                    <th>
+                        SURNAME
+                        <a href="/participation/sort-by-surname">
+                            <img src="/assets/images/sorting.png" alt="sorting">
+                        </a>
+                    </th>
+                    <th>
+                        LAST
+                        <a href="/participation/sort-by-last-participation">
+                            <img src="/assets/images/sorting.png" alt="sorting">
+                        </a>
+                    </th>
+                    <th>
+                        NB
+                        <a href="/participation/sort-by-nb-participations">
+                            <img src="/assets/images/sorting.png" alt="sorting">
+                        </a>
+                    </th>
+                </tr>
 
-<section>
-<div class="table-responsive">
-    <table id="students-list" class="table table-striped">
-        <tr>
-            <th>
-                NAME
-                <a href="/participation/sort-by-name">
-                    <img src="/assets/images/sorting.png" alt="sorting">
-                </a>
-            </th>
-            <th>
-                SURNAME
-                <a href="/participation/sort-by-surname">
-                    <img src="/assets/images/sorting.png" alt="sorting">
-                </a>
-            </th>
-            <th>
-                LAST
-                <a href="/participation/sort-by-last-participation">
-                    <img src="/assets/images/sorting.png" alt="sorting">
-                </a>
-            </th>
-            <th>
-                NB
-                <a href="/participation/sort-by-nb-participations">
-                    <img src="/assets/images/sorting.png" alt="sorting">
-                </a>
-            </th>
-        </tr>
+                {% for student in students %}
+                    {% set lastIntervention = 0 %}
+                    {% for intervention in student.interventions %}
+                        {% set lastIntervention = max(intervention.interventionDate|date('d/m'), lastIntervention) %}
+                    {% endfor %}
 
-        {% for student in students %}
-            {% set lastIntervention = 0 %}
-            {% for intervention in student.interventions %}
-                {% set lastIntervention = max(intervention.interventionDate|date('d/m'), lastIntervention) %}
-            {% endfor %}
-
-        <tr>
-            <td class="name">{{ student.name | upper }}</td>
-            <td class="surname">{{ student.surname | capitalize }}</td>
-            <td class="lastcall">{{ lastIntervention }}</td>
-            <td class="contributions">{{ student.interventions|length }}</td>
-            <td class="hand-up right-columns" data-id="{{ student.id }}">
-                <img src="/assets/images/hand-up.png" alt="participate" class="icon">
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-</section>
-</body>
+                    <tr>
+                        <td class="name">{{ student.name | upper }}</td>
+                        <td class="surname">{{ student.surname | capitalize }}</td>
+                        <td class="lastcall">{{ lastIntervention }}</td>
+                        <td class="contributions">{{ student.interventions|length }}</td>
+                        <td class="hand-up right-columns" data-id="{{ student.id }}">
+                            <img src="/assets/images/hand-up.png" alt="participate" class="icon">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+    </body>
     </body>
 {% endblock %}
