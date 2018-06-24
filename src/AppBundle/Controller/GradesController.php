@@ -57,10 +57,12 @@ class GradesController extends Controller
      /**
      * @Route("/class")
      */
-    public function calculateGradesByClass(SessionInterface $session)
+    public function displayGradesByClass(SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
         $gradeService = new GradeService($em);
+
+        $classes = $em->getRepository('AppBundle:Classs')->findAll();
 
         $classId = $session->get('classId');
         // si pas de classeId définie en session, retour à homepage dashboard
@@ -69,8 +71,6 @@ class GradesController extends Controller
         }
 
         $gradeService->setGradesByClass($classId);
-
-        $classes = $em->getRepository('AppBundle:Classs')->findAll();
 
         $classService = new ClassService($em);
 
