@@ -56,14 +56,14 @@
                             {% endif %}
                         </div>
 
-                        {% for comment in student.comments|slice(0,2) %}
+                        {% for comment in student.comments|slice(0,3) %}
                             <p contenteditable="true">
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
                             </p>
                         {% endfor %}
 
-                        {% for comment in student.comments|slice(2, student.comments|length) %}
+                        {% for comment in student.comments|slice(3, student.comments|length - 3) %}
                             <p contenteditable="true" class="hidden-comment">
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
@@ -95,9 +95,6 @@
             <br>
             {% if student.phoneNumber is not null %}
                 <em id="student-phone">{{ student.phoneNumber }}</em>
-                    {#{% for i in [0, 2, 4, 6, 8] %}#}
-                        {#{{  student.phoneNumber | slice(i,2)}}#}
-                    {#{% endfor %}#}
             {% else %}
                 <span id="student-phone">pas de numéro de tél enregistré</span><br>
             {% endif %}

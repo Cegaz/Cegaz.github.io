@@ -55,4 +55,5 @@ class ClassService
 
         return ['students' => $students, 'class' => $class];
     }
+    
 }

@@ -13,30 +13,49 @@
 {% endblock class %}
 
 {% block body %}
-    <body class="dashboard">
+    <body class="grades">
     <header>
-        <img src="/assets/images/plus.png" alt="add a student" class="icon" data-toggle="modal" data-target="#addStudent">
-        <img src="/assets/images/import.png" alt="import a file" class="icon" data-toggle="modal" data-target="#importStudents">
     </header>
 
     <section>
         <div class="table-responsive">
 
             <table id="students-list" class="table table-striped">
+                <tr>
+                    <th>
+                        NAME
+                        {#<a href="/participation/sort-by-name">#}
+                            {#<img src="/assets/images/sorting.png" alt="sorting">#}
+                        {#</a>#}
+                    </th>
+                    <th>
+                        SURNAME
+                        {#<a href="/participation/sort-by-surname">#}
+                            {#<img src="/assets/images/sorting.png" alt="sorting">#}
+                        {#</a>#}
+                    </th>
+                    <th>
+                        QUARTER 1
+                    </th>
+                    <th>
+                        QUARTER 2
+                    </th>
+                    <th>
+                        QUARTER 3
+                    </th>
+                </tr>
                 {% for student in students %}
                     <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
                         <td class="name">{{ student.name | upper }}</a></td>
                         <td class="surname">{{ student.surname | capitalize }}</td>
+                        <td>{{ student.gradeT1 }}/20</td>
+                        <td>{{ student.gradeT2 }}/20</td>
+                        <td>{{ student.gradeT3 }}/20</td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
     </section>
-
-    <div class="modal" id="showStudent" tabindex="-1" role="dialog" aria-labelledby="showStudent" aria-hidden="false">
-    </div>
-
-    {% include('dashboard/addStudentModal.html.twig') %}
 
     </body>
 {% endblock %}

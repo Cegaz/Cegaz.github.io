@@ -20,8 +20,7 @@ $("#save-comment").click(function() {
         $("#comments-list").append("<p>" +
             data.text +
             "<br><span class='font-italic'>" +
-            data.date +
-            "</span><img id=\"comment-modif\" src=\"/assets/images/crayon.png\"></p>");
+            data.date);
         $("#comment-form").css('display','none');
         $("#add-comment").css('display','block');
     });

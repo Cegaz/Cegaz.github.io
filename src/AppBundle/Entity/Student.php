@@ -31,9 +31,23 @@ class Student
     /**
      * @var integer
      *
-     * @ORM\Column(name="grade", type="integer", nullable=true)
+     * @ORM\Column(name="grade_t1", type="integer", nullable=true)
      */
-    private $grade;
+    private $gradeT1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade_t2", type="integer", nullable=true)
+     */
+    private $gradeT2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade_t3", type="integer", nullable=true)
+     */
+    private $gradeT3;
 
     /**
      * @var string
@@ -41,7 +55,7 @@ class Student
      * @ORM\Column(name="phone_number", type="string", length=10, nullable=true)
      * @Assert\Regex(
      *     pattern = "/^0[1-79][0-9]{8}$/",
-     *     message = "Le numéro de télélphone n'est pas valide.")
+     *     message = "Le numéro de téléphone n'est pas valide.")
      */
     private $phoneNumber;
 
@@ -135,30 +149,6 @@ class Student
     public function getSurname()
     {
         return $this->surname;
-    }
-
-    /**
-     * Set grade
-     *
-     * @param integer $grade
-     *
-     * @return Student
-     */
-    public function setGrade($grade)
-    {
-        $this->grade = $grade;
-
-        return $this;
-    }
-
-    /**
-     * Get grade
-     *
-     * @return integer
-     */
-    public function getGrade()
-    {
-        return $this->grade;
     }
 
     /**
@@ -377,5 +367,77 @@ class Student
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Set gradeT1
+     *
+     * @param integer $gradeT1
+     *
+     * @return Student
+     */
+    public function setGradeT1($gradeT1)
+    {
+        $this->gradeT1 = $gradeT1;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeT1
+     *
+     * @return integer
+     */
+    public function getGradeT1()
+    {
+        return $this->gradeT1;
+    }
+
+    /**
+     * Set gradeT2
+     *
+     * @param integer $gradeT2
+     *
+     * @return Student
+     */
+    public function setGradeT2($gradeT2)
+    {
+        $this->gradeT2 = $gradeT2;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeT2
+     *
+     * @return integer
+     */
+    public function getGradeT2()
+    {
+        return $this->gradeT2;
+    }
+
+    /**
+     * Set gradeT3
+     *
+     * @param integer $gradeT3
+     *
+     * @return Student
+     */
+    public function setGradeT3($gradeT3)
+    {
+        $this->gradeT3 = $gradeT3;
+
+        return $this;
+    }
+
+    /**
+     * Get gradeT3
+     *
+     * @return integer
+     */
+    public function getGradeT3()
+    {
+        return $this->gradeT3;
     }
 }

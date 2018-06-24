@@ -49,15 +49,10 @@
                 </tr>
 
                 {% for student in students %}
-                    {% set lastIntervention = 0 %}
-                    {% for intervention in student.interventions %}
-                        {% set lastIntervention = max(intervention.interventionDate|date('d/m'), lastIntervention) %}
-                    {% endfor %}
-
                     <tr>
                         <td class="name">{{ student.name | upper }}</td>
                         <td class="surname">{{ student.surname | capitalize }}</td>
-                        <td class="lastcall">{{ lastIntervention }}</td>
+                        <td class="lastcall">{{ student.lastIntervention }}</td>
                         <td class="contributions">{{ student.interventions|length }}</td>
                         <td class="hand-up right-columns" data-id="{{ student.id }}">
                             <img src="/assets/images/hand-up.png" alt="participate" class="icon">

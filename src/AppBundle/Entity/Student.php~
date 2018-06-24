@@ -31,9 +31,23 @@ class Student
     /**
      * @var integer
      *
-     * @ORM\Column(name="grade", type="integer", nullable=true)
+     * @ORM\Column(name="grade_t1", type="integer", nullable=true)
      */
-    private $grade;
+    private $gradeT1;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade_t2", type="integer", nullable=true)
+     */
+    private $gradeT2;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grade_t3", type="integer", nullable=true)
+     */
+    private $gradeT3;
 
     /**
      * @var string
@@ -41,7 +55,7 @@ class Student
      * @ORM\Column(name="phone_number", type="string", length=10, nullable=true)
      * @Assert\Regex(
      *     pattern = "/^0[1-79][0-9]{8}$/",
-     *     message = "Le numéro de télélphone n'est pas valide.")
+     *     message = "Le numéro de téléphone n'est pas valide.")
      */
     private $phoneNumber;
 
@@ -343,5 +357,39 @@ class Student
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Add skill
+     *
+     * @param \AppBundle\Entity\SkillStudent $skill
+     *
+     * @return Student
+     */
+    public function addSkill(\AppBundle\Entity\SkillStudent $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \AppBundle\Entity\SkillStudent $skill
+     */
+    public function removeSkill(\AppBundle\Entity\SkillStudent $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }

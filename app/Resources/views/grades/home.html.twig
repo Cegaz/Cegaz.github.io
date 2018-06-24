@@ -13,7 +13,6 @@
                 {% endfor %}
             </div>
             <div>
-                {#<button class="btn btn-primary" id="add-skill">ADD A SKILL</button>#}
                 <img src="/assets/images/plus.png" class="icon" id="add-skill">
             </div>
             <div id="skill-form">
@@ -21,10 +20,14 @@
                 <button class="btn btn-success" id="save-skill">ok</button>
             </div>
         </div>
-        <div id="grades" class="col-12 col-md">
+        <div id="grades" class="col-12 col-md text-center">
             <h1>GRADES</h1>
+            <a href="/grades/class">
+                <button class="btn class-btn">
+                    SEE MY CLASS
+                </button>
+            </a>
         </div>
     </div>
-
     </body>
 {% endblock %}

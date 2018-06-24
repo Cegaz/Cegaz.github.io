@@ -49,4 +49,5 @@ class StudentRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
 }

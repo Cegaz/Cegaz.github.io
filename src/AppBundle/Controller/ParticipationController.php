@@ -21,7 +21,7 @@ class ParticipationController extends Controller
     /**
      * @Route("/sort-by-{sorting}", name="homepage-participation-sorted")
      * @Route("/", name="homepage-participation")
-     * $param $sorting string
+     * @param $sorting string
      * @return RedirectResponse|Response
      */
     public function homeAction($sorting = 'name', SessionInterface $session)
@@ -41,34 +41,13 @@ class ParticipationController extends Controller
         $students = $result['students'];
         $class = $result['class'];
 
-        if ($sorting == 'island') {
-            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class, 'classes' => $classes]);
-        } else {
+        // if ($sorting == 'island') {
+        //     return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class, 'classes' => $classes]);
+        // } else {
             return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes]);
-        }
-
+        // }
     }
 
-//    /**
-//     * @Route("/class/{label}/{sorting}", name="one-class-page")
-//     * @param $label string
-//     * @param $sorting string
-//     * @return RedirectResponse|Response
-//     */
-//    public function oneClassAction($label, $sorting = 'name'){
-//        $em = $this->getDoctrine()->getManager();
-//        $service = new ClassService($em);
-//        $result = $service->getClass($label, $sorting);
-//
-//        $students = $result['students'];
-//        $class = $result['class'];
-//
-//        if($sorting == 'island') {
-//            return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class]);
-//        } else {
-//            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class]);
-//        }
-//    }
 
     /**
      * @Route("/new", name="new-participation")
@@ -112,9 +91,18 @@ class ParticipationController extends Controller
     public function cancelLastAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $lastInterventionDate = $em->getRepository('AppBundle:Intervention')->getLastIntervention()[1];
-        $lastInterventionDateTime = new \DateTime($lastInterventionDate);
-        $lastIntervention = $em->getRepository('AppBundle:Intervention')->findOneByInterventionDate($lastInterventionDateTime);
+
+        $lastIntervention = $em->getRepository('AppBundle:Intervention')->getLastInterventionObject();
+
+        // sécurité pour ne pas annuler des interventions trop anciennes
+        $oneHourAgo = new \DateTime("now");
+        $oneHourAgo->sub(new \DateInterval('PT1H'));
+        $intervention = $lastIntervention->getInterventionDate();
+
+        if($intervention < $oneHourAgo) {
+            return new JsonResponse(false);
+        }
+
 
         $student = $lastIntervention->getStudent();
         $studentId = $student->getId();
@@ -124,11 +112,16 @@ class ParticipationController extends Controller
         $em->remove($lastIntervention);
         $em->flush();
 
-        $data = ['lastIntervention' => $lastIntervention,
+        $interventionsByStudent = $student->getInterventions()->toArray();
+        $lastInterventionByStudent = max($interventionsByStudent);
+        $lastInterventionDateByStudent = $lastInterventionByStudent->getInterventionDate()->format('d/m');
+
+        $data = ['lastIntervention' => $lastInterventionDateByStudent,
             'studentId' => $studentId,
             'nbInterventions' => $nbInterventions];
 
         return new JsonResponse($data);
     }
+
 
 }

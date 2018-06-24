@@ -15,14 +15,16 @@ $("#students-list").find(".hand-up").click(function () {
 });
 
 $("#cancel").click(function () {
-    $.post("/participation/cancel", function (data) {
-        var element = $(".hand-up[data-id='"+data.studentId+"']").parent();
-        element.find('.contributions').text(data.nbInterventions);
-        element.find('.lastCall').text(data.lastIntervention);
-        element.addClass('red-line');
-        setTimeout(
-            function() {
-                element.removeClass('red-line');
-            }, 2000);
+    $.get("/participation/cancel", function (data) {
+        if(data) {
+            var element = $(".hand-up[data-id='"+data.studentId+"']").parent();
+            element.find('.contributions').text(data.nbInterventions);
+            element.find('.lastcall').text(data.lastIntervention);
+            element.addClass('red-line');
+            setTimeout(
+                function() {
+                    element.removeClass('red-line');
+                }, 2000);
+        }
     });
 });
