@@ -11,6 +11,11 @@ $("#comments").find("#add-comment").click(function() {
     $("#add-comment").css('display','none');
 });
 
+$("#comments").find("#cancel-comment").click(function() {
+    $("#comment-form").css('display', 'none');
+    $("#add-comment").css('display','block');
+})
+
 $("#save-comment").click(function() {
     var params = {
         text: $("#comment-form").find("#input-text").val(),

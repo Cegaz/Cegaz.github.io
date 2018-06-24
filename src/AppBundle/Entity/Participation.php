@@ -6,23 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Student;
 
 /**
- * Intervention
+ * Participation
  *
- * @ORM\Table(name="intervention")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\InterventionRepository")
+ * @ORM\Table(name="participation")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ParticipationRepository")
  */
-class Intervention
+class Participation
 {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="intervention_date", type="datetime", nullable=false)
+     * @ORM\Column(name="participation_date", type="datetime", nullable=false)
      */
-    private $interventionDate = 'CURRENT_TIMESTAMP';
+    private $participationDate = 'CURRENT_TIMESTAMP';
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="interventions")
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="participations")
      */
     private $student;
 
@@ -47,27 +47,27 @@ class Intervention
     }
 
     /**
-     * Set interventionDate
+     * Set participationDate
      *
-     * @param \DateTime $interventionDate
+     * @param \DateTime $participationDate
      *
-     * @return Intervention
+     * @return Participation
      */
-    public function setInterventionDate($interventionDate)
+    public function setParticipationDate($participationDate)
     {
-        $this->interventionDate = $interventionDate;
+        $this->participationDate = $participationDate;
 
         return $this;
     }
 
     /**
-     * Get interventionDate
+     * Get participationDate
      *
      * @return \DateTime
      */
-    public function getInterventionDate()
+    public function getParticipationDate()
     {
-        return $this->interventionDate;
+        return $this->participationDate;
     }
 
     /**
@@ -75,7 +75,7 @@ class Intervention
      *
      * @param Student $student
      *
-     * @return Intervention
+     * @return Participation
      */
     public function setStudent(Student $student = null)
     {

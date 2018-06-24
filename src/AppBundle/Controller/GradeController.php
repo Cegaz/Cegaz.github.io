@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * @Route("/grades")
  */
-class GradesController extends Controller
+class GradeController extends Controller
 {
     /**
      * @Route("/")

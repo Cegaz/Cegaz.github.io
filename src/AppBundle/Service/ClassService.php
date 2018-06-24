@@ -31,25 +31,25 @@ class ClassService
         $students = $this->em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
 
         foreach($students as &$student) {
-            $student['nbInterventions'] = count($student['interventions']);
+            $student['nbParticipations'] = count($student['participations']);
             $dates = [];
-            foreach($student['interventions'] as $intervention) {
-                $dates[] = $intervention['interventionDate'];
+            foreach($student['participations'] as $participation) {
+                $dates[] = $participation['participationDate'];
             }
             if(!empty($dates)) {
-                $student['lastIntervention'] = max($dates)->format('d/m');
+                $student['lastParticipation'] = max($dates)->format('d/m');
             } else {
-                $student['lastIntervention'] = '';
+                $student['lastParticipation'] = '';
             }
         }
 
         if($sorting == 'nb-participations') {
             usort($students, function ($a, $b) {
-                return (count($a['interventions']) <= count($b['interventions'])) ? -1 : 1;
+                return (count($a['participations']) <= count($b['participations'])) ? -1 : 1;
             });
         } else if($sorting == 'last-participation') {
             usort($students, function ($a, $b) {
-                return ($a['lastIntervention'] >= $b['lastIntervention']) ? -1 : 1;
+                return ($a['lastParticipation'] >= $b['lastParticipation']) ? -1 : 1;
             });
         }
 

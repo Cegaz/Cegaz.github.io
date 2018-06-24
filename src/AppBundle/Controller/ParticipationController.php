@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Intervention;
+use AppBundle\Entity\Participation;
 use AppBundle\Service\ClassService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,25 +61,25 @@ class ParticipationController extends Controller
         $studentId = $request->request->get('student_id');
         $student = $em->getRepository('AppBundle:Student')->find($studentId);
 
-        //TODO CG ou directement setIntervention sur $student ?
-        $intervention = new Intervention();
-        $intervention
-            ->setInterventionDate(new \DateTime('now'))
+        //TODO CG ou directement setParticipation sur $student ?
+        $participation = new Participation();
+        $participation
+            ->setParticipationDate(new \DateTime('now'))
             ->setStudent($student);
 
-        $em->persist($intervention);
+        $em->persist($participation);
         $em->flush();
 
-        $interventions = $student->getInterventions();
-        $data['nb'] = count($interventions);
+        $participations = $student->getParticipations();
+        $data['nb'] = count($participations);
 
-        $lastCall = new \DateTime('01/01/1900');
-        foreach($interventions as $intervention) {
-            if ($intervention->getInterventionDate() > $lastCall) {
-                $lastCall = $intervention->getInterventionDate();
+        $lastParticipation = new \DateTime('01/01/1900');
+        foreach($participations as $participation) {
+            if ($participation->getParticipationDate() > $lastParticipation) {
+                $lastParticipation = $participation->getParticipationDate();
             }
         }
-        $data['lastCall'] = $lastCall->format('d/m');
+        $data['lastParticipation'] = $lastParticipation->format('d/m');
 
         return new JsonResponse($data);
     }
@@ -92,33 +92,32 @@ class ParticipationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $lastIntervention = $em->getRepository('AppBundle:Intervention')->getLastInterventionObject();
+        $lastParticipation = $em->getRepository('AppBundle:Participation')->getLastParticipation();
 
-        // sécurité pour ne pas annuler des interventions trop anciennes
+        // sécurité pour ne pas annuler des participations trop anciennes
         $oneHourAgo = new \DateTime("now");
         $oneHourAgo->sub(new \DateInterval('PT1H'));
-        $intervention = $lastIntervention->getInterventionDate();
+        $participation = $lastParticipation->getParticipationDate();
 
-        if($intervention < $oneHourAgo) {
+        if($participation < $oneHourAgo) {
             return new JsonResponse(false);
         }
 
-
-        $student = $lastIntervention->getStudent();
+        $student = $lastParticipation->getStudent();
         $studentId = $student->getId();
 
-        $nbInterventions = count($em->getRepository('AppBundle:Intervention')->findByStudent($studentId)) - 1;
+        $nbParticipations = count($em->getRepository('AppBundle:Participation')->findByStudent($studentId)) - 1;
 
-        $em->remove($lastIntervention);
+        $em->remove($lastParticipation);
         $em->flush();
 
-        $interventionsByStudent = $student->getInterventions()->toArray();
-        $lastInterventionByStudent = max($interventionsByStudent);
-        $lastInterventionDateByStudent = $lastInterventionByStudent->getInterventionDate()->format('d/m');
+        $participationsByStudent = $student->getParticipations()->toArray();
+        $lastParticipationByStudent = max($participationsByStudent);
+        $lastParticipationDateByStudent = $lastParticipationByStudent->getParticipationDate()->format('d/m');
 
-        $data = ['lastIntervention' => $lastInterventionDateByStudent,
+        $data = ['lastParticipation' => $lastParticipationDateByStudent,
             'studentId' => $studentId,
-            'nbInterventions' => $nbInterventions];
+            'nbParticipations' => $nbParticipations];
 
         return new JsonResponse($data);
     }

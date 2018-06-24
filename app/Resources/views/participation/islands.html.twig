@@ -20,8 +20,8 @@
             <td class="island">{{ student.0.island }}</td>
             <td class="name">{{ student.0.name | upper }}</td>
             <td class="surname">{{ student.0.surname | capitalize }}</td>
-            <td class="lastcall">{{ student.lastCall|date('d/m')}}</td>
-            <td class="contributions">{{ student.callNb}}</td>
+            <td class="lastParticipation">{{ student.lastParticipation|date('d/m')}}</td>
+            <td class="contributions">{{ student.participationNb}}</td>
             <td class="hand-up right_columns" data-id="{{ student.0.id }}">
                 <img src="/assets/images/handup.png">
             </td>

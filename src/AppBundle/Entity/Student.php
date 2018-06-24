@@ -73,9 +73,9 @@ class Student
     private $class;
 
     /**
-     * @ORM\OneToMany(targetEntity="Intervention", mappedBy="student")
+     * @ORM\OneToMany(targetEntity="Participation", mappedBy="student")
      */
-    private $interventions;
+    private $participations;
 
     /**
      * @ORM\ManyToOne(targetEntity="Island", inversedBy="students")
@@ -176,37 +176,37 @@ class Student
     }
 
     /**
-     * Add intervention
+     * Add participation
      *
-     * @param Intervention $intervention
+     * @param Participation $participation
      *
      * @return Student
      */
-    public function addIntervention(Intervention $intervention)
+    public function addParticipation(Participation $participation)
     {
-        $this->interventions[] = $intervention;
+        $this->participations[] = $participation;
 
         return $this;
     }
 
     /**
-     * Remove intervention
+     * Remove participation
      *
-     * @param Intervention $intervention
+     * @param Participation $participation
      */
-    public function removeIntervention(Intervention $intervention)
+    public function removeParticipation(Participation $participation)
     {
-        $this->interventions->removeElement($intervention);
+        $this->participations->removeElement($participation);
     }
 
     /**
-     * Get Interventions
+     * Get participations
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getInterventions()
+    public function getParticipations()
     {
-        return $this->interventions;
+        return $this->participations;
     }
 
     /**
@@ -223,7 +223,7 @@ class Student
      */
     public function __construct()
     {
-        $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

@@ -13,16 +13,18 @@
                     <div class="text-left">class {{ student.class.label }} -
                         island {% if student.island is not null %}{{ student.island.label }}{% endif %}</div>
                 </div>
-                <div class="col">
-                    <div class="text-right">20/20</div>
-                </div>
             </div>
 
             <hr>
 
             <div class="row">
                 <div class="col">
-                    {{ nbInterventions }} PARTICIPATION{% if nbInterventions > 1 %}S{% endif %}
+                    <div>
+                        {{ nbParticipations }} PARTICIPATION{% if nbParticipations > 1 %}S{% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="text-right">{{ student.gradeT1 }} / {{ student.gradeT2 }} / {{ student.gradeT3 }}</div>
                 </div>
             </div>
 
@@ -75,9 +77,11 @@
                     <div id="comment-form">
                         <input type="text" name="text" id="input-text" placeholder="enter comment here">
                         <input type="hidden" id="input-id" value="{{ student.id }}">
-                        <button class="btn btn-success" id="save-comment">ok</button>
+                        <button class="btn btn-success" id="save-comment">save</button>
+                        <button class="btn btn-danger" id="cancel-comment">cancel</button>
                     </div>
-                    <button class="btn btn-success" id="add-comment">add a comment</button>
+                    {#<button class="btn btn-success" id="add-comment">add a comment</button>#}
+                    <img src="/assets/images/plus.png" id="add-comment">
                 </div>
             </div>
         </div>
@@ -90,7 +94,7 @@
             {% else %}
                 <span id="student-email">pas d'email enregistré</span>
             {% endif %}
-                <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email" class="icon"/></a>
+                <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email"/></a>
             </div>
             <br>
             {% if student.phoneNumber is not null %}

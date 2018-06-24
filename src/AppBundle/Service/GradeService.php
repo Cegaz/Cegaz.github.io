@@ -14,9 +14,9 @@ class GradeService
         $this->em = $em;
     }
 
-     /**
-      * @param int $classId
-      */
+    /**
+     * @param int $classId
+     */
     public function setGradesByClass($classId)
     {
         $quarters = $this->em->getRepository('AppBundle:Quarter')->findAll();
@@ -26,15 +26,15 @@ class GradeService
             $periodEnd = $quarter->getEndDate();
             $periodLabel = $quarter->getLabel();
 
-            $nbParticipations = $this->em->getRepository('AppBundle:Intervention')->getNbParticipationByClassAndPeriod($classId, $periodStart, $periodEnd);
+            $nbParticipations = $this->em->getRepository('AppBundle:Participation')->getNbParticipationByClassAndPeriod($classId, $periodStart, $periodEnd);
 
             if(!empty($nbParticipations)) {
-                $bestParticipation = (int)max($nbParticipations)['nbInt'];
+                $bestParticipation = (int)max($nbParticipations)['nbPart'];
 
                 $students = $this->em->getRepository('AppBundle:Student')->findByClass($classId);
 
                 foreach ($students as $student) {
-                    $participations = count($this->em->getRepository('AppBundle:Intervention')->getInterventionsByStudentAndPeriod($student, $periodStart, $periodEnd));
+                    $participations = count($this->em->getRepository('AppBundle:Participation')->getParticipationsByStudentAndPeriod($student, $periodStart, $periodEnd));
                     $grade = $participations / $bestParticipation * 20;
 
                     // TODO code provisoire en attendant gérer autrement les notes

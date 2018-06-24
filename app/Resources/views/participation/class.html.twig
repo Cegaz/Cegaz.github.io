@@ -52,8 +52,8 @@
                     <tr>
                         <td class="name">{{ student.name | upper }}</td>
                         <td class="surname">{{ student.surname | capitalize }}</td>
-                        <td class="lastcall">{{ student.lastIntervention }}</td>
-                        <td class="contributions">{{ student.interventions|length }}</td>
+                        <td class="lastParticipation">{{ student.lastParticipation }}</td>
+                        <td class="participations">{{ student.participations|length }}</td>
                         <td class="hand-up right-columns" data-id="{{ student.id }}">
                             <img src="/assets/images/hand-up.png" alt="participate" class="icon">
                         </td>

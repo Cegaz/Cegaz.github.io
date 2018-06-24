@@ -5,7 +5,7 @@ $("#students-list").find(".hand-up").click(function () {
 
     $.post("/participation/new", params, function (data) {
         element.find('.contributions').text(data.nb);
-        element.find('.lastcall').text(data.lastCall);
+        element.find('.lastParticipation').text(data.lastParticipation);
         element.addClass('green-line');
         setTimeout(
             function () {
@@ -18,8 +18,8 @@ $("#cancel").click(function () {
     $.get("/participation/cancel", function (data) {
         if(data) {
             var element = $(".hand-up[data-id='"+data.studentId+"']").parent();
-            element.find('.contributions').text(data.nbInterventions);
-            element.find('.lastcall').text(data.lastIntervention);
+            element.find('.contributions').text(data.nbParticipations);
+            element.find('.lastParticipation').text(data.lastParticipation);
             element.addClass('red-line');
             setTimeout(
                 function() {

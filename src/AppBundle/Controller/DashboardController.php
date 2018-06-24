@@ -94,11 +94,11 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $student = $em->getRepository('AppBundle:Student')->getCompleteStudent($student)[0];
-        $nbInterventions = count($student->getInterventions());
+        $nbParticipations = count($student->getParticipations());
 
         return $this->render('/dashboard/showStudentModal.html.twig', [
             'student' => $student,
-            'nbInterventions' => $nbInterventions
+            'nbParticipations' => $nbParticipations
         ]);
     }
 

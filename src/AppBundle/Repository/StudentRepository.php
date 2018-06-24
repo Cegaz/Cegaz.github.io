@@ -15,7 +15,7 @@ class StudentRepository extends EntityRepository
             ->setParameter('class', $class)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
-            ->leftJoin('s.interventions', 'int')
+            ->leftJoin('s.participations', 'int')
             ->leftJoin('s.comments', 'com');
 
         switch ($sorting) {
@@ -43,7 +43,7 @@ class StudentRepository extends EntityRepository
             ->setParameter('id', $student)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
-            ->leftJoin('s.interventions', 'int')
+            ->leftJoin('s.participations', 'int')
             ->leftJoin('s.comments', 'com')
             ->leftJoin('s.skills', 'sk');
 
