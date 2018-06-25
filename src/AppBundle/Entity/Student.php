@@ -29,27 +29,6 @@ class Student
     private $surname;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t1", type="integer", nullable=true)
-     */
-    private $gradeT1;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t2", type="integer", nullable=true)
-     */
-    private $gradeT2;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t3", type="integer", nullable=true)
-     */
-    private $gradeT3;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="phone_number", type="string", length=10, nullable=true)
@@ -91,6 +70,11 @@ class Student
      * @ORM\OneToMany(targetEntity="SkillStudent", mappedBy="student")
      */
     private $skills;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Grade", mappedBy="student")
+     */
+    private $grades;
 
     /**
      * @var integer
@@ -370,74 +354,36 @@ class Student
     }
 
     /**
-     * Set gradeT1
+     * Add grade
      *
-     * @param integer $gradeT1
+     * @param \AppBundle\Entity\Grade $grade
      *
      * @return Student
      */
-    public function setGradeT1($gradeT1)
+    public function addGrade(\AppBundle\Entity\Grade $grade)
     {
-        $this->gradeT1 = $gradeT1;
+        $this->grades[] = $grade;
 
         return $this;
     }
 
     /**
-     * Get gradeT1
+     * Remove grade
      *
-     * @return integer
+     * @param \AppBundle\Entity\Grade $grade
      */
-    public function getGradeT1()
+    public function removeGrade(\AppBundle\Entity\Grade $grade)
     {
-        return $this->gradeT1;
+        $this->grades->removeElement($grade);
     }
 
     /**
-     * Set gradeT2
+     * Get grades
      *
-     * @param integer $gradeT2
-     *
-     * @return Student
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setGradeT2($gradeT2)
+    public function getGrades()
     {
-        $this->gradeT2 = $gradeT2;
-
-        return $this;
-    }
-
-    /**
-     * Get gradeT2
-     *
-     * @return integer
-     */
-    public function getGradeT2()
-    {
-        return $this->gradeT2;
-    }
-
-    /**
-     * Set gradeT3
-     *
-     * @param integer $gradeT3
-     *
-     * @return Student
-     */
-    public function setGradeT3($gradeT3)
-    {
-        $this->gradeT3 = $gradeT3;
-
-        return $this;
-    }
-
-    /**
-     * Get gradeT3
-     *
-     * @return integer
-     */
-    public function getGradeT3()
-    {
-        return $this->gradeT3;
+        return $this->grades;
     }
 }

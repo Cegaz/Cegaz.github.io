@@ -29,27 +29,6 @@ class Student
     private $surname;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t1", type="integer", nullable=true)
-     */
-    private $gradeT1;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t2", type="integer", nullable=true)
-     */
-    private $gradeT2;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="grade_t3", type="integer", nullable=true)
-     */
-    private $gradeT3;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="phone_number", type="string", length=10, nullable=true)
@@ -73,9 +52,9 @@ class Student
     private $class;
 
     /**
-     * @ORM\OneToMany(targetEntity="Intervention", mappedBy="student")
+     * @ORM\OneToMany(targetEntity="Participation", mappedBy="student")
      */
-    private $interventions;
+    private $participations;
 
     /**
      * @ORM\ManyToOne(targetEntity="Island", inversedBy="students")
@@ -91,6 +70,11 @@ class Student
      * @ORM\OneToMany(targetEntity="SkillStudent", mappedBy="student")
      */
     private $skills;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Grade", mappedBy="student")
+     */
+    private $grades;
 
     /**
      * @var integer
@@ -152,30 +136,6 @@ class Student
     }
 
     /**
-     * Set grade
-     *
-     * @param integer $grade
-     *
-     * @return Student
-     */
-    public function setGrade($grade)
-    {
-        $this->grade = $grade;
-
-        return $this;
-    }
-
-    /**
-     * Get grade
-     *
-     * @return integer
-     */
-    public function getGrade()
-    {
-        return $this->grade;
-    }
-
-    /**
      * Set class
      *
      * @param string $class
@@ -200,37 +160,37 @@ class Student
     }
 
     /**
-     * Add intervention
+     * Add participation
      *
-     * @param Intervention $intervention
+     * @param Participation $participation
      *
      * @return Student
      */
-    public function addIntervention(Intervention $intervention)
+    public function addParticipation(Participation $participation)
     {
-        $this->interventions[] = $intervention;
+        $this->participations[] = $participation;
 
         return $this;
     }
 
     /**
-     * Remove intervention
+     * Remove participation
      *
-     * @param Intervention $intervention
+     * @param Participation $participation
      */
-    public function removeIntervention(Intervention $intervention)
+    public function removeParticipation(Participation $participation)
     {
-        $this->interventions->removeElement($intervention);
+        $this->participations->removeElement($participation);
     }
 
     /**
-     * Get Interventions
+     * Get participations
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getInterventions()
+    public function getParticipations()
     {
-        return $this->interventions;
+        return $this->participations;
     }
 
     /**
@@ -247,7 +207,7 @@ class Student
      */
     public function __construct()
     {
-        $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

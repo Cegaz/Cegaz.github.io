@@ -48,9 +48,9 @@
                     <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
                         <td class="name">{{ student.name | upper }}</a></td>
                         <td class="surname">{{ student.surname | capitalize }}</td>
-                        <td>{{ student.gradeT1 }}/20</td>
-                        <td>{{ student.gradeT2 }}/20</td>
-                        <td>{{ student.gradeT3 }}/20</td>
+                        {% for grade in student.grades %}
+                        <td>{{ grade.amount }}/20</td>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </table>

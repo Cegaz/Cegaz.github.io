@@ -10,13 +10,14 @@ class StudentRepository extends EntityRepository
     public function getStudentsByClassSorted($class, $sorting='name')
     {
         $qb = $this->createQueryBuilder('s')
-            ->select('s', 'i', 'c', 'int', 'com')
+            ->select('s', 'i', 'c', 'int', 'com', 'g')
             ->where('s.class = :class')
             ->setParameter('class', $class)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
             ->leftJoin('s.participations', 'int')
-            ->leftJoin('s.comments', 'com');
+            ->leftJoin('s.comments', 'com')
+            ->leftJoin('s.grades', 'g');
 
         switch ($sorting) {
             case 'name':

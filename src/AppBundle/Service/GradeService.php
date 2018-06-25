@@ -2,8 +2,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Grade;
 use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Classs;
 
 class GradeService
 {
@@ -22,11 +22,7 @@ class GradeService
         $quarters = $this->em->getRepository('AppBundle:Quarter')->findAll();
 
         foreach($quarters as $quarter) {
-            $periodStart = $quarter->getStartDate();
-            $periodEnd = $quarter->getEndDate();
-            $periodLabel = $quarter->getLabel();
-
-            $nbParticipations = $this->em->getRepository('AppBundle:Participation')->getNbParticipationByClassAndPeriod($classId, $periodStart, $periodEnd);
+            $nbParticipations = $this->em->getRepository('AppBundle:Participation')->getNbParticipationByClassAndQuarter($classId, $quarter);
 
             if(!empty($nbParticipations)) {
                 $bestParticipation = (int)max($nbParticipations)['nbPart'];
@@ -34,20 +30,21 @@ class GradeService
                 $students = $this->em->getRepository('AppBundle:Student')->findByClass($classId);
 
                 foreach ($students as $student) {
-                    $participations = count($this->em->getRepository('AppBundle:Participation')->getParticipationsByStudentAndPeriod($student, $periodStart, $periodEnd));
-                    $grade = $participations / $bestParticipation * 20;
+                    $participations = count($this->em->getRepository('AppBundle:Participation')->getParticipationsByStudentAndQuarter($student, $quarter));
+                    $calculatedGrade = $participations / $bestParticipation * 20;
 
-                    // TODO code provisoire en attendant gérer autrement les notes
-                    switch ($periodLabel) {
-                        case 'T1':
-                            $student->setGradeT1($grade);
-                            break;
-                        case 'T2':
-                            $student->setGradeT2($grade);
-                            break;
-                        case 'T3':
-                            $student->setGradeT3($grade);
-                            break;
+                    $grade = $this->em->getRepository('AppBundle:Grade')->findOneBy([
+                        'student' => $student,
+                        'quarter' => $quarter
+                    ]);
+                    if(empty($grade)) {
+                        $grade = new Grade();
+                        $grade->setStudent($student)
+                            ->setAmount($calculatedGrade)
+                            ->setQuarter($quarter);
+                        $this->em->persist($grade);
+                    } else {
+                        $grade->setAmount($calculatedGrade);
                     }
                     $this->em->flush();
                 }
