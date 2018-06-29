@@ -15,6 +15,10 @@
 {% block body %}
     <body class="grades">
     <header>
+        <img src="/assets/images/thumbs-up.png" alt="skills" class="icon" id="show-skills" data-toggle="modal" data-target="#show-skills-modal">
+        <a href="/grades/calculate">
+            <img src="/assets/images/refresh.png" alt="refresh" class="icon" id="refresh">
+        </a>
     </header>
 
     <section>
@@ -45,7 +49,7 @@
                     </th>
                 </tr>
                 {% for student in students %}
-                    <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
+                    <tr class="student-row">
                         <td class="name">{{ student.name | upper }}</a></td>
                         <td class="surname">{{ student.surname | capitalize }}</td>
                         {% for grade in student.grades %}
@@ -56,6 +60,9 @@
             </table>
         </div>
     </section>
+
+    <div class="modal" id="show-skills-modal" tabindex="-1" role="dialog" aria-labelledby="show-skills-modal" aria-hidden="false">
+    </div>
 
     </body>
 {% endblock %}

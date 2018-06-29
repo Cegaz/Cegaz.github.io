@@ -2,11 +2,17 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Classs;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Student;
 
 class StudentRepository extends EntityRepository
 {
+    /**
+     * @param Classs $class
+     * @param string $sorting
+     * @return array
+     */
     public function getStudentsByClassSorted($class, $sorting='name')
     {
         $qb = $this->createQueryBuilder('s')
@@ -47,6 +53,27 @@ class StudentRepository extends EntityRepository
             ->leftJoin('s.participations', 'int')
             ->leftJoin('s.comments', 'com')
             ->leftJoin('s.skills', 'sk');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param string $input
+     * @return array
+     */
+    public function getStudentsByNameLike($input) {
+        $inputParts = explode(' ', $input);
+
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.name LIKE :input')
+            ->orWhere('s.surname LIKE :input')
+            ->setParameter('input', '%' . $input . '%');
+
+        foreach($inputParts as $part) {
+            $qb->orWhere('s.name LIKE :part')
+               ->orWhere('s.surname LIKE :part')
+               ->setParameter('part', '%' . $part . '%');
+        }
 
         return $qb->getQuery()->getResult();
     }

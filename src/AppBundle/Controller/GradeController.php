@@ -23,12 +23,40 @@ class GradeController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(SessionInterface $session)
+    {
+        $em = $this->getDoctrine()->getManager();
+//        $skills = $em->getRepository('AppBundle:Skill')->findAll();
+
+        $classes = $em->getRepository('AppBundle:Classs')->findAll();
+
+        $classId = $session->get('classId');
+        // si pas de classeId définie en session, retour à homepage dashboard
+        if(!isset($classId)) {
+            return $this->render('default/home.html.twig', ['classes' => $classes]);
+        }
+
+        $classService = new ClassService($em);
+        $result = $classService->getClass($classId);
+        $students = $result['students'];
+        $class = $result['class'];
+
+        return $this->render('grades/class.html.twig', [
+            'classes' => $classes,
+            'students' => $students,
+            'class' => $class
+        ]);
+    }
+
+    /**
+     * @Route("/skills")
+     */
+    public function showSkillsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $skills = $em->getRepository('AppBundle:Skill')->findAll();
 
-        return $this->render('grades/home.html.twig', [
+        return $this->render('/grades/showSkillsModal.html.twig', [
             'skills' => $skills
         ]);
     }
@@ -55,9 +83,9 @@ class GradeController extends Controller
     }
 
      /**
-     * @Route("/class")
+     * @Route("/calculate")
      */
-    public function displayGradesByClass(SessionInterface $session)
+    public function CalculateGradesByClass(SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
         $gradeService = new GradeService($em);
@@ -73,7 +101,6 @@ class GradeController extends Controller
         $gradeService->setGradesByClass($classId);
 
         $classService = new ClassService($em);
-
         $result = $classService->getClass($classId);
         $students = $result['students'];
         $class = $result['class'];

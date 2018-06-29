@@ -13,8 +13,10 @@
 {% endblock class %}
 
 {% block body %}
-    <body class="dashboard">
+    <div class="dashboard">
     <header>
+        <input type="text" class="search" name="student-name" id="student-name">
+        <img src="/assets/images/search.png" border="0" alt="search" class="icon" data-toggle="modal" data-target="#showStudent" id="search">
         <img src="/assets/images/plus.png" alt="add a student" class="icon" data-toggle="modal" data-target="#addStudent">
         <img src="/assets/images/import.png" alt="import a file" class="icon" data-toggle="modal" data-target="#importStudents">
     </header>
@@ -23,6 +25,14 @@
         <div class="table-responsive">
 
             <table id="students-list" class="table table-striped">
+                <tr>
+                    <th>
+                        NAME
+                    </th>
+                    <th>
+                        SURNAME
+                    </th>
+                </tr>
                 {% for student in students %}
                     <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
                         <td class="name">{{ student.name | upper }}</a></td>
@@ -38,5 +48,6 @@
 
     {% include('dashboard/addStudentModal.html.twig') %}
 
-    </body>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock %}

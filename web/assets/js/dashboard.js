@@ -1,7 +1,7 @@
-$("#students-list").find(".student-row").click(function() {
+$(".dashboard").find(".student-row").click(function() {
     var student_id = $(this).data("id");
 
-    $.post("/dashboard/student/"+student_id, function(data) {
+    $.get("/dashboard/student/"+student_id, function(data) {
         $("#showStudent").html(data);
     });
 })
@@ -135,9 +135,12 @@ $("#showStudent").find('#cancel-contact').click(function() {
     elems.css('display', 'none');
 });
 
-// $("#student-email, #student-phone").focus(function() {
-//     if($(this).text() === "pas d'email enregistré" ||
-//         $(this).text() === "pas de numéro de tél enregistré") {
-//             $(this).text('');
-//     }
-// });
+$("#search").click(function() {
+    var params = {
+        student_name_like: $('.dashboard').find('#student-name').val()
+    };
+
+    $.post("/search", params, function(data) {
+        $("#showStudent").html(data);
+    })
+});

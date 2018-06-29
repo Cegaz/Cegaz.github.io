@@ -88,7 +88,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * @Route("/student/{student}")
+     * @Route("/student/{student}", name="show-student")
      */
     public function showStudentAction($student, Request $request)
     {
@@ -144,4 +144,5 @@ class DashboardController extends Controller
 
         return new JsonResponse($success);
     }
+
 }
