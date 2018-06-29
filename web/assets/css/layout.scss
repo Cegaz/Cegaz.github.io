@@ -6,7 +6,6 @@ $green: #79D279;
 $green-strong: #28a745;
 $red: #FF8080;
 $red-strong: #dc3545;
-//TODO CG tests backs/appli
 //$blueBack: #55ABC8;
 //$yellowBack: #C5C855;
 //$redBack: #C85555;
@@ -119,6 +118,9 @@ a
 .btn:focus {
   box-shadow: none;
 }
-.hidden {
+.display-none {
   display: none;
+}
+.hidden {
+  visibility: hidden;
 }

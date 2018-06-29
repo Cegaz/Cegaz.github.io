@@ -4,7 +4,7 @@
         <div class="modal-header">
             <h5 class="modal-title" id="show-skills-modal">SKILLS</h5>
         </div>
-        <div class="modal-body container">
+        <div class="modal-body container" id="skills-list">
             {% for skill in skills %}
                 <div class="btn">
                     {{ skill.label | capitalize }}
@@ -13,7 +13,11 @@
         </div>
 
         <div class="modal-footer">
-            <input type="text" name="skill" class="hidden" placeholder="enter the new skill here">
+            <div id="skill-form" class="hidden">
+                <input type="text" name="skill" placeholder="enter skill here">
+                <button class="btn btn-success" id="save-skill">save</button>
+                <button class="btn btn-danger" id="cancel-skill">cancel</button>
+            </div>
             <img class="icon" src="/assets/images/plus.png" alt="add-skill" id="add-skill">
         </div>
     </div>

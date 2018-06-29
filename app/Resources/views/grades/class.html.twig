@@ -13,56 +13,56 @@
 {% endblock class %}
 
 {% block body %}
-    <body class="grades">
-    <header>
-        <img src="/assets/images/thumbs-up.png" alt="skills" class="icon" id="show-skills" data-toggle="modal" data-target="#show-skills-modal">
-        <a href="/grades/calculate">
-            <img src="/assets/images/refresh.png" alt="refresh" class="icon" id="refresh">
-        </a>
-    </header>
+    <div class="grades">
+        <header>
+            <img src="/assets/images/thumbs-up.png" alt="skills" class="icon" id="show-skills" data-toggle="modal" data-target="#show-skills-modal">
+            <a href="/grades/calculate">
+                <img src="/assets/images/refresh.png" alt="refresh" class="icon" id="refresh">
+            </a>
+        </header>
 
-    <section>
-        <div class="table-responsive">
+        <section>
+            <div class="table-responsive">
 
-            <table id="students-list" class="table table-striped">
-                <tr>
-                    <th>
-                        NAME
-                        {#<a href="/participation/sort-by-name">#}
+                <table id="students-list" class="table table-striped">
+                    <tr>
+                        <th>
+                            NAME
+                            {#<a href="/participation/sort-by-name">#}
                             {#<img src="/assets/images/sorting.png" alt="sorting">#}
-                        {#</a>#}
-                    </th>
-                    <th>
-                        SURNAME
-                        {#<a href="/participation/sort-by-surname">#}
+                            {#</a>#}
+                        </th>
+                        <th>
+                            SURNAME
+                            {#<a href="/participation/sort-by-surname">#}
                             {#<img src="/assets/images/sorting.png" alt="sorting">#}
-                        {#</a>#}
-                    </th>
-                    <th>
-                        QUARTER 1
-                    </th>
-                    <th>
-                        QUARTER 2
-                    </th>
-                    <th>
-                        QUARTER 3
-                    </th>
-                </tr>
-                {% for student in students %}
-                    <tr class="student-row">
-                        <td class="name">{{ student.name | upper }}</a></td>
-                        <td class="surname">{{ student.surname | capitalize }}</td>
-                        {% for grade in student.grades %}
-                        <td>{{ grade.amount }}/20</td>
-                        {% endfor %}
+                            {#</a>#}
+                        </th>
+                        <th>
+                            QUARTER 1
+                        </th>
+                        <th>
+                            QUARTER 2
+                        </th>
+                        <th>
+                            QUARTER 3
+                        </th>
                     </tr>
-                {% endfor %}
-            </table>
+                    {% for student in students %}
+                        <tr class="student-row">
+                            <td class="name">{{ student.name | upper }}</a></td>
+                            <td class="surname">{{ student.surname | capitalize }}</td>
+                            {% for grade in student.grades %}
+                                <td>{{ grade.amount }}/20</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </section>
+
+        <div class="modal" id="show-skills-modal" tabindex="-1" role="dialog" aria-labelledby="show-skills-modal" aria-hidden="false">
         </div>
-    </section>
 
-    <div class="modal" id="show-skills-modal" tabindex="-1" role="dialog" aria-labelledby="show-skills-modal" aria-hidden="false">
     </div>
-
-    </body>
 {% endblock %}

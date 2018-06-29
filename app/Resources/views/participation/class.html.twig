@@ -13,55 +13,54 @@
 {% endblock class %}
 
 {% block body %}
-    <body class="participation">
-    <header>
-        <img src="/assets/images/rewind.png" alt="cancel" class="icon" id="cancel">
-    </header>
+    <div class="participation">
+        <header>
+            <img src="/assets/images/rewind.png" alt="cancel" class="icon" id="cancel">
+        </header>
 
-    <section>
-        <div class="table-responsive">
-            <table id="students-list" class="table table-striped">
-                <tr>
-                    <th>
-                        NAME
-                        <a href="/participation/sort-by-name">
-                            <img src="/assets/images/sorting.png" alt="sorting">
-                        </a>
-                    </th>
-                    <th>
-                        SURNAME
-                        <a href="/participation/sort-by-surname">
-                            <img src="/assets/images/sorting.png" alt="sorting">
-                        </a>
-                    </th>
-                    <th>
-                        LAST
-                        <a href="/participation/sort-by-last-participation">
-                            <img src="/assets/images/sorting.png" alt="sorting">
-                        </a>
-                    </th>
-                    <th>
-                        NB
-                        <a href="/participation/sort-by-nb-participations">
-                            <img src="/assets/images/sorting.png" alt="sorting">
-                        </a>
-                    </th>
-                </tr>
-
-                {% for student in students %}
+        <section>
+            <div class="table-responsive">
+                <table id="students-list" class="table table-striped">
                     <tr>
-                        <td class="name">{{ student.name | upper }}</td>
-                        <td class="surname">{{ student.surname | capitalize }}</td>
-                        <td class="lastParticipation">{{ student.lastParticipation }}</td>
-                        <td class="participations">{{ student.participations|length }}</td>
-                        <td class="hand-up right-columns" data-id="{{ student.id }}">
-                            <img src="/assets/images/hand-up.png" alt="participate" class="icon">
-                        </td>
+                        <th>
+                            NAME
+                            <a href="/participation/sort-by-name">
+                                <img src="/assets/images/sorting.png" alt="sorting">
+                            </a>
+                        </th>
+                        <th>
+                            SURNAME
+                            <a href="/participation/sort-by-surname">
+                                <img src="/assets/images/sorting.png" alt="sorting">
+                            </a>
+                        </th>
+                        <th>
+                            LAST
+                            <a href="/participation/sort-by-last-participation">
+                                <img src="/assets/images/sorting.png" alt="sorting">
+                            </a>
+                        </th>
+                        <th>
+                            NB
+                            <a href="/participation/sort-by-nb-participations">
+                                <img src="/assets/images/sorting.png" alt="sorting">
+                            </a>
+                        </th>
                     </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </section>
-    </body>
-    </body>
+
+                    {% for student in students %}
+                        <tr>
+                            <td class="name">{{ student.name | upper }}</td>
+                            <td class="surname">{{ student.surname | capitalize }}</td>
+                            <td class="lastParticipation">{{ student.lastParticipation }}</td>
+                            <td class="participations">{{ student.participations|length }}</td>
+                            <td class="hand-up right-columns" data-id="{{ student.id }}">
+                                <img src="/assets/images/hand-up.png" alt="participate" class="icon">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </section>
+    </div>
 {% endblock %}
