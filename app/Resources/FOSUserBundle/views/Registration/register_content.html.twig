@@ -1,8 +1,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
-    </div>
+
+{{ form_label(form.username) }}
+{{ form_widget(form.username) }}
+
+{{ form_label(form.email) }}
+{{ form_widget(form.email) }}
+
+{{ form_widget(form.plainPassword) }}
+
+<input type="submit" class="btn" id="_submit" value="{{ 'registration.submit'|trans }}" />
+
 {{ form_end(form) }}

@@ -26,7 +26,6 @@ class GradeController extends Controller
     public function indexAction(SessionInterface $session)
     {
         $em = $this->getDoctrine()->getManager();
-//        $skills = $em->getRepository('AppBundle:Skill')->findAll();
 
         $classes = $em->getRepository('AppBundle:Classs')->findAll();
 

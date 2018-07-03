@@ -15,8 +15,11 @@
     <label for="password">{{ 'security.login.password'|trans }}</label>
     <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    <div>
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    </div>
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    <input type="submit" id="_submit" class="btn" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    <a href="/register" id="register" class="btn">{{ 'layout.register'|trans }}</a>
 </form>

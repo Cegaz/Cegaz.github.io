@@ -41,11 +41,7 @@ class ParticipationController extends Controller
         $students = $result['students'];
         $class = $result['class'];
 
-        // if ($sorting == 'island') {
-        //     return $this->render('participation/islands.html.twig', ['students' => $students, 'sorting' => 'island', 'class' => $class, 'classes' => $classes]);
-        // } else {
-            return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes]);
-        // }
+        return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes]);
     }
 
 
@@ -112,8 +108,12 @@ class ParticipationController extends Controller
         $em->flush();
 
         $participationsByStudent = $student->getParticipations()->toArray();
-        $lastParticipationByStudent = max($participationsByStudent);
-        $lastParticipationDateByStudent = $lastParticipationByStudent->getParticipationDate()->format('d/m');
+        if(!empty($participationsByStudent)) {
+            $lastParticipationByStudent = max($participationsByStudent);
+            $lastParticipationDateByStudent = $lastParticipationByStudent->getParticipationDate()->format('d/m');
+        } else {
+            $lastParticipationDateByStudent = '';
+        }
 
         $data = ['lastParticipation' => $lastParticipationDateByStudent,
             'studentId' => $studentId,

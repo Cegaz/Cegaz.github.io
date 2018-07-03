@@ -1,92 +1,68 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}My english class{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
-            <link href="https://fonts.googleapis.com/css?family=Pangolin|Open+Sans" rel="stylesheet">
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-            $( function() {
-                $("#student-name").autocomplete({
-                    source: "/autocomplete"
-                });
-            } );
-        </script>
-    </head>
+{% extends "layout.html.twig" %}
+
+{% block head %}{{ parent() }}{% endblock %}
+
+{% block navbar %}
     <body>
-        {% block header %}
-            <nav class="navbar navbar-expand-lg navbar-dark dark">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/images/home.png" alt="home" class="icon"/>
+    <nav class="navbar navbar-expand-lg navbar-dark dark">
+        <a class="navbar-brand" href="/">
+            <img src="/assets/images/home.png" alt="home" class="icon"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-apps" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu-apps">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item{% if app.request.uri matches '#dashboard#' %} active{% endif %}">
+                    <a class="nav-link" href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item{% if app.request.uri matches '#participation#' %} active{% endif %}">
+                    <a class="nav-link" href="/participation">
+                        Participation
+                    </a>
+                </li>
+                <li class="nav-item{% if app.request.uri matches '#grades#' %} active{% endif %}">
+                    <a class="nav-link" href="/grades">
+                        Grades
+                    </a>
+                </li>
+                <li class="nav-item{% if app.request.uri matches '#chat#' %} active{% endif %}">
+                    <a class="nav-link" href="https://my-english-class-chat.slack.com" target="_blank">
+                        Chat
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More...
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="mailto:cecilegaz@gmail.com">Support</a>
+                        <a class="dropdown-item" href="#">Customization</a>
+                        <a class="dropdown-item" href="#">About</a>
+                    </div>
+                </li>
+            </ul>
+
+            {% block class %}
+            {% endblock class %}
+
+            {% if app.user.username is defined %}
+                Welcome {{ app.user.username }}
+                <a class="navbar-brand" href="/logout">
+                    <img src="/assets/images/logout.png" alt="logout" class="icon"/>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-apps" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="menu-apps">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item{% if app.request.uri matches '#dashboard#' %} active{% endif %}">
-                            <a class="nav-link" href="/dashboard">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item{% if app.request.uri matches '#participation#' %} active{% endif %}">
-                            <a class="nav-link" href="/participation">
-                                Participation
-                            </a>
-                        </li>
-                        <li class="nav-item{% if app.request.uri matches '#grades#' %} active{% endif %}">
-                            <a class="nav-link" href="/grades">
-                                Grades
-                            </a>
-                        </li>
-                        <li class="nav-item{% if app.request.uri matches '#chat#' %} active{% endif %}">
-                            <a class="nav-link" href="https://my-english-class-chat.slack.com" target="_blank">
-                                Chat
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                More...
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="mailto:cecilegaz@gmail.com">Support</a>
-                                <a class="dropdown-item" href="#">Customization</a>
-                                <a class="dropdown-item" href="#">About</a>
-                            </div>
-                        </li>
-                    </ul>
-
-                    {% block class %}
-                    {% endblock class %}
-
-                    {% if app.user.username is defined %}
-                        Welcome {{ app.user.username }}
-                        <a class="navbar-brand" href="/logout">
-                            <img src="/assets/images/logout.png" alt="logout" class="icon"/>
-                        </a>
-                    {% else %}
-                        <a class="navbar-brand" href="/login">
-                            <img src="/assets/images/plug.png" alt="login" class="icon"/>
-                        </a>
-                    {% endif %}
-                </div>
-            </nav>
-        {% endblock header %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            <script src="{{ asset('build/app.js') }}"></script>
-            {#<script src="https://code.jquery.com/jquery-1.12.4.js"></script>#}
-            {#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        {% endblock %}
+            {% else %}
+                <a class="navbar-brand" href="/login">
+                    <img src="/assets/images/power.png" alt="login" class="icon"/>
+                </a>
+            {% endif %}
+        </div>
+    </nav>
     </body>
-</html>
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}{% endblock %}
+{% block footer %}{% endblock %}

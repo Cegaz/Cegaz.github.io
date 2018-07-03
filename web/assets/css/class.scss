@@ -19,6 +19,13 @@
   margin-top: 10%;
   button {
     margin-top: 10px;
+    background-color: $grey;
+    &:hover {
+      background-color: $dark-grey;
+    }
+  }
+  p {
+    color: $dark;
   }
 }
 

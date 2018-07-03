@@ -5,8 +5,10 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+        ROLE_STUDENT:     ROLE_STUDENT
+        ROLE_TEACHER:     ROLE_TEACHER
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -42,3 +44,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/dashboard/, role: ROLE_TEACHER }
+        - { path: ^/grades/, role: ROLE_TEACHER }
+        - { path: ^/participation/, role: [ROLE_STUDENT, ROLE_TEACHER] }
+

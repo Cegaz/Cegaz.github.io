@@ -1,23 +1,21 @@
-$grey: #AAA;
-$grey2: #BBB;
 $dark: #636363;
+$dark-grey: #AAA;
+$grey: #BBB;
+$light-grey: #f2f1f0;
+$super-light-grey: #0000004d;
 $white: #FFF;
 $green: #79D279;
 $green-strong: #28a745;
 $red: #FF8080;
 $red-strong: #dc3545;
-//$blueBack: #55ABC8;
-//$yellowBack: #C5C855;
-//$redBack: #C85555;
 // fonds d'écran
 $blueBack: #5bc0eb;
-$yellowBack: #fde74c;
+$yellowBack: #fdc94c;
 $greenBack: #9bc53d;
 $redBack: #e55934;
-//$orangeBack: #fa7921;
 $orangeBack: #ff9e5c;
 
-$backgroundColor: $grey;
+$backgroundColor: white;
 $funkyFont: 'Pangolin', cursive;
 $regularFont: 'Open Sans', sans-serif;
 
@@ -28,29 +26,37 @@ body {
   font-family: $regularFont;
   font-size: 1rem;
 }
+.dashboard, .grades, .participation {
+  margin: 20px;
+  border-radius: 8px;
+  header {
+    position: relative;
+    top: 15px;
+  }
+}
+#app-menu .btn:hover {
+  background: $grey;
+}
 .dashboard {
   background: $blueBack !important;
 }
 .btn-dashboard {
-  &:hover {
-    background: $blueBack;
-  }
+  background: $blueBack;
 }
 .participation {
   background: $greenBack !important;
 }
 .btn-participation {
-  &:hover {
-    background: $greenBack;
-  }
+  background: $greenBack;
 }
 .grades {
   background: $orangeBack !important;
 }
 .btn-grades {
-  &:hover {
-    background: $orangeBack;
-  }
+  background: $orangeBack;
+}
+.btn-chat {
+  background: $yellowBack;
 }
 header{
   display: flex;
@@ -75,6 +81,9 @@ header{
       padding-right: 20px;
     }
   }
+  .active .nav-link {
+    color: $dark;
+  }
 }
 .nav-item {
   margin-right: 30px;
@@ -87,11 +96,14 @@ h1{
   margin: auto;
   padding: 10px 0;
 }
+a:hover {
+  color: inherit;
+}
 .green-line {
-  background-color: $green !important;
+  background-color: white !important;
 }
 .red-line {
-  background-color: $red !important;
+  background-color: $super-light-grey !important;
 }
 .red {
   color: $red;

@@ -37,7 +37,7 @@
                 <div class="col-12">
                     {% for skill in student.skills %}
                         <button class="btn">
-                            {{ skill.skill.label }}
+                            {{ skill.skill.label|capitalize}}
                             <strong class="bold">{{ skill.grade }}</strong>
                         </button>
                     {% endfor %}
@@ -59,14 +59,14 @@
                         </div>
 
                         {% for comment in student.comments|slice(0,3) %}
-                            <p contenteditable="true">
+                            <p>
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
                             </p>
                         {% endfor %}
 
                         {% for comment in student.comments|slice(3, student.comments|length - 3) %}
-                            <p contenteditable="true" class="hidden-comment">
+                            <p class="hidden-comment display-none">
                                 {{ comment.text }}<br>
                                 <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
                             </p>
@@ -76,7 +76,7 @@
 
                     <div id="comment-form">
                         <input type="text" name="text" id="input-text" placeholder="enter comment here">
-                        <input type="display-none" id="input-id" value="{{ student.id }}">
+                        <input type="hidden" id="input-id" value="{{ student.id }}">
                         <button class="btn btn-success" id="save-comment">save</button>
                         <button class="btn btn-danger" id="cancel-comment">cancel</button>
                     </div>
@@ -88,20 +88,25 @@
 
         <div class="modal-footer">
             <p>CONTACT<img src="/assets/images/pencil.png" id="modify-contact"></p>
-            <div id="block-email">
+            <div id="block-email" class="container-fluid">
+                <div class="col-1">
+                    <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email"/></a>
+                </div>
             {% if student.email is not null %}
-                <em id="student-email">{{ student.email }}</em>
+                <em id="student-email" class="col-11">{{ student.email }}</em>
             {% else %}
-                <span id="student-email">pas d'email enregistré</span>
+                <span id="student-email" class="col-11">pas d'email enregistré</span>
             {% endif %}
-                <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email"/></a>
             </div>
-            <br>
+
+            <div id="block-phone" class="container">
             {% if student.phoneNumber is not null %}
-                <em id="student-phone">{{ student.phoneNumber }}</em>
+                <div class="col-1"></div>
+                <div id="student-phone" class="col-11">{{ student.phoneNumber }}</div>
             {% else %}
                 <span id="student-phone">pas de numéro de tél enregistré</span><br>
             {% endif %}
+            </div>
 
             <div>
                 <button class="btn btn-secondary" id="cancel-contact">cancel</button>

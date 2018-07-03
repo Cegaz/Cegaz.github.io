@@ -32,11 +32,7 @@ $("#save-comment").click(function() {
 });
 
 $("#more-comments").click(function() {
-    if($(".hidden-comment").css('display') == 'block') {
-        $(".hidden-comment").css('display', 'none');
-    } else {
-        $(".hidden-comment").css('display', 'block');
-    }
+    $(".hidden-comment").toggleClass('display-none');
 
     if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
         $(this).find('img').attr("src", "/assets/images/arrow-down.png");
