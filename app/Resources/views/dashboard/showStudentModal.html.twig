@@ -52,7 +52,7 @@
                         <div id="comments-title">
                             <p>COMMENTS</p>
                             {% if student.comments|length > 3 %}
-                                <div id="more-comments">
+                                <div id="more-comments" class="pointer">
                                     <img src="/assets/images/arrow-down.png" alt="+ de commentaires">
                                 </div>
                             {% endif %}
@@ -80,14 +80,13 @@
                         <button class="btn btn-success" id="save-comment">save</button>
                         <button class="btn btn-danger" id="cancel-comment">cancel</button>
                     </div>
-                    {#<button class="btn btn-success" id="add-comment">add a comment</button>#}
-                    <img src="/assets/images/plus.png" id="add-comment">
+                    <img src="/assets/images/plus.png" id="add-comment" class="pointer">
                 </div>
             </div>
         </div>
 
         <div class="modal-footer">
-            <p>CONTACT<img src="/assets/images/pencil.png" id="modify-contact"></p>
+            <p>CONTACT<img src="/assets/images/pencil.png" id="modify-contact" class="pointer"></p>
             <div id="block-email" class="container-fluid">
                 <div class="col-1">
                     <a href="mailto:{{ student.email }}"><img id="send-email" src="/assets/images/envelope.png" alt="send-email"/></a>
@@ -100,17 +99,20 @@
             </div>
 
             <div id="block-phone" class="container">
-            {% if student.phoneNumber is not null %}
                 <div class="col-1"></div>
+            {% if student.phoneNumber is not null %}
                 <div id="student-phone" class="col-11">{{ student.phoneNumber }}</div>
             {% else %}
-                <span id="student-phone">pas de numéro de tél enregistré</span><br>
+                <span id="student-phone" class="col-11">pas de numéro de tél enregistré</span><br>
             {% endif %}
             </div>
 
-            <div>
-                <button class="btn btn-secondary" id="cancel-contact">cancel</button>
-                <button class="btn btn-success" id="save-contact" data-id="{{ student.id }}">save</button>
+            <div class="container">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <button class="btn btn-secondary" id="cancel-contact">cancel</button>
+                    <button class="btn btn-success" id="save-contact" data-id="{{ student.id }}">save</button>
+                </div>
             </div>
 
             {#<div>#}

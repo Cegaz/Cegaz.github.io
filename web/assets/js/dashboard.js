@@ -132,11 +132,25 @@ $("#showStudent").find('#cancel-contact').click(function() {
 });
 
 $("#search").click(function() {
-    var params = {
-        student_name_like: $('.dashboard').find('#student-name').val()
-    };
+    var input = $('.dashboard').find('#student-name').val();
 
-    $.post("/search", params, function(data) {
-        $("#showStudent").html(data);
-    })
+    if (input != '') {
+        var params = {
+            student_name_like: input
+        };
+
+        $.post("/search", params, function (data) {
+            $("#showStudent").html(data);
+        });
+    }
 });
+
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validatePhone(phone) {
+    var re = /^0[1-79][\s\.-]?([0-9][\s\.-]?){8}$/;
+    return re.test(phone);
+}
