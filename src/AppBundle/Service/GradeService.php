@@ -22,7 +22,8 @@ class GradeService
         $quarters = $this->em->getRepository('AppBundle:Quarter')->findAll();
 
         foreach($quarters as $quarter) {
-            $nbParticipations = $this->em->getRepository('AppBundle:Participation')->getNbParticipationByClassAndQuarter($classId, $quarter);
+            $nbParticipations = $this->em->getRepository('AppBundle:Participation')
+                ->getNbParticipationByClassAndQuarter($classId, $quarter);
 
             if(!empty($nbParticipations)) {
                 $bestParticipation = (int)max($nbParticipations)['nbPart'];
@@ -30,8 +31,9 @@ class GradeService
                 $students = $this->em->getRepository('AppBundle:Student')->findByClass($classId);
 
                 foreach ($students as $student) {
-                    $participations = count($this->em->getRepository('AppBundle:Participation')->getParticipationsByStudentAndQuarter($student, $quarter));
-                    $calculatedGrade = $participations / $bestParticipation * 20;
+                    $participationsNb = count($this->em->getRepository('AppBundle:Participation')
+                        ->getParticipationsByStudentAndQuarter($student, $quarter));
+                    $calculatedGrade = $participationsNb / $bestParticipation * 20;
 
                     $grade = $this->em->getRepository('AppBundle:Grade')->findOneBy([
                         'student' => $student,

@@ -49,7 +49,7 @@ class ClassService
             });
         } else if($sorting == 'last-participation') {
             usort($students, function ($a, $b) {
-                return ($a['lastParticipation'] >= $b['lastParticipation']) ? -1 : 1;
+                return ($a['lastParticipation'] <= $b['lastParticipation']) ? -1 : 1;
             });
         }
 
