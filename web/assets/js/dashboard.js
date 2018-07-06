@@ -4,7 +4,7 @@ $(".dashboard").find(".student-row").click(function() {
     $.get("/dashboard/student/"+student_id, function(data) {
         $("#showStudent").html(data);
     });
-})
+});
 
 $("#comments").find("#add-comment").click(function() {
     $("#comment-form").css('display','block');

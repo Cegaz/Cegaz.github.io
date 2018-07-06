@@ -6,7 +6,7 @@
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark dark">
         <a class="navbar-brand" href="/">
-            <img src="/assets/images/home.png" alt="home" class="icon"/>
+            <img src="{{ asset('assets/images/home.png') }}" alt="home" class="icon"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-apps" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,17 +15,17 @@
         <div class="collapse navbar-collapse" id="menu-apps">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item{% if app.request.uri matches '#dashboard#' %} active{% endif %}">
-                    <a class="nav-link" href="/dashboard">
+                    <a class="nav-link" href="{{ path('homepage-dashboard') }}">
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item{% if app.request.uri matches '#participation#' %} active{% endif %}">
-                    <a class="nav-link" href="/participation">
+                    <a class="nav-link" href="{{ path('homepage-participation') }}">
                         Participation
                     </a>
                 </li>
                 <li class="nav-item{% if app.request.uri matches '#grades#' %} active{% endif %}">
-                    <a class="nav-link" href="/grades">
+                    <a class="nav-link" href="{{ path('homepage-grades') }}">
                         Grades
                     </a>
                 </li>
@@ -51,12 +51,12 @@
 
             {% if app.user.username is defined %}
                 Welcome {{ app.user.username }}
-                <a class="navbar-brand" href="/logout">
-                    <img src="/assets/images/logout.png" alt="logout" class="icon"/>
+                <a class="navbar-brand" href="{{ path('logout') }}">
+                    <img src="{{ asset('assets/images/logout.png') }}" alt="logout" class="icon"/>
                 </a>
             {% else %}
                 <a class="navbar-brand" href="/login">
-                    <img src="/assets/images/power.png" alt="login" class="icon"/>
+                    <img src="{{ asset('assets/images/power.png') }}" alt="login" class="icon"/>
                 </a>
             {% endif %}
         </div>

@@ -8,12 +8,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use DateTime;
 
 /**
  * Class ChatController

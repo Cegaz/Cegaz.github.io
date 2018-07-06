@@ -2,7 +2,7 @@ $dark: #636363;
 $dark-grey: #AAA;
 $grey: #BBB;
 $light-grey: #f2f1f0;
-$super-light-grey: #0000004d;
+$super-light-grey: #6c8a2b;
 $white: #FFF;
 $green: #79D279;
 $green-strong: #28a745;
@@ -50,13 +50,13 @@ body {
   background: $greenBack;
 }
 .grades {
-  background: $orangeBack !important;
+  background: $yellowBack !important;
 }
 .btn-grades {
-  background: $orangeBack;
+  background: $yellowBack;
 }
 .btn-chat {
-  background: $yellowBack;
+  background: $orangeBack;
 }
 header{
   display: flex;

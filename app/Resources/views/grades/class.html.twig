@@ -15,9 +15,9 @@
 {% block body %}
     <div class="grades">
         <header>
-            <img src="/assets/images/thumbs-up.png" alt="skills" class="icon" id="show-skills" data-toggle="modal" data-target="#show-skills-modal">
-            <a href="/grades/calculate">
-                <img src="/assets/images/refresh.png" alt="refresh" class="icon" id="refresh">
+            <img src="{{ asset('assets/images/thumbs-up.png') }}" alt="skills" class="icon" id="show-skills" data-toggle="modal" data-target="#show-skills-modal">
+            <a href="{{ path('calculate-grades') }}">
+                <img src="{{ asset('assets/images/refresh.png') }}" alt="refresh" class="icon" id="refresh">
             </a>
         </header>
 
@@ -28,15 +28,9 @@
                     <tr>
                         <th>
                             NAME
-                            {#<a href="/participation/sort-by-name">#}
-                            {#<img src="/assets/images/sorting.png" alt="sorting">#}
-                            {#</a>#}
                         </th>
                         <th>
                             SURNAME
-                            {#<a href="/participation/sort-by-surname">#}
-                            {#<img src="/assets/images/sorting.png" alt="sorting">#}
-                            {#</a>#}
                         </th>
                         <th>
                             QUARTER 1

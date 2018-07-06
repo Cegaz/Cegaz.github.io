@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class GradeController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage-grades")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -82,7 +82,7 @@ class GradeController extends Controller
     }
 
      /**
-     * @Route("/calculate")
+     * @Route("/calculate", name="calculate-grades")
      */
     public function CalculateGradesByClass(SessionInterface $session)
     {

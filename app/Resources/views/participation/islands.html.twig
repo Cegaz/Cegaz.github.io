@@ -4,7 +4,7 @@
 <body>
 <header>
     <h1>CLASS {{ class.label }}</h1>
-    <a href="/"><img src="/assets/images/home.png" alt="home" class="icon"/></a>
+    <a href="/"><img src="{{ asset('assets/images/home.png') }}" alt="home" class="icon"/></a>
 </header>
 
 <div>
@@ -23,15 +23,14 @@
             <td class="lastParticipation">{{ student.lastParticipation|date('d/m')}}</td>
             <td class="contributions">{{ student.participationNb}}</td>
             <td class="hand-up right_columns" data-id="{{ student.0.id }}">
-                <img src="/assets/images/handup.png">
+                <img src="{{ asset('assets/images/handup.png') }}">
             </td>
             <td class="right_columns">
-                <a href="/student/{{ student.0.id }}"><img src="/assets/images/plus.png"></a>
+                <a href="/student/{{ student.0.id }}"><img src="{{ asset('assets/images/plus.png') }}"></a>
             </td>
         </tr>
         {% endfor %}
     </table>
 </section>
 </body>
-    </body>
 {% endblock %}
