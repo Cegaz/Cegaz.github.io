@@ -7,7 +7,7 @@ if (PHP_VERSION_ID < 70000) {
     include_once __DIR__.'/../var/bootstrap.php.cache';
 }
 // TODO argument true pour activer le mode debugger en prod
-$kernel = new AppKernel('prod', true);
+$kernel = new AppKernel('prod', false);
 if (PHP_VERSION_ID < 70000) {
     $kernel->loadClassCache();
 }
