@@ -45,31 +45,7 @@ class DashboardController extends Controller
         $skills = $em->getRepository('AppBundle:Skill')->findAll();
 
         $student = new Student();
-        $form = $this->createFormBuilder($student)
-            ->add('name', TextType::class, [
-                'required' => true,
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('surname', TextType::class, [
-                'required' => true,
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('class', EntityType::class, [
-                'class'=>'AppBundle:Classs',
-                'required' => true,
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('island', EntityType::class, [
-                'class'=>'AppBundle:Island',
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('phoneNumber', TextType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->add('email', EmailType::class, [
-                'attr' => ['class' => 'form-control']
-            ])
-            ->getForm();
+        $form = $this->createForm('AppBundle\Form\StudentType', $student, ['class' => $class]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <p class="text-center">
+            We couldn't find the page you're looking for.<br>
+            You can go to the homepage by clicking here :<br>
+            <a href="/"><button class="btn btn-info">HOMEPAGE</button></a>
+            <img src="{{ asset('assets/images/404_error.png') }}" alt="error 404" class="big-icon"><br>
+        </p>
+    </div>
+{% endblock %}

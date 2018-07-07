@@ -26,16 +26,25 @@ class ParticipationController extends Controller
      */
     public function homeAction($sorting = 'name', SessionInterface $session)
     {
+        $classId = null;
         $em = $this->getDoctrine()->getManager();
         $service = new ClassService($em);
 
         $classes = $em->getRepository('AppBundle:Classs')->findAll();
 
-        $classId = $session->get('classId');
+        $user = $this->getUser();
+        $userRoles = $user->getRoles();
+        // si role étudiant définition automatique du classId
+        if(in_array('ROLE_STUDENT', $userRoles)) {
+            $classId = $user->getClassId();
+        } else {
+            $classId = $session->get('classId');
         // si pas de classeId définie en session, retour à homepage participation
-        if(!isset($classId)) {
-            return $this->render('default/home.html.twig', ['classes' => $classes]);
+            if(!isset($classId)) {
+                return $this->render('default/home.html.twig', ['classes' => $classes]);
+            }
         }
+
         $result = $service->getClass($classId, $sorting);
 
         $students = $result['students'];
