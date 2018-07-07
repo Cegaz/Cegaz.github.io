@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block class %}
-    {% if (app.user.classId is not defined) %}
+    {% if (app.user.classId is not defined or app.user.classId is empty) %}
         <div class="form-inline my-2 my-lg-0 ui-select">
             <select name="classes" class="form-control mr-sm-2">
                 {% for class in classes %}
                     <option value="{{ class.id }}"
                             {% if (app.session.get('classId') == class.id) %} selected {% endif %}
-                            >Class {{ class.label }}</option>
+                    >Class {{ class.label }}</option>
                 {% endfor %}
             </select>
         </div>
