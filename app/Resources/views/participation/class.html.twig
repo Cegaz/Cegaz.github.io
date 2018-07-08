@@ -17,7 +17,9 @@
 {% block body %}
     <div class="participation">
         <header>
-            <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+            {% if (app.user.classId is not defined or app.user.classId is empty) %}
+                <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+            {% endif %}
         </header>
 
         <section>
@@ -56,9 +58,11 @@
                             <td class="surname">{{ student.surname | capitalize }}</td>
                             <td class="lastParticipation">{{ student.lastParticipation }}</td>
                             <td class="participations">{{ student.participations|length }}</td>
+                            {% if (app.user.classId is not defined or app.user.classId is empty) %}
                             <td class="hand-up right-columns" data-id="{{ student.id }}">
-                                <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon">
+                                    <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon">
                             </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </table>
