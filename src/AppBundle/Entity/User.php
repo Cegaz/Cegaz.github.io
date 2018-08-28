@@ -34,6 +34,8 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        // TODO CG à modifier après phase demo
+        $this->roles[] = "ROLE_TEACHER";
     }
 
     /**

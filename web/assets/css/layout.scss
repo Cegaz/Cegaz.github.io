@@ -145,3 +145,8 @@ a
 .hidden {
   visibility: hidden;
 }
+.navbar-brand {
+  @media (max-width:762px){
+    display: none;
+  }
+}
