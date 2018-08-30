@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Participation;
 use AppBundle\Service\ClassService;
+use AppBundle\Service\DateHelperService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -79,9 +80,14 @@ class ParticipationController extends Controller
         $data['nb'] = count($participations);
 
         $lastParticipation = new \DateTime('01/01/1900');
+        $data['nbToday'] = 0;
         foreach($participations as $participation) {
-            if ($participation->getParticipationDate() > $lastParticipation) {
-                $lastParticipation = $participation->getParticipationDate();
+            $participationDate = $participation->getParticipationDate();
+            if ($participationDate > $lastParticipation) {
+                $lastParticipation = $participationDate;
+            }
+            if(DateHelperService::isToday($participationDate)) {
+                $data['nbToday'] ++;
             }
         }
         $data['lastParticipation'] = $lastParticipation->format('d/m');
@@ -117,16 +123,26 @@ class ParticipationController extends Controller
         $em->flush();
 
         $participationsByStudent = $student->getParticipations()->toArray();
+        $nbParticipationsToday = 0;
+
         if(!empty($participationsByStudent)) {
             $lastParticipationByStudent = max($participationsByStudent);
             $lastParticipationDateByStudent = $lastParticipationByStudent->getParticipationDate()->format('d/m');
+
+            foreach($participationsByStudent as $participation) {
+                if (DateHelperService::isToday($participation->getParticipationDate())) {
+                    $nbParticipationsToday ++;
+                }
+            }
         } else {
             $lastParticipationDateByStudent = '';
         }
 
         $data = ['lastParticipation' => $lastParticipationDateByStudent,
             'studentId' => $studentId,
-            'nbParticipations' => $nbParticipations];
+            'nbParticipations' => $nbParticipations,
+            'nbParticipationsToday' => $nbParticipationsToday
+        ];
 
         return new JsonResponse($data);
     }

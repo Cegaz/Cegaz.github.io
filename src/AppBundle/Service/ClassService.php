@@ -32,6 +32,14 @@ class ClassService
 
         foreach($students as &$student) {
             $student['nbParticipations'] = count($student['participations']);
+
+            $student['nbParticipationsToday'] = 0;
+            foreach($student['participations'] as $participation) {
+                if(DateHelperService::isToday($participation['participationDate'])) {
+                    $student['nbParticipationsToday'] ++;
+                }
+            }
+
             $dates = [];
             foreach($student['participations'] as $participation) {
                 $dates[] = $participation['participationDate'];
@@ -50,6 +58,10 @@ class ClassService
         } else if($sorting == 'last-participation') {
             usort($students, function ($a, $b) {
                 return ($a['lastParticipation'] <= $b['lastParticipation']) ? -1 : 1;
+            });
+        } else if($sorting == 'nb-participations-today') {
+            usort($students, function ($a, $b) {
+                return ($a['nbParticipationsToday'] <= $b['nbParticipationsToday']) ? -1 : 1;
             });
         }
 

@@ -38,15 +38,21 @@
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
-                        <th>
+                        <th class="text-center">
                             LAST
                             <a href="/participation/sort-by-last-participation">
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
-                        <th>
+                        <th class="text-center">
                             NB
                             <a href="/participation/sort-by-nb-participations">
+                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            NB TODAY
+                            <a href="/participation/sort-by-nb-participations-today">
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
@@ -58,6 +64,7 @@
                             <td class="surname">{{ student.surname | capitalize }}</td>
                             <td class="lastParticipation">{{ student.lastParticipation }}</td>
                             <td class="participations">{{ student.participations|length }}</td>
+                            <td class="participationsToday">{{ student.nbParticipationsToday }}</td>
                             {% if (app.user.classId is not defined or app.user.classId is empty) %}
                             <td class="hand-up right-columns" data-id="{{ student.id }}">
                                     <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon">
