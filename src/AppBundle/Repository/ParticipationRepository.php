@@ -58,4 +58,19 @@ class ParticipationRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getDistinctSessionsByQuarter($quarter, $classId)
+    { //TODO CG
+        $qb = $this->createQueryBuilder('p')
+            ->select('DISTINCT p.participationDate AS nbSessions')
+            ->join('p.student', 's')
+            ->join('s.class', 'c')
+            ->where('c.id = :classId')
+            ->setParameter('classId', $classId)
+            ->andWhere('p.participationDate BETWEEN :start AND :end')
+            ->setParameter('start', $quarter->getStartDate())
+            ->setParameter('end', $quarter->getEndDate());
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
