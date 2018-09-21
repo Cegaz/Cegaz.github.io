@@ -17,8 +17,16 @@
 {% block body %}
     <div class="participation">
         <header>
+            {% if displayAbsences %}
+                <div id="absence-alert" class="alert pointer">
+                    Please register the absent students
+                </div>
+            {% endif %}
             {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+                <div>
+                    <img src="{{ asset('assets/images/remove-sign.png') }}" alt="cancel" class="icon" id="are-absent">
+                    <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+                </div>
             {% endif %}
         </header>
 
@@ -59,15 +67,16 @@
                     </tr>
 
                     {% for student in students %}
-                        <tr>
+                        <tr {% if student.isAbsent %}class="display-none"{% endif %}>
                             <td class="name">{{ student.name | upper }}</td>
                             <td class="surname">{{ student.surname | capitalize }}</td>
                             <td class="lastParticipation">{{ student.lastParticipation }}</td>
                             <td class="participations">{{ student.participations|length }}</td>
                             <td class="participationsToday">{{ student.nbParticipationsToday }}</td>
                             {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                            <td class="hand-up right-columns" data-id="{{ student.id }}">
-                                    <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon">
+                            <td class="right-columns" data-id="{{ student.id }}" data-name="{{ student.name }}" data-surname="{{ student.surname }}">
+                                <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hand-up">
+                                <img type="button" data-toggle="modal" data-target="#confirmModal" src="{{ asset('assets/images/remove-sign.png') }}" alt="absent" class="icon confirmModalButton hidden">
                             </td>
                             {% endif %}
                         </tr>
@@ -75,5 +84,20 @@
                 </table>
             </div>
         </section>
+
+        <!-- Modal -->
+        <div class="modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-success is-absent">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}

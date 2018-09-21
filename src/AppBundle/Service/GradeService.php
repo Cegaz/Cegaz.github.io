@@ -19,21 +19,29 @@ class GradeService
      */
     public function setGradesByClass($classId)
     {
+        $participationRepository = $this->em->getRepository('AppBundle:Participation');
+        $absenceRepository = $this->em->getRepository('AppBundle:Absence');
+
         $quarters = $this->em->getRepository('AppBundle:Quarter')->findAll();
 
         foreach($quarters as $quarter) {
-            $nbParticipations = $this->em->getRepository('AppBundle:Participation')
+            $nbParticipations = $participationRepository
                 ->getNbParticipationByClassAndQuarter($classId, $quarter);
 
             if(!empty($nbParticipations)) {
                 $bestParticipation = (int)max($nbParticipations)['nbPart'];
+                $nbSessions = count($participationRepository->getDistinctSessionsByQuarter($quarter, $classId));
+                $bestParticipationPerSession = $bestParticipation/$nbSessions;
 
                 $students = $this->em->getRepository('AppBundle:Student')->findByClass($classId);
 
                 foreach ($students as $student) {
-                    $participationsNb = count($this->em->getRepository('AppBundle:Participation')
+                    $participationsNb = count($participationRepository
                         ->getParticipationsByStudentAndQuarter($student, $quarter));
-                    $calculatedGrade = $participationsNb / $bestParticipation * 20;
+                    $nbSessionsAbsent = count($absenceRepository->getSessionsAbsentByStudentAndQuarter($student, $quarter));
+                    $participationsPerSession = $participationsNb / ($nbSessions - $nbSessionsAbsent);
+
+                    $calculatedGrade = $participationsPerSession / $bestParticipationPerSession * 20;
 
                     $grade = $this->em->getRepository('AppBundle:Grade')->findOneBy([
                         'student' => $student,

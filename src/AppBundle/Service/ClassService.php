@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityManager;
 
 class ClassService
@@ -27,8 +28,11 @@ class ClassService
      */
     public function getClass($classId, $sorting = 'name')
     {
+        $studentRepo = $this->em->getRepository('AppBundle:Student');
+
         $class = $this->em->getRepository('AppBundle:Classs')->find($classId);
-        $students = $this->em->getRepository('AppBundle:Student')->getStudentsByClassSorted($class, $sorting);
+        /** @var Student[] $students */
+        $students = $studentRepo->getStudentsByClassSorted($class, $sorting);
 
         foreach($students as &$student) {
             $student['nbParticipations'] = count($student['participations']);
@@ -49,6 +53,10 @@ class ClassService
             } else {
                 $student['lastParticipation'] = '';
             }
+
+            $studentEntity = $studentRepo->find($student['id']);
+            $classService = new StudentService($this->em);
+            $student['isAbsent'] = $classService->isAbsentToday($studentEntity);
         }
 
         if($sorting == 'nb-participations') {

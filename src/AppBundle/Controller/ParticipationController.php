@@ -46,12 +46,15 @@ class ParticipationController extends Controller
             }
         }
 
+        // enregistrement des absents
+        $displayAbsences = (empty($session->get('absences-' . $classId)));
+
         $result = $service->getClass($classId, $sorting);
 
         $students = $result['students'];
         $class = $result['class'];
 
-        return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes]);
+        return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes, 'displayAbsences' => $displayAbsences]);
     }
 
 

@@ -77,6 +77,11 @@ class Student
     private $grades;
 
     /**
+     * @ORM\OneToMany(targetEntity="Absence", mappedBy="student")
+     */
+    private $absences;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -385,5 +390,40 @@ class Student
     public function getGrades()
     {
         return $this->grades;
+    }
+
+
+    /**
+     * Add absence
+     *
+     * @param \AppBundle\Entity\Absence $absence
+     *
+     * @return Student
+     */
+    public function addAbsence(\AppBundle\Entity\Absence $absence)
+    {
+        $this->absences[] = $absence;
+
+        return $this;
+    }
+
+    /**
+     * Remove absence
+     *
+     * @param \AppBundle\Entity\Absence $absence
+     */
+    public function removeAbsence(\AppBundle\Entity\Absence $absence)
+    {
+        $this->absences->removeElement($absence);
+    }
+
+    /**
+     * Get absences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAbsences()
+    {
+        return $this->absences;
     }
 }

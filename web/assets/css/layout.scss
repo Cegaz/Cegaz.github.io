@@ -32,7 +32,7 @@ body {
   header {
     position: relative;
     top: 15px;
-    height: 38px;
+    //height: 38px;
   }
 }
 #app-menu .btn:hover {
@@ -145,8 +145,20 @@ a
 .hidden {
   visibility: hidden;
 }
+@keyframes blinking {
+  0% {visibility: hidden;}
+  100% {visibility: visible;}
+}
+.blinking {
+  animation-name: blinking;
+  animation-duration: 4s;
+  animation-iteration-count: 4;
+}
 .navbar-brand {
   @media (max-width:762px){
     display: none;
   }
+}
+.alert {
+  background-color: white;
 }
