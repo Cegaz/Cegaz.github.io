@@ -67,8 +67,7 @@ $('#are-absent').on('click', function() {
 });
 
 $('#absence-alert').on('click', function() {
-    // $('.confirmModalButton').removeClass('hidden');
+    $('.confirmModalButton').removeClass('hidden');
     //TODO CG faire clignoter
-    $('.confirmModalButton').addClass('blinking');
-
+    $('.confirmModalButton').addClass('blink');
 });

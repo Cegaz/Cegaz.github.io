@@ -23,4 +23,21 @@ class AbsenceRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function absentRegisteredTodayByClass($classId)
+    {
+        $today = new \DateTime('now');
+        $today->setTime(0,0,0);
+
+        $qb = $this->createQueryBuilder('a')
+            ->select('a', 's', 'c')
+            ->leftJoin('a.student', 's')
+            ->join('s.class', 'c')
+            ->where('a.date = :today')
+            ->setParameter('today', $today)
+            ->andWhere('c.id = :classId')
+            ->setParameter('classId', $classId);
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -145,14 +145,13 @@ a
 .hidden {
   visibility: hidden;
 }
-@keyframes blinking {
-  0% {visibility: hidden;}
-  100% {visibility: visible;}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
 }
-.blinking {
-  animation-name: blinking;
-  animation-duration: 4s;
-  animation-iteration-count: 4;
+.blink {
+  animation: blink-animation 0.8s steps(5, start) 3;
 }
 .navbar-brand {
   @media (max-width:762px){
@@ -161,4 +160,5 @@ a
 }
 .alert {
   background-color: white;
+  text-align: center;
 }

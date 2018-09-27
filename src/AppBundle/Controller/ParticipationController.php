@@ -47,7 +47,8 @@ class ParticipationController extends Controller
         }
 
         // enregistrement des absents
-        $displayAbsences = (empty($session->get('absences-' . $classId)));
+        $absencesByClass = $em->getRepository('AppBundle:Absence')->absentRegisteredTodayByClass($classId);
+        $displayAbsences = empty($absencesByClass);
 
         $result = $service->getClass($classId, $sorting);
 

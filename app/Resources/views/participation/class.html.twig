@@ -16,14 +16,14 @@
 
 {% block body %}
     <div class="participation">
-        <header>
+        <header class="row">
             {% if displayAbsences %}
-                <div id="absence-alert" class="alert pointer">
+                <div id="absence-alert" class="alert pointer col-4">
                     Please register the absent students
                 </div>
             {% endif %}
             {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                <div>
+                <div class="col-2">
                     <img src="{{ asset('assets/images/remove-sign.png') }}" alt="cancel" class="icon" id="are-absent">
                     <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
                 </div>
