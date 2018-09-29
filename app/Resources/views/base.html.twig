@@ -40,9 +40,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="mailto:cecilegaz@gmail.com">Contact me</a>
-                        <a class="dropdown-item" href="#">Parameters</a>
-                        <a class="dropdown-item" href="#">About</a>
-                    </div>
+                        {#<a class="dropdown-item" href="#">Parameters</a>#}
+                        <a class="dropdown-item pointer" data-toggle="modal" data-target="#doc">How to use the app ?</a>
                 </li>
             </ul>
 
@@ -61,6 +60,7 @@
             {% endif %}
         </div>
     </nav>
+    {% include('default/docModal.html.twig') %}
     </body>
 {% endblock %}
 
