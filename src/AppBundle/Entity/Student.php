@@ -82,6 +82,11 @@ class Student
     private $absences;
 
     /**
+     * @ORM\OneToMany(targetEntity="Sanction", mappedBy="student")
+     */
+    private $sanctions;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -425,5 +430,39 @@ class Student
     public function getAbsences()
     {
         return $this->absences;
+    }
+
+    /**
+     * Add sanction
+     *
+     * @param \AppBundle\Entity\Sanction $sanction
+     *
+     * @return Student
+     */
+    public function addSanction(\AppBundle\Entity\Sanction $sanction)
+    {
+        $this->sanctions[] = $sanction;
+
+        return $this;
+    }
+
+    /**
+     * Remove sanction
+     *
+     * @param \AppBundle\Entity\Sanction $sanction
+     */
+    public function removeSanction(\AppBundle\Entity\Sanction $sanction)
+    {
+        $this->sanctions->removeElement($sanction);
+    }
+
+    /**
+     * Get sanctions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSanctions()
+    {
+        return $this->sanctions;
     }
 }

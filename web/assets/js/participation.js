@@ -33,21 +33,16 @@ $("#cancel").click(function () {
 
 $('.confirmModalButton').on('click', function () {
     var td = $(this).closest('td');
-    console.log(td);
     var studentId = td.attr('data-id');
-    console.log(studentId);
     var name = td.data('name').toUpperCase();
     var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
-    $('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
+    $('#confirmModal').find('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
     $('.is-absent').attr('data-id', studentId);
 });
 
 $('.is-absent').on('click', function() {
-    console.log($(this));
     var studentId = $(this).attr('data-id');
-    console.log(studentId);
     $('#confirmModal').css('display', 'none');
-    // $('#confirmModal').modal('hide');
     $('.modal-backdrop').remove();
 
     var line = $('#students-list').find('*[data-id="'+studentId+'"]').closest('tr');
@@ -70,4 +65,17 @@ $('#absence-alert').on('click', function() {
     $('.confirmModalButton').removeClass('hidden');
     //TODO CG faire clignoter
     $('.confirmModalButton').addClass('blink');
+});
+
+$('#display-sanction').on('click', function () {
+    $('.sanctionModalButton').toggleClass('hidden');
+});
+
+$('.sanctionModalButton').on('click', function () {
+    var td = $(this).closest('td');
+    var studentId = td.attr('data-id');
+    var name = td.data('name').toUpperCase();
+    var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
+    $('#sanctionModal').find('.modal-header').html('<p>Add a sanction for <span class="bold">' + surname + ' ' + name + '</span> :</p>');
+    $('.is-sanctionned').attr('data-id', studentId);
 });
