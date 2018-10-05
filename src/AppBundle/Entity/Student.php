@@ -465,4 +465,9 @@ class Student
     {
         return $this->sanctions;
     }
+
+    public function __toString()
+    {
+        return $this->getName() . ' ' . $this->getSurname();
+    }
 }

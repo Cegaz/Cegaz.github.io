@@ -65,9 +65,9 @@ class GradeController extends Controller
      */
     public function addSkillAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $label = $request->request->get('label');
+
+        $em = $this->getDoctrine()->getManager();
 
         $skill = new Skill();
         $skill->setLabel($label);

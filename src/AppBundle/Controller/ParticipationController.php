@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Participation;
+use AppBundle\Entity\Sanction;
 use AppBundle\Service\ClassService;
 use AppBundle\Service\DateHelperService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,7 +26,7 @@ class ParticipationController extends Controller
      * @param $sorting string
      * @return RedirectResponse|Response
      */
-    public function homeAction($sorting = 'name', SessionInterface $session)
+    public function homeAction($sorting = 'name', SessionInterface $session, Request $request)
     {
         $classId = null;
         $em = $this->getDoctrine()->getManager();
@@ -55,7 +56,26 @@ class ParticipationController extends Controller
         $students = $result['students'];
         $class = $result['class'];
 
-        return $this->render('participation/class.html.twig', ['students' => $students, 'sorting' => $sorting, 'class' => $class, 'classes' => $classes, 'displayAbsences' => $displayAbsences]);
+        $sanction = new Sanction();
+        $form = $this->createForm('AppBundle\Form\SanctionType', $sanction);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $sanction->setDate(new \DateTime('now'));
+            $em->persist($sanction);
+            $em->flush();
+
+            return $this->redirect('/participation/sort-by-' . $sorting);
+        }
+
+        return $this->render('participation/class.html.twig', [
+            'students' => $students,
+            'sorting' => $sorting,
+            'class' => $class,
+            'classes' => $classes,
+            'displayAbsences' => $displayAbsences,
+            'form' => $form->createView()
+        ]);
     }
 
 

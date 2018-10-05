@@ -1,0 +1,26 @@
+<!-- Modale adminSanctions-->
+<div class="modal" id="admin-sanctions-modal" tabindex="-1" role="dialog" aria-labelledby="adminSanctions" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="admin-sanctions">SANCTION REASONS</h5>
+            </div>
+            <div class="modal-body container" id="sanctions-list">
+                {% for sanction in sanctions %}
+                    <div class="btn">
+                        {{ sanction.name | capitalize }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="modal-footer">
+                <div id="sanctions-form" class="hidden">
+                    <input type="text" name="sanction" placeholder="enter sanction reason">
+                    <button class="btn btn-success" id="save-sanction">save</button>
+                    <button class="btn btn-danger" id="cancel-sanction">cancel</button>
+                </div>
+                <img class="icon" src="{{ asset('assets/images/plus.png') }}" alt="add sanction" id="add-sanction">
+            </div>
+        </div>
+    </div>
+</div>

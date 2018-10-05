@@ -27,9 +27,7 @@ class Sanction
     private $student;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=64)
+     * @ORM\ManyToOne(targetEntity="SanctionType", inversedBy="sanctions")
      */
     private $type;
 
@@ -87,30 +85,6 @@ class Sanction
     public function getStudent()
     {
         return $this->student;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Sanction
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

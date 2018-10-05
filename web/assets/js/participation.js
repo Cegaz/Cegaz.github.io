@@ -77,5 +77,5 @@ $('.sanctionModalButton').on('click', function () {
     var name = td.data('name').toUpperCase();
     var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
     $('#sanctionModal').find('.modal-header').html('<p>Add a sanction for <span class="bold">' + surname + ' ' + name + '</span> :</p>');
-    $('.is-sanctionned').attr('data-id', studentId);
+    $('#sanctionModal').find('#appbundle_sanction_student').val(studentId);
 });

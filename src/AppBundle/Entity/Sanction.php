@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\SanctionReason;
 
 /**
  * Sanction
@@ -27,11 +28,9 @@ class Sanction
     private $student;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=64)
+     * @ORM\ManyToOne(targetEntity="SanctionReason", inversedBy="sanctions")
      */
-    private $type;
+    private $reason;
 
     /**
      * @var \DateTime
@@ -87,30 +86,6 @@ class Sanction
     public function getStudent()
     {
         return $this->student;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Sanction
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
@@ -183,5 +158,29 @@ class Sanction
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set reason
+     *
+     * @param SanctionReason $reason
+     *
+     * @return Sanction
+     */
+    public function setReason(SanctionReason $reason = null)
+    {
+        $this->reason = $reason;
+
+        return $this;
+    }
+
+    /**
+     * Get reason
+     *
+     * @return SanctionReason
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 }

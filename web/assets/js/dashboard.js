@@ -154,3 +154,24 @@ function validatePhone(phone) {
     var re = /^0[1-79][\s\.-]?([0-9][\s\.-]?){8}$/;
     return re.test(phone);
 }
+
+// admin sanction reasons
+$("#add-sanction").click(function() {
+    $("#sanctions-form").removeClass('hidden');
+    $(this).addClass('hidden');
+});
+$("#cancel-sanction").click(function() {
+    $("#sanctions-form").addClass('hidden');
+    $("#add-sanction").removeClass('hidden');
+});
+$("#save-sanction").click(function() {
+    var params = {
+        name: $("#sanctions-form").find("input").val(),
+    };
+    $.post("/dashboard/add-sanction-reason", params, function(data) {
+        $("#sanctions-list").append(
+            "<button class='btn class-btn' data-sanctionid=" + data.sanctionReasonId + ">" + data.name + "</button>");
+        $("#sanction-form").addClass('hidden');
+        $("#add-sanction").removeClass('hidden');
+    });
+});

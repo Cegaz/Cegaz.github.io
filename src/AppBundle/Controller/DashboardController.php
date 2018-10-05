@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Sanction;
+use AppBundle\Entity\SanctionReason;
 use AppBundle\Entity\Student;
 use AppBundle\Service\ClassService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,6 +45,7 @@ class DashboardController extends Controller
         $class = $result['class'];
 
         $skills = $em->getRepository('AppBundle:Skill')->findAll();
+        $sanctions = $em->getRepository('AppBundle:SanctionReason')->findAll();
 
         $student = new Student();
         $form = $this->createForm('AppBundle\Form\StudentType', $student, ['class' => $class]);
@@ -60,6 +63,7 @@ class DashboardController extends Controller
                 'classes' => $classes,
                 'students' => $students,
                 'skills' => $skills,
+                'sanctions' => $sanctions,
                 'form' => $form->createView(),
             ]);
     }
@@ -120,6 +124,27 @@ class DashboardController extends Controller
         }
 
         return new JsonResponse($success);
+    }
+
+    /**
+     * @Route("/add-sanction-reason")
+     */
+    public function addSanctionReasonAction(Request $request)
+    {
+        $name = $request->request->get('name');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sanctionReason = new SanctionReason();
+        $sanctionReason->setName($name);
+
+        $em->persist($sanctionReason);
+        $em->flush();
+
+        $data['name'] = ucfirst(strtolower($name));
+        $data['sanctionReasonId'] = $sanctionReason->getId();
+
+        return new JsonResponse($data);
     }
 
 }
