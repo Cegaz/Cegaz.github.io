@@ -36,11 +36,13 @@ class SanctionType extends AbstractType
                     'rows' => 5],
                 'label' => ''
             ]) //TODO CG limite nb char
-            ->add('alertDate', DateType::class, [
-                'label' => 'Remind me on ',
-                'widget' => 'single_text',
-                'required' => false
-            ]) // TODO CG plutôt liste déroulante (tomorrow, 2 days, 1 week...)
+            ->add('done', ChoiceType::class, [
+                'label' => 'remind me ? ',
+                'choices' => [
+                    'yes' => false,
+                    'no' => true
+                ],
+            ])
             ->add('student', EntityType::class, [
                 'class' => 'AppBundle\Entity\Student',
                 'required' => true,

@@ -1,0 +1,25 @@
+<!-- Modale show sanctions-->
+<div class="modal" id="show-sanctions-modal" tabindex="-1" role="dialog" aria-labelledby="doc" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>SANCTIONS TO GET DONE</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                {% for sanction in sanctions %}
+                    <li>{{ sanction.date|date('d/m') }} |
+                        {{ sanction.student.surname|capitalize }} {{ sanction.student.name|upper }} |
+                        {{ sanction.reason }}<br>
+                        {{ sanction.details }}</li>
+                {% endfor %}
+                    {#TODO CG organiser par élève/alphabétique ? par date ?#}
+                    {#TODO CG ajouter clic -> passer en done ?#}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

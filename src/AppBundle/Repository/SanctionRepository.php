@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class SanctionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSanctionsAlertsByClass($classId)
+    {
+        $qb = $this->createQueryBuilder('sa')
+            ->select('sa', 'st', 'c')
+            ->join('sa.student', 'st')
+            ->join('st.class', 'c')
+            ->where('sa.done = 0')
+            ->andWhere('c.id = :classId')
+            ->setParameter('classId', $classId);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\SanctionReason;
 
 /**
  * Sanction
@@ -27,16 +28,16 @@ class Sanction
     private $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SanctionType", inversedBy="sanctions")
+     * @ORM\ManyToOne(targetEntity="SanctionReason", inversedBy="sanctions")
      */
-    private $type;
+    private $reason;
 
     /**
-     * @var \DateTime
+     * @var bool
      *
-     * @ORM\Column(name="alertDate", type="datetime", nullable=true)
+     * @ORM\Column(name="done", type="bool")
      */
-    private $alertDate;
+    private $done = false;
 
     /**
      * @var string
@@ -52,110 +53,4 @@ class Sanction
      */
     private $date;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set student
-     *
-     * @param integer $student
-     *
-     * @return Sanction
-     */
-    public function setStudent($student)
-    {
-        $this->student = $student;
-
-        return $this;
-    }
-
-    /**
-     * Get student
-     *
-     * @return int
-     */
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    /**
-     * Set alertDate
-     *
-     * @param \DateTime $alertDate
-     *
-     * @return Sanction
-     */
-    public function setAlertDate($alertDate)
-    {
-        $this->alertDate = $alertDate;
-
-        return $this;
-    }
-
-    /**
-     * Get alertDate
-     *
-     * @return \DateTime
-     */
-    public function getAlertDate()
-    {
-        return $this->alertDate;
-    }
-
-    /**
-     * Set details
-     *
-     * @param string $details
-     *
-     * @return Sanction
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
-    /**
-     * Get details
-     *
-     * @return string
-     */
-    public function getDetails()
-    {
-        return $this->details;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Sanction
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
 }

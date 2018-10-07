@@ -31,18 +31,18 @@ $("#cancel").click(function () {
     });
 });
 
-$('.confirmModalButton').on('click', function () {
+$('.confirm-modal-button').on('click', function () {
     var td = $(this).closest('td');
     var studentId = td.attr('data-id');
     var name = td.data('name').toUpperCase();
     var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
-    $('#confirmModal').find('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
+    $('#confirm-modal').find('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
     $('.is-absent').attr('data-id', studentId);
 });
 
 $('.is-absent').on('click', function() {
     var studentId = $(this).attr('data-id');
-    $('#confirmModal').css('display', 'none');
+    $('#confirm-modal').css('display', 'none');
     $('.modal-backdrop').remove();
 
     var line = $('#students-list').find('*[data-id="'+studentId+'"]').closest('tr');
@@ -58,13 +58,13 @@ $('.is-absent').on('click', function() {
 });
 
 $('#are-absent').on('click', function() {
-    $('.confirmModalButton').toggleClass('hidden');
+    $('.confirm-modal-button').toggleClass('hidden');
 });
 
 $('#absence-alert').on('click', function() {
-    $('.confirmModalButton').removeClass('hidden');
+    $('.confirm-modal-button').removeClass('hidden');
     //TODO CG faire clignoter
-    $('.confirmModalButton').addClass('blink');
+    $('.confirm-modal-button').addClass('blink');
 });
 
 $('#display-sanction').on('click', function () {

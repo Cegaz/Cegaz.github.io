@@ -48,8 +48,11 @@ class ParticipationController extends Controller
         }
 
         // enregistrement des absents
-        $absencesByClass = $em->getRepository('AppBundle:Absence')->absentRegisteredTodayByClass($classId);
+        $absencesByClass = $em->getRepository('AppBundle:Absence')->getAbsentRegisteredTodayByClass($classId);
         $displayAbsences = empty($absencesByClass);
+
+        // rappels sanctions
+        $sanctionsAlert = $em->getRepository('AppBundle:Sanction')->getSanctionsAlertsByClass($classId);
 
         $result = $service->getClass($classId, $sorting);
 
@@ -74,6 +77,7 @@ class ParticipationController extends Controller
             'class' => $class,
             'classes' => $classes,
             'displayAbsences' => $displayAbsences,
+            'sanctions' => $sanctionsAlert,
             'form' => $form->createView()
         ]);
     }

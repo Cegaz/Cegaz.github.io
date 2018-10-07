@@ -35,9 +35,6 @@ body {
     //height: 38px;
   }
 }
-#app-menu .btn:hover {
-  background: $grey;
-}
 .dashboard {
   background: $blueBack !important;
 }
@@ -161,4 +158,7 @@ a
 .alert {
   background-color: white;
   text-align: center;
+}
+.badge {
+  background-color: white;
 }

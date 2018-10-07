@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\SanctionReason;
+use AppBundle\Entity\Student;
 
 /**
  * Sanction
@@ -33,11 +34,11 @@ class Sanction
     private $reason;
 
     /**
-     * @var \DateTime
+     * @var boolean
      *
-     * @ORM\Column(name="alertDate", type="datetime", nullable=true)
+     * @ORM\Column(name="done", type="boolean")
      */
-    private $alertDate;
+    private $done = false;
 
     /**
      * @var string
@@ -57,7 +58,7 @@ class Sanction
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -65,51 +66,27 @@ class Sanction
     }
 
     /**
-     * Set student
+     * Set done
      *
-     * @param integer $student
+     * @param boolean $done
      *
      * @return Sanction
      */
-    public function setStudent($student)
+    public function setDone($done)
     {
-        $this->student = $student;
+        $this->done = $done;
 
         return $this;
     }
 
     /**
-     * Get student
+     * Get done
      *
-     * @return int
+     * @return boolean
      */
-    public function getStudent()
+    public function getDone()
     {
-        return $this->student;
-    }
-
-    /**
-     * Set alertDate
-     *
-     * @param \DateTime $alertDate
-     *
-     * @return Sanction
-     */
-    public function setAlertDate($alertDate)
-    {
-        $this->alertDate = $alertDate;
-
-        return $this;
-    }
-
-    /**
-     * Get alertDate
-     *
-     * @return \DateTime
-     */
-    public function getAlertDate()
-    {
-        return $this->alertDate;
+        return $this->done;
     }
 
     /**
@@ -158,6 +135,30 @@ class Sanction
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set student
+     *
+     * @param Student $student
+     *
+     * @return Sanction
+     */
+    public function setStudent(Student $student = null)
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * Get student
+     *
+     * @return Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
     }
 
     /**

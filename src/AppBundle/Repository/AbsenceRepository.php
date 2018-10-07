@@ -24,7 +24,7 @@ class AbsenceRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function absentRegisteredTodayByClass($classId)
+    public function getAbsentRegisteredTodayByClass($classId)
     {
         $today = new \DateTime('now');
         $today->setTime(0,0,0);
