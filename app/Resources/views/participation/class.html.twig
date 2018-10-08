@@ -23,11 +23,12 @@
                 <span class="badge">{{ sanctions|length }}</span>
             </div>
             {% endif %}
-            {% if displayAbsences %}
-                <div id="absence-alert" class="alert pointer col-6 offset-2">
-                    Please register the absent students
-                </div>
-            {% endif %}
+
+            {% if displayAbsences %} {% set hidden = '' %} {% else %} {% set hidden = 'hidden' %} {% endif %}
+            <div id="absence-alert" class="alert pointer col-6 offset-2">
+                Please register the absent students
+            </div>
+
             {% if (app.user.classId is not defined or app.user.classId is empty) %}
                 <div class="col-1 offset-2">
                     <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
