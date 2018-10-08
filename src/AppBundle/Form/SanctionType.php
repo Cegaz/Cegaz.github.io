@@ -42,6 +42,8 @@ class SanctionType extends AbstractType
                     'yes' => false,
                     'no' => true
                 ],
+                'expanded' =>true,
+                'multiple' => false
             ])
             ->add('student', EntityType::class, [
                 'class' => 'AppBundle\Entity\Student',

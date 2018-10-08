@@ -1,24 +1,31 @@
 <!-- Modale show sanctions-->
 <div class="modal" id="show-sanctions-modal" tabindex="-1" role="dialog" aria-labelledby="doc" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5>SANCTIONS TO GET DONE</h5>
             </div>
             <div class="modal-body">
-                <ul>
-                {% for sanction in sanctions %}
-                    <li>{{ sanction.date|date('d/m') }} |
-                        {{ sanction.student.surname|capitalize }} {{ sanction.student.name|upper }} |
-                        {{ sanction.reason }}<br>
-                        {{ sanction.details }}</li>
-                {% endfor %}
-                    {#TODO CG organiser par élève/alphabétique ? par date ?#}
-                    {#TODO CG ajouter clic -> passer en done ?#}
-                </ul>
+                <table class="table table-striped">
+                    {% for sanction in sanctions %}
+                        <tr>
+                            <td>{{ sanction.student.name|upper }} {{ sanction.student.surname|capitalize }}</td>
+                            <td><span class="bold">{{ sanction.reason | capitalize }}</span><br>{{ sanction.details }}</td>
+                            <td>{{ sanction.date|date('d/m') }}</td>
+                            <td>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-red-green">
+                                        <input type="checkbox" name="sanction-done" data-id="{{ sanction.id }}">Done
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="save-sanction-done">Save</button>
             </div>
         </div>
     </div>

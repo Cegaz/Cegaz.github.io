@@ -59,7 +59,7 @@ class ParticipationRepository extends EntityRepository
     }
 
     public function getDistinctSessionsByQuarter($quarter, $classId)
-    { //TODO CG
+    {
         $qb = $this->createQueryBuilder('p')
             ->select('DISTINCT p.participationDate AS nbSessions')
             ->join('p.student', 's')

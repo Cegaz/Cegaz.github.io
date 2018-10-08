@@ -12,7 +12,6 @@ class AbsenceRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getSessionsAbsentByStudentAndQuarter($student, $quarter)
     {
-        // TODO CG
         $qb = $this->createQueryBuilder('a')
             ->select('a')
             ->where('a.date BETWEEN :start AND :end')

@@ -162,3 +162,13 @@ a
 .badge {
   background-color: white;
 }
+.btn-red-green {
+  background-color: $red-strong;
+  color: white;
+  &:hover {
+    background-color: $green-strong;
+  }
+  &.active {
+    background-color: $green-strong !important;
+  }
+}

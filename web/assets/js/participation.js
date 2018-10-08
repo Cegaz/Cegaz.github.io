@@ -42,8 +42,7 @@ $('.confirm-modal-button').on('click', function () {
 
 $('.is-absent').on('click', function() {
     var studentId = $(this).attr('data-id');
-    $('#confirm-modal').css('display', 'none');
-    $('.modal-backdrop').remove();
+    $('#confirm-modal').modal('hide');
 
     var line = $('#students-list').find('*[data-id="'+studentId+'"]').closest('tr');
     $.post("/absence/new", {student_id: studentId}, function(result) {
@@ -53,7 +52,6 @@ $('.is-absent').on('click', function() {
         } else {
             alert(result.student + ' has already been registered as absent on the ' + result.date);
         }
-
     });
 });
 
@@ -63,7 +61,6 @@ $('#are-absent').on('click', function() {
 
 $('#absence-alert').on('click', function() {
     $('.confirm-modal-button').removeClass('hidden');
-    //TODO CG faire clignoter
     $('.confirm-modal-button').addClass('blink');
 });
 
@@ -78,4 +75,17 @@ $('.sanctionModalButton').on('click', function () {
     var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
     $('#sanctionModal').find('.modal-header').html('<p>Add a sanction for <span class="bold">' + surname + ' ' + name + '</span> :</p>');
     $('#sanctionModal').find('#appbundle_sanction_student').val(studentId);
+});
+
+$('#show-sanctions-modal').find('#save-sanction-done').on('click', function() {
+   var checkedInput = $('#show-sanctions-modal').find('input[name="sanction-done"]:checked');
+
+   var sanctionsId = [];
+   for (var i=0; i < checkedInput.length; i++) {
+       sanctionsId.push($(checkedInput[i]).data('id'));
+   }
+
+    $.post("/sanction/update", {sanctionsId: sanctionsId}, function(result) {
+        $('#show-sanctions-modal').modal('hide');
+    });
 });

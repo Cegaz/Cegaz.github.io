@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Participation;
 use AppBundle\Entity\Sanction;
+use AppBundle\Entity\SanctionReason;
 use AppBundle\Service\ClassService;
 use AppBundle\Service\DateHelperService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -53,6 +54,11 @@ class ParticipationController extends Controller
 
         // rappels sanctions
         $sanctionsAlert = $em->getRepository('AppBundle:Sanction')->getSanctionsAlertsByClass($classId);
+        usort($sanctionsAlert, function($a, $b) {
+            /**@var Sanction $a */
+            /**@var Sanction $b */
+           return $a->getStudent()->getName() > $b->getStudent()->getName();
+        });
 
         $result = $service->getClass($classId, $sorting);
 
