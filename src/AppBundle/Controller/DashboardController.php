@@ -2,21 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Sanction;
 use AppBundle\Entity\SanctionReason;
 use AppBundle\Entity\Student;
 use AppBundle\Service\ClassService;
+use AppBundle\Service\FileService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Validator\Constraints\Email;
 
 /**
  * @Route("/dashboard")
@@ -145,6 +140,18 @@ class DashboardController extends Controller
         $data['sanctionReasonId'] = $sanctionReason->getId();
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/load")
+     */
+    public function loadFile()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $service = new FileService($em);
+        $service->importData();
+
+        return new JsonResponse(); //TODO CG prévoir chargement fichier + retour js
     }
 
 }
