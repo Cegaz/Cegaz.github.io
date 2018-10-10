@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Classs;
 use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityManager;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -18,13 +19,20 @@ class FileService
     }
 
     /**
-     * @param string $file
+     * @param array $file
      * @return mixed
      */
-    public function importData()
+    public function importData($file)
     {
-        $fileName = 'importStudents.xlsx';
-        $fileUrl = 'assets/doc/' . $fileName;
+        if ($file['error'] == 2) {
+            return 'too heavy'; //TODO CG gérer erreurs
+        }
+        $tmpFile = $file['tmp_name'];
+        $fileUrl = 'assets/doc/students-list' . date('Y-m-d h:i:s');
+        if (!move_uploaded_file($tmpFile, $fileUrl)) {
+            return 'transfer failed'; //TODO CG gérer erreurs
+        }
+
         $spreadsheet = IOFactory::load($fileUrl);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
@@ -34,7 +42,14 @@ class FileService
             $student = new Student();
 
             $classLabel = $data[$i][$titles['CLASSE']];
-            $class = $this->em->getRepository('AppBundle:Classs')->findOneByLabel($classLabel);
+            $classsRepository = $this->em->getRepository('AppBundle:Classs');
+            $class = $classsRepository->findOneByLabel($classLabel);
+            if (empty($class)) {
+                $class = new Classs();
+                $class->setLabel($classLabel);
+                $this->em->persist($class);
+                $this->em->flush(); //TODO CG à tester
+            }
 
             $student
                 ->setName($data[$i][$titles['NOM']])
@@ -47,5 +62,7 @@ class FileService
         }
 
         $this->em->flush();
+
+        //TODO CG prévoir retour success/errors
     }
 }

@@ -1,0 +1,27 @@
+<!-- Modale importStudents-->
+<div class="modal" id="importStudents" tabindex="-1" role="dialog" aria-labelledby="importStudents" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Download a list of students</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="/dashboard/load" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="file" name="uploadedFile">
+                    <br><br>
+                    <p class="font-italic">
+                        NB : Le fichier doit contenir les colonnes suivantes :<br>
+                        NOM, PRENOM, TEL, MAIL, CLASSE.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" value="Save" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -147,11 +147,13 @@ class DashboardController extends Controller
      */
     public function loadFile()
     {
+        $file = $_FILES['uploadedFile'];
+
         $em = $this->getDoctrine()->getManager();
         $service = new FileService($em);
-        $service->importData();
+        $service->importData($file);
 
-        return new JsonResponse(); //TODO CG prévoir chargement fichier + retour js
+        return $this->redirectToRoute("homepage-dashboard"); //TODO CG prévoir message retour
     }
 
 }
