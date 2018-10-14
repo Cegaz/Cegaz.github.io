@@ -1,7 +1,7 @@
 $(".dashboard").find(".student-row").click(function() {
     var student_id = $(this).data("id");
 
-    $.get("/dashboard/student/"+student_id, function(data) {
+    $.get("/student/show/"+student_id, function(data) {
         $("#showStudent").html(data);
     });
 });
@@ -116,7 +116,7 @@ $("#showStudent").find('#save-contact').click(function() {
     }
 
     if(!errors) {
-        $.post("/dashboard/modify-student", params, function (res) {
+        $.post("/student/modify", params, function (res) {
             if (res) {
                 var elem = $("#student-email, #student-phone");
                 elem.attr('contenteditable', 'false');
@@ -183,7 +183,7 @@ $("#save-sanction").click(function() {
     var params = {
         name: $("#sanctions-form").find("input").val(),
     };
-    $.post("/dashboard/add-sanction-reason", params, function(data) {
+    $.post("/sanction-reason/add", params, function(data) {
         $("#sanctions-list").append(
             "<button class='btn class-btn' data-sanctionid=" + data.sanctionReasonId + ">" + data.name + "</button>");
         $("#sanction-form").addClass('hidden');
@@ -211,7 +211,8 @@ $("#showStudent").find('#save-name').click(function() {
             lastName: lastName,
             surname: surname
         }
-        $.post("/dashboard/modify-student", params, function (res) {
+
+        $.post("/student/modify", params, function (res) {
             if (res) {
                 var elem = $("#student-last-name, #student-surname");
                 elem.attr('contenteditable', 'false');
