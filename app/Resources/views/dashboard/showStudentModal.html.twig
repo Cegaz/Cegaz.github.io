@@ -2,7 +2,14 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="showStudent">{{ student.surname|capitalize }} {{ student.name|upper }}</h5>
+            <h5 class="modal-title"><span id="student-surname" data-former-value="{{ student.surname }}">{{ student.surname|capitalize }}</span> <span id="student-last-name" data-former-value="{{ student.name }}">{{ student.name|upper }}</span></h5>
+            <div>
+                <img src="{{ asset('assets/images/pencil.png') }}" id="modify-student-name" alt="modify" class="pointer small-icon">
+            </div>
+            <div>
+                <button class="btn btn-secondary display-none" id="cancel-name">cancel</button>
+                <button class="btn btn-success display-none" id="save-name" data-id="{{ student.id }}">save</button>
+            </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -86,42 +93,43 @@
             </div>
         </div>
 
-        <div class="modal-footer">
-            <p>CONTACT<img src="{{ asset('assets/images/pencil.png') }}" id="modify-contact" class="pointer"></p>
+        <div class="modal-footer modal-footer-student">
+            <p>CONTACT<img src="{{ asset('assets/images/pencil.png') }}" id="modify-contact" class="pointer small-icon"></p>
             <div id="block-email" class="container-fluid">
                 <div class="col-1">
                     <a href="mailto:{{ student.email }}"><img id="send-email" src="{{ asset('assets/images/envelope.png') }}" alt="send-email"/></a>
                 </div>
             {% if student.email is not null %}
-                <em id="student-email" class="col-11">{{ student.email }}</em>
+                <em id="student-email" class="col-11" data-former-value="{{ student.email }}">{{ student.email }}</em>
             {% else %}
-                <span id="student-email" class="col-11">pas d'email enregistré</span>
+                <span id="student-email" class="col-11" data-former-value="{{ student.email }}">pas d'email enregistré</span>
             {% endif %}
             </div>
 
             <div id="block-phone" class="container">
                 <div class="col-1"></div>
             {% if student.phoneNumber is not null %}
-                <div id="student-phone" class="col-11">{{ student.phoneNumber }}</div>
+                <div id="student-phone" class="col-11" data-former-value="{{ student.phoneNumber }}">{{ student.phoneNumber }}</div>
             {% else %}
-                <span id="student-phone" class="col-11">pas de numéro de tél enregistré</span><br>
+                <span id="student-phone" class="col-11" data-former-value="{{ student.phoneNumber }}">pas de numéro de tél enregistré</span><br>
             {% endif %}
             </div>
 
             <div class="container">
                 <div class="col-2"></div>
                 <div class="col-8">
-                    <button class="btn btn-secondary" id="cancel-contact">cancel</button>
-                    <button class="btn btn-success" id="save-contact" data-id="{{ student.id }}">save</button>
+                    <button class="btn btn-secondary display-none" id="cancel-contact">cancel</button>
+                    <button class="btn btn-success display-none" id="save-contact" data-id="{{ student.id }}">save</button>
                 </div>
             </div>
-
-            {#<div>#}
-            {#<img src="{{ asset('/assets/images/bin.png') }}" id="delete-student" data-id="{{ student.id }}">#}
-            {#</div>#}
+            <div class="bin-container">
+                <img src="{{ asset('assets/images/bin.png') }}" id="delete-student" alt="delete" class="pointer small-icon" data-toggle="modal" data-target="#confirm-modal">
+            </div>
         </div>
     </div>
 </div>
+
+{% include('dashboard/confirmModal.html.twig') %}
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

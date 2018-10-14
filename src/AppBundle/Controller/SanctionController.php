@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Sanction;
+use AppBundle\Service\SanctionService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,16 +25,32 @@ class SanctionController extends Controller
      */
     public function updateSanction(Request $request)
     {
-        $sanctionsId = $request->request->get('sanctionsId');
+        $sanctionsId = $request->request->get('sanctionsId', []);
 
         $em = $this->getDoctrine()->getManager();
 
         foreach($sanctionsId as $sanctionId) {
             $sanction = $em->getRepository('AppBundle:Sanction')->find($sanctionId); /**@var Sanction $sanction */
-            $sanction->setDone(1);
+            if (!empty($sanction)) $sanction->setDone(1);
             $em->flush();
         }
 
-        return new JsonResponse(['sanctionsIdUpdated' => $sanctionsId]);
+        if(!empty($sanction)) {
+            $classId = $sanction->getStudent()->getClass();
+
+            $sanctionsAlert = $em->getRepository('AppBundle:Sanction')->getSanctionsAlertsByClass($classId);
+            usort($sanctionsAlert, function($a, $b) {
+                /**@var Sanction $a */
+                /**@var Sanction $b */
+                return $a->getStudent()->getName() > $b->getStudent()->getName();
+            });
+        } else {
+            $sanctionsAlert = [];
+        }
+
+        $html = $this->render('participation/showSanctionsModal.html.twig',
+            ['sanctions' => $sanctionsAlert]);
+
+        return $this->json(['html' => $html, 'nbSanctions' => count($sanctionsAlert)]);
     }
 }

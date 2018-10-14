@@ -18,7 +18,7 @@
     <div class="participation">
         <header class="row">
             {% if sanctions|length > 0 %}
-            <div class="text-center col-1" data-toggle="modal" data-target="#show-sanctions-modal">
+            <div id="sanctions-alert" class="text-center col-1" data-toggle="modal" data-target="#show-sanctions-modal">
                 <img src="{{ asset('assets/images/bell.png') }}" alt="sanctions alert" class="icon">
                 <span class="badge">{{ sanctions|length }}</span>
             </div>
@@ -99,7 +99,9 @@
 
         {% include ('participation/confirmModal.html.twig') %}
         {% include ('participation/addSanctionModal.html.twig') %}
-        {% include ('participation/showSanctionsModal.html.twig') %}
+        <div id="above-show-sanctions-modal">
+            {% include ('participation/showSanctionsModal.html.twig') %}
+        </div>
 
     </div>
 {% endblock %}

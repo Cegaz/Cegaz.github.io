@@ -19,6 +19,8 @@ class StudentRepository extends EntityRepository
             ->select('s', 'i', 'c', 'int', 'com', 'g')
             ->where('s.class = :class')
             ->setParameter('class', $class)
+            ->andWhere('s.isDeleted = :isDeleted')
+            ->setParameter('isDeleted', false)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
             ->leftJoin('s.participations', 'int')
@@ -67,7 +69,9 @@ class StudentRepository extends EntityRepository
         $qb = $this->createQueryBuilder('s')
             ->where('s.name LIKE :input')
             ->orWhere('s.surname LIKE :input')
-            ->setParameter('input', '%' . $input . '%');
+            ->setParameter('input', '%' . $input . '%')
+            ->andWhere('s.isDeleted = :isDeleted')
+            ->setParameter('isDeleted', false);
 
         foreach($inputParts as $part) {
             $qb->orWhere('s.name LIKE :part')

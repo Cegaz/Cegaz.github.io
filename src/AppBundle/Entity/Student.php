@@ -47,6 +47,13 @@ class Student
     private $email;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_deleted", type="boolean")
+     */
+    private $isDeleted = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Classs", inversedBy="students")
      */
     private $class;
@@ -304,7 +311,6 @@ class Student
         return $this->phoneNumber;
     }
 
-
     /**
      * Set email
      *
@@ -327,6 +333,30 @@ class Student
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean isDeleted
+     *
+     * @return Student
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
     }
 
     /**

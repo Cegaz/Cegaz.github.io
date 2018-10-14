@@ -35,7 +35,7 @@ class SanctionType extends AbstractType
                     'maxlength' => 255,
                     'rows' => 5],
                 'label' => ''
-            ]) //TODO CG limite nb char
+            ]) //TODO CG limite nb char affichage js
             ->add('done', ChoiceType::class, [
                 'label' => 'remind me ? ',
                 'choices' => [

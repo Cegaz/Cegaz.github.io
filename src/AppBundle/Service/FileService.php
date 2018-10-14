@@ -48,7 +48,7 @@ class FileService
                 $class = new Classs();
                 $class->setLabel($classLabel);
                 $this->em->persist($class);
-                $this->em->flush(); //TODO CG à tester
+                $this->em->flush();
             }
 
             $student

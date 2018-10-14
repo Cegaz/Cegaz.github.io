@@ -4,9 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Participation;
 use AppBundle\Entity\Sanction;
-use AppBundle\Entity\SanctionReason;
 use AppBundle\Service\ClassService;
 use AppBundle\Service\DateHelperService;
+use AppBundle\Service\SanctionService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -57,7 +57,7 @@ class ParticipationController extends Controller
         usort($sanctionsAlert, function($a, $b) {
             /**@var Sanction $a */
             /**@var Sanction $b */
-           return $a->getStudent()->getName() > $b->getStudent()->getName();
+            return $a->getStudent()->getName() > $b->getStudent()->getName();
         });
 
         $result = $service->getClass($classId, $sorting);
@@ -180,6 +180,5 @@ class ParticipationController extends Controller
 
         return new JsonResponse($data);
     }
-
 
 }

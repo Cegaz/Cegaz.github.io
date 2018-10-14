@@ -41,13 +41,20 @@ $("#more-comments").click(function() {
     }
 });
 
-$('#showStudent').find('#delete-student').click(function() {
-    var params = {
-        idStudent: $(this).data('id')
-    }
-   $.post("/dashboard/delete-student", params);
+$('#showStudent').find('#confirm-delete-student').click(function() {
+    var studentId = $(this).attr('data-id');
+
+    var line = $('#students-list').find('*[data-id="'+studentId+'"]').closest('tr');
+    $.post("/student/delete", {studentId: studentId}, function(result) {
+        $('#confirm-modal').modal('hide');
+        $('.modal-backdrop').remove();
+        $('.modal').remove();
+        line.remove();
+        alert(result.studentName + ' has been deleted.');
+    });
 });
 
+// modify contact
 $("#showStudent").find("#modify-contact").click(function() {
     var elem = $("#student-email, #student-phone");
     elem.addClass('pseudo-input');
@@ -85,6 +92,7 @@ $("#student-phone").keyup(function() {
     }
 })
 
+// modify contact : save
 $("#showStudent").find('#save-contact').click(function() {
     $("#student-phone, #student-email").removeClass('green-border');
     $("#student-phone, #student-email").removeClass('red-border');
@@ -100,7 +108,6 @@ $("#showStudent").find('#save-contact').click(function() {
     }
 
     var errors = 0;
-    // TODO CG trouver plus propre ?
     if(email.length > 0 && !validateEmail(email)) {
         errors++;
     }
@@ -122,13 +129,21 @@ $("#showStudent").find('#save-contact').click(function() {
     }
 });
 
+// modify contact : cancel
 $("#showStudent").find('#cancel-contact').click(function() {
+    $("#student-phone, #student-email").removeClass('green-border');
+    $("#student-phone, #student-email").removeClass('red-border');
     var elem = $("#student-email, #student-phone");
     elem.attr('contenteditable', 'false');
     elem.removeClass('pseudo-input');
-    // $("#send-email").css('display', 'block');
+
     var elems = $("#save-contact, #cancel-contact");
     elems.css('display', 'none');
+
+    var phoneElem = $('#student-phone');
+    phoneElem.text(phoneElem.data('former-value'));
+    var emailElem = $('#student-email');
+    emailElem.text(emailElem.data('former-value'));
 });
 
 $("#search").click(function() {
@@ -175,3 +190,56 @@ $("#save-sanction").click(function() {
         $("#add-sanction").removeClass('hidden');
     });
 });
+
+// modify student name
+$("#showStudent").find("#modify-student-name").click(function() {
+    var elem = $('#showStudent').find('#student-last-name, #student-surname');
+    elem.addClass('pseudo-input');
+    elem.attr('contenteditable', 'true');
+    var elems = $('#cancel-name, #save-name');
+    elems.css('display', 'inline');
+});
+
+// modify student name : save
+$("#showStudent").find('#save-name').click(function() {
+    var lastName = $('#student-last-name').text();
+    var surname = $('#student-surname').text();
+
+    if(lastName !== '' && surname !== '') {
+        var params = {
+            idStudent: $(this).data('id'),
+            lastName: lastName,
+            surname: surname
+        }
+        $.post("/dashboard/modify-student", params, function (res) {
+            if (res) {
+                var elem = $("#student-last-name, #student-surname");
+                elem.attr('contenteditable', 'false');
+                elem.removeClass('pseudo-input');
+                var elems = $("#save-name, #cancel-name");
+                elems.css('display', 'none');
+                alert("La modification du nom de l'élève a bien été enregistrée.");
+            } else {
+                alert("Une erreur est survenue lors de la modification de l'élève.");
+            }
+        });
+    } else {
+        alert('Le nom et le prénom ne peuvent pas être vides.');
+    }
+});
+
+// modify student name : cancel
+$("#showStudent").find('#cancel-name').click(function() {
+    var elem = $("#student-last-name, #student-surname");
+    elem.attr('contenteditable', 'false');
+    elem.removeClass('pseudo-input');
+
+    var elems = $("#save-name, #cancel-name");
+    elems.css('display', 'none');
+
+    var lastNameElem = $('#student-last-name');
+    lastNameElem.text(lastNameElem.data('former-value'));
+    var surnameElem = $('#student-last-name');
+    surnameElem.text(lastNameElem.data('former-value'));
+});
+

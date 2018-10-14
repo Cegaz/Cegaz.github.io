@@ -77,7 +77,7 @@ $('.sanctionModalButton').on('click', function () {
     $('#sanctionModal').find('#appbundle_sanction_student').val(studentId);
 });
 
-$('#show-sanctions-modal').find('#save-sanction-done').on('click', function() {
+$('#save-sanction-done').on('click', function() { //TODO CG pb ne marche que la 1è fois...
    var checkedInput = $('#show-sanctions-modal').find('input[name="sanction-done"]:checked');
 
    var sanctionsId = [];
@@ -85,7 +85,14 @@ $('#show-sanctions-modal').find('#save-sanction-done').on('click', function() {
        sanctionsId.push($(checkedInput[i]).data('id'));
    }
 
-    $.post("/sanction/update", {sanctionsId: sanctionsId}, function(result) {
-        $('#show-sanctions-modal').modal('hide');
-    });
+    $('#show-sanctions-modal').modal('hide');
+    // $('.modal-backdrop').remove();
+    // $('.modal').remove();
+
+    if (sanctionsId.length > 0) {
+       $.post("/sanction/update", {sanctionsId: sanctionsId}, function (result) {
+           $('#above-show-sanctions-modal').html(result.html);
+           $('#sanctions-alert').find('.badge').text(result.nbSanctions);
+       });
+   }
 });
