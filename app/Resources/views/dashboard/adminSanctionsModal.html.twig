@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="admin-sanctions">SANCTION REASONS</h5>
             </div>
             <div class="modal-body container" id="sanctions-list">
-                {% for sanction in sanctions %}
+                {% for sanction in sanctionReasons %}
                     <div class="btn">
                         {{ sanction.name | capitalize }}
                     </div>

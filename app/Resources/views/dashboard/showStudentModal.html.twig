@@ -54,6 +54,27 @@
 
             <hr>
 
+            <div class="row">
+                <div class="col-12 mb-4">
+                    SANCTIONS
+                </div>
+
+                {% for sanction in student.sanctions %}
+                <div class="col-2">
+                    {{ sanction.date|date('d/m') }}
+                </div>
+                <div class="col-10">
+                    <strong class="bold">{{ sanction.reason | capitalize }}</strong>
+                </div>
+                <div class="col-10 offset-2">
+                    <span>{{ sanction.details }}</span>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <hr>
+
             <div class="row" id="comments">
                 <div class="col">
                     <div id="comments-list">

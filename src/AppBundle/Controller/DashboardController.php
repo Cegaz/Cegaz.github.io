@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $class = $result['class'];
 
         $skills = $em->getRepository('AppBundle:Skill')->findAll();
-        $sanctions = $em->getRepository('AppBundle:SanctionReason')->findAll();
+        $sanctionReasons = $em->getRepository('AppBundle:SanctionReason')->findAll();
 
         $student = new Student();
         $form = $this->createForm('AppBundle\Form\StudentType', $student, ['class' => $class]);
@@ -58,7 +58,7 @@ class DashboardController extends Controller
                 'classes' => $classes,
                 'students' => $students,
                 'skills' => $skills,
-                'sanctions' => $sanctions,
+                'sanctionReasons' => $sanctionReasons,
                 'form' => $form->createView(),
             ]);
     }
