@@ -38,13 +38,16 @@ class StudentType extends AbstractType
                         ->where('i.class=:class')
                         ->setParameter('class', $options['class']->getId());
                 },
+                'required' => false,
                 'attr' => ['class' => 'form-control']
             ])
             ->add('phoneNumber', TextType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ])
             ->add('email', EmailType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'required' => false
             ]);
     }
 

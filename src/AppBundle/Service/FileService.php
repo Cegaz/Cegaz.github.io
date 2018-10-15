@@ -28,7 +28,7 @@ class FileService
             return 'too heavy'; //TODO CG gérer erreurs
         }
         $tmpFile = $file['tmp_name'];
-        $fileUrl = 'assets/doc/students-list' . date('Y-m-d h:i:s');
+        $fileUrl = 'assets/tmp/students-list' . date('Y-m-d h:i:s');
         if (!move_uploaded_file($tmpFile, $fileUrl)) {
             return 'transfer failed'; //TODO CG gérer erreurs
         }
@@ -65,7 +65,7 @@ class FileService
         }
 
         $this->em->flush();
-
+        unlink($fileUrl);
         //TODO CG prévoir retour success/errors
     }
 }
