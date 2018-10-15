@@ -54,10 +54,13 @@ class FileService
             $student
                 ->setName($data[$i][$titles['NOM']])
                 ->setSurname($data[$i][$titles['PRENOM']])
-                ->setPhoneNumber($data[$i][$titles['TEL']])
-                ->setEmail($data[$i][$titles['MAIL']])
                 ->setClass($class);
-
+            if (isset($titles['TEL'])) {
+                $student->setPhoneNumber($data[$i][$titles['TEL']]);
+            }
+            if (isset($titles['MAIL'])) {
+                $student->setEmail($data[$i][$titles['MAIL']]);
+            }
             $this->em->persist($student);
         }
 

@@ -50,7 +50,7 @@ class DashboardController extends Controller
             $em->persist($student);
             $em->flush();
 
-            return $this->redirect('/dashboard/class/'.$classId);
+            return $this->redirect('/dashboard');
         }
 
         return $this->render('/dashboard/class.html.twig', [
