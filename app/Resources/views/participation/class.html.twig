@@ -25,7 +25,7 @@
             {% endif %}
 
             {% if displayAbsences %} {% set hidden = '' %} {% else %} {% set hidden = 'hidden' %} {% endif %}
-            <div id="absence-alert" class="alert pointer col-6 offset-2">
+            <div id="absence-alert" class="alert pointer col-6 offset-2 {{ hidden }}">
                 Please register the absent students
             </div>
 

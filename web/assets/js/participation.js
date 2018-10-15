@@ -38,6 +38,7 @@ $('.confirm-modal-button').on('click', function () {
     var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
     $('#confirm-modal').find('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
     $('.is-absent').attr('data-id', studentId);
+    $('#absence-alert').addClass('hidden');
 });
 
 $('.is-absent').on('click', function() {
@@ -61,7 +62,7 @@ $('#are-absent').on('click', function() {
 
 $('#absence-alert').on('click', function() {
     $('.confirm-modal-button').removeClass('hidden');
-    $('.confirm-modal-button').addClass('blink');
+    $.post('/absence/register-done');
 });
 
 $('#display-sanction').on('click', function () {

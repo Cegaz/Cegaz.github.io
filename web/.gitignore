@@ -22,3 +22,4 @@
 /assets/css/
 /.idea/
 webpack.config.js
+web/build/

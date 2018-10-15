@@ -50,7 +50,7 @@ class ParticipationController extends Controller
 
         // enregistrement des absents
         $absencesByClass = $em->getRepository('AppBundle:Absence')->getAbsentRegisteredTodayByClass($classId);
-        $displayAbsences = empty($absencesByClass);
+        $displayAbsences = empty($absencesByClass) && ($session->get('registerDoneFor' . $classId . 'on' . date('Ymd')) != 1);
 
         // rappels sanctions
         $sanctionsAlert = $em->getRepository('AppBundle:Sanction')->getSanctionsAlertsByClass($classId);

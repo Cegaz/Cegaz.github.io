@@ -146,14 +146,6 @@ a
 .hidden {
   visibility: hidden;
 }
-@keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
-}
-.blink {
-  animation: blink-animation 0.8s steps(5, start) 3;
-}
 .navbar-brand {
   @media (max-width:762px){
     display: none;

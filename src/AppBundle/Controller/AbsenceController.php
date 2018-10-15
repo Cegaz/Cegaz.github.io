@@ -9,11 +9,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Absence;
-use AppBundle\Entity\Student;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/absence")
@@ -50,5 +50,14 @@ class AbsenceController extends Controller
         $em->flush();
 
         return new JsonResponse(['success' => true, 'student' => $studentName, 'date' => $date->format('d/m')]);
+    }
+
+    /**
+     * @Route("/register-done")
+     */
+    public function registerDone(SessionInterface $session)
+    {
+        $classId = $session->get('classId');
+        $session->set('registerDoneFor' . $classId . 'on' . date('Ymd'), 1);
     }
 }
