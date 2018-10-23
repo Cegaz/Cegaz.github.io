@@ -1,8 +1,6 @@
 /.web-server-pid
 /app/config/parameters.yml
 /app/config/services.yml
-/build/
-/web/build
 /phpunit.xml
 /var/*
 !/var/cache
@@ -22,5 +20,3 @@
 /assets/css/
 /.idea/
 webpack.config.js
-web/build/
-/web/build/
