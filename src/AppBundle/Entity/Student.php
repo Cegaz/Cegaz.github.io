@@ -17,16 +17,16 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=25, nullable=true)
+     * @ORM\Column(name="last_name", type="string", length=25, nullable=true)
      */
-    private $name;
+    private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="surname", type="string", length=25, nullable=true)
+     * @ORM\Column(name="first_name", type="string", length=25, nullable=true)
      */
-    private $surname;
+    private $firstName;
 
     /**
      * @var string
@@ -105,51 +105,51 @@ class Student
 
 
     /**
-     * Set name
+     * Set lastName
      *
-     * @param string $name
+     * @param string $lastName
      *
      * @return Student
      */
-    public function setName($name)
+    public function setLastName($lastName)
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get lastName
      *
      * @return string
      */
-    public function getName()
+    public function getLastName()
     {
-        return $this->name;
+        return $this->lastName;
     }
 
     /**
-     * Set surname
+     * Set firstName
      *
-     * @param string $surname
+     * @param string $firstName
      *
      * @return Student
      */
-    public function setSurname($surname)
+    public function setFirstName($firstName)
     {
-        $this->surname = $surname;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     /**
-     * Get surname
+     * Get firstName
      *
      * @return string
      */
-    public function getSurname()
+    public function getFirstName()
     {
-        return $this->surname;
+        return $this->firstName;
     }
 
     /**
@@ -498,6 +498,6 @@ class Student
 
     public function __toString()
     {
-        return $this->getName() . ' ' . $this->getSurname();
+        return $this->getLastName() . ' ' . $this->getFirstName();
     }
 }

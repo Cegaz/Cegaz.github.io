@@ -13,7 +13,7 @@ class StudentRepository extends EntityRepository
      * @param string $sorting
      * @return array
      */
-    public function getStudentsByClassSorted($class, $sorting='name')
+    public function getStudentsByClassSorted($class, $sorting='last-name')
     {
         $qb = $this->createQueryBuilder('s')
             ->select('s', 'i', 'c', 'int', 'com', 'g', 'sa')
@@ -29,15 +29,17 @@ class StudentRepository extends EntityRepository
             ->leftJoin('s.grades', 'g');
 
         switch ($sorting) {
-            case 'name':
-            case 'surname':
+            case 'last-name':
+            case 'first-name':
             case 'island':
                 $qb->orderBy('s.' . $sorting, 'ASC');
                 break;
             default:
-                $qb->orderBy('s.name', 'ASC');
+                $qb->orderBy('s.lastName', 'ASC');
                 break;
         }
+
+        $qb->addOrderBy('sa.date', 'DESC');
 
         return $qb->getQuery()->getArrayResult();
     }
@@ -48,14 +50,16 @@ class StudentRepository extends EntityRepository
     public function getCompleteStudent($student)
     {
         $qb = $this->createQueryBuilder('s')
-            ->select('s', 'i', 'c', 'int', 'com', 'sk')
+            ->select('s', 'i', 'c', 'int', 'com', 'sk', 'sa')
             ->where('s.id = :id')
             ->setParameter('id', $student)
             ->leftJoin('s.island', 'i')
             ->leftJoin('s.class', 'c')
             ->leftJoin('s.participations', 'int')
             ->leftJoin('s.comments', 'com')
-            ->leftJoin('s.skills', 'sk');
+            ->leftJoin('s.skills', 'sk')
+            ->leftJoin('s.sanctions', 'sa')
+            ->orderBy('sa.date', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
@@ -68,15 +72,15 @@ class StudentRepository extends EntityRepository
         $inputParts = explode(' ', $input);
 
         $qb = $this->createQueryBuilder('s')
-            ->where('s.name LIKE :input')
-            ->orWhere('s.surname LIKE :input')
+            ->where('s.lastName LIKE :input')
+            ->orWhere('s.firstName LIKE :input')
             ->setParameter('input', '%' . $input . '%')
             ->andWhere('s.isDeleted = :isDeleted')
             ->setParameter('isDeleted', false);
 
         foreach($inputParts as $part) {
-            $qb->orWhere('s.name LIKE :part')
-               ->orWhere('s.surname LIKE :part')
+            $qb->orWhere('s.lastName LIKE :part')
+               ->orWhere('s.firstName LIKE :part')
                ->setParameter('part', '%' . $part . '%');
         }
 

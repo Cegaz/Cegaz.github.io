@@ -34,9 +34,9 @@ $("#cancel").click(function () {
 $('.confirm-modal-button').on('click', function () {
     var td = $(this).closest('td');
     var studentId = td.attr('data-id');
-    var name = td.data('name').toUpperCase();
-    var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
-    $('#confirm-modal').find('.modal-body').html('<p>Are you sure <span class="bold">' + surname + ' ' + name + '</span> is absent ?</p>');
+    var lastName = td.data('last-name').toUpperCase();
+    var firstName = td.data('first-name').replace(/\b\w/g, l => l.toUpperCase());
+    $('#confirm-modal').find('.modal-body').html('<p>Are you sure <span class="bold">' + firstName + ' ' + lastName + '</span> is absent ?</p>');
     $('.is-absent').attr('data-id', studentId);
     $('#absence-alert').addClass('hidden');
 });
@@ -72,9 +72,9 @@ $('#display-sanction').on('click', function () {
 $('.sanctionModalButton').on('click', function () {
     var td = $(this).closest('td');
     var studentId = td.attr('data-id');
-    var name = td.data('name').toUpperCase();
-    var surname = td.data('surname').replace(/\b\w/g, l => l.toUpperCase());
-    $('#sanctionModal').find('.modal-header').html('<p>Add a sanction for <span class="bold">' + surname + ' ' + name + '</span> :</p>');
+    var lastName = td.data('last-name').toUpperCase();
+    var firstName = td.data('first-name').replace(/\b\w/g, l => l.toUpperCase());
+    $('#sanctionModal').find('.modal-header').html('<p>Add a sanction for <span class="bold">' + firstName + ' ' + lastName + '</span> :</p>');
     $('#sanctionModal').find('#appbundle_sanction_student').val(studentId);
 });
 

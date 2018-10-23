@@ -60,7 +60,7 @@ class DefaultController extends Controller
 
         $list = [];
         foreach($students as $student) {
-            $list[] = strtoupper($student->getName()) . ' ' . ucfirst($student->getSurname());
+            $list[] = strtoupper($student->getLastName()) . ' ' . ucfirst($student->getFirstName());
         }
 
         return new JsonResponse($list);

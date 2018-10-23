@@ -52,8 +52,8 @@ class FileService
             }
 
             $student
-                ->setName($data[$i][$titles['NOM']])
-                ->setSurname($data[$i][$titles['PRENOM']])
+                ->setLastName($data[$i][$titles['NOM']])
+                ->setFirstName($data[$i][$titles['PRENOM']])
                 ->setClass($class);
             if (isset($titles['TEL'])) {
                 $student->setPhoneNumber($data[$i][$titles['TEL']]);

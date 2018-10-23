@@ -9,7 +9,7 @@
                 <table class="table table-striped">
                     {% for sanction in sanctions %}
                         <tr>
-                            <td>{{ sanction.student.name|upper }} {{ sanction.student.surname|capitalize }}</td>
+                            <td>{{ sanction.student.lastName|upper }} {{ sanction.student.firstName|capitalize }}</td>
                             <td><span class="bold">{{ sanction.reason | capitalize }}</span><br>{{ sanction.details }}</td>
                             <td>{{ sanction.date|date('d/m') }}</td>
                             <td>

@@ -18,8 +18,8 @@
         {% for student in students %}
         <tr>
             <td class="island">{{ student.0.island }}</td>
-            <td class="name">{{ student.0.name | upper }}</td>
-            <td class="surname">{{ student.0.surname | capitalize }}</td>
+            <td class="last-name">{{ student.0.lastName | upper }}</td>
+            <td class="first-name">{{ student.0.firstName | capitalize }}</td>
             <td class="lastParticipation">{{ student.lastParticipation|date('d/m')}}</td>
             <td class="contributions">{{ student.participationNb}}</td>
             <td class="hand-up right_columns" data-id="{{ student.0.id }}">

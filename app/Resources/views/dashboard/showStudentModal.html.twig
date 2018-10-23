@@ -2,9 +2,9 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><span id="student-surname" data-former-value="{{ student.surname }}">{{ student.surname|capitalize }}</span> <span id="student-last-name" data-former-value="{{ student.name }}">{{ student.name|upper }}</span></h5>
+            <h5 class="modal-title"><span id="student-first-name" data-former-value="{{ student.firstName }}">{{ student.firstName|capitalize }}</span> <span id="student-last-name" data-former-value="{{ student.lastName }}">{{ student.lastName|upper }}</span></h5>
             <div>
-                <img src="{{ asset('assets/images/pencil.png') }}" id="modify-student-name" alt="modify" class="pointer small-icon">
+                <img src="{{ asset('assets/images/pencil.png') }}" id="modify-student-name" alt="modify" class="pointer small-icon grey-icon">
             </div>
             <div>
                 <button class="btn btn-secondary display-none" id="cancel-name">cancel</button>
@@ -36,94 +36,120 @@
                 </div>
             </div>
 
+            {#<hr>#}
+
+            {#<div class="row" id="skill-row">#}
+                {#<div class="col-12">#}
+                    {#SKILLS#}
+                {#</div>#}
+                {#<div class="col-12">#}
+                    {#{% for skill in student.skills %}#}
+                        {#<button class="btn">#}
+                            {#{{ skill.skill.label|capitalize}}#}
+                            {#<strong class="bold">{{ skill.grade }}</strong>#}
+                        {#</button>#}
+                    {#{% endfor %}#}
+                {#</div>#}
+            {#</div>#}
+
             <hr>
 
-            <div class="row" id="skill-row">
-                <div class="col-12">
-                    SKILLS
-                </div>
-                <div class="col-12">
-                    {% for skill in student.skills %}
-                        <button class="btn">
-                            {{ skill.skill.label|capitalize}}
-                            <strong class="bold">{{ skill.grade }}</strong>
-                        </button>
+            <div id="sanctions">
+                {% if student.sanctions|length > 1 %} {% set s = 'S' %} {% else %} {% set s = '' %} {% endif %}
+                <p>{{ student.sanctions|length }} SANCTION{{ s }}
+                {% if student.sanctions|length > 2 %}
+                    <img src="{{ asset('assets/images/arrow-down.png') }}" alt="more sanctions" id="more-sanctions" class="pointer">
+                {% endif %}
+                </p>
+
+                <div id="sanctions-list" class="row">
+                    {% for sanction in student.sanctions|slice(0,2) %}
+                        <div class="sanction col-12 row mb-2">
+                            <div class="col-2">
+                                {{ sanction.date|date('d/m') }}
+                            </div>
+                            <div class="col-9 pl-0 pr-0">
+                                <strong class="bold">{{ sanction.reason | capitalize }}</strong>
+                            </div>
+                            <div class="col-1">
+                                <img src="{{ asset('assets/images/pencil.png') }}" alt="modify" class="pointer small-icon grey-icon modify-sanction">
+                            </div>
+                            <div class="col-10 offset-2 details pl-0 pr-0">
+                                <span>{{ sanction.details }}</span>
+                            </div>
+                            <div class="sanction-buttons col-10 offset-2 mt-1"></div>
+                        </div>
+                    {% endfor %}
+
+                    {% for sanction in student.sanctions|slice(2, student.sanctions|length - 2) %}
+                        <div class="col-2 hidden-sanction display-none">
+                            {{ sanction.date|date('d/m') }}
+                        </div>
+                        <div class="col-9 pl-0 pr-0 hidden-sanction display-none">
+                            <strong class="bold">{{ sanction.reason | capitalize }}</strong>
+                        </div>
+                        <div class="col-1 hidden-sanction display-none">
+                            <img src="{{ asset('assets/images/pencil.png') }}" alt="modify" class="pointer small-icon grey-icon modify-sanction">
+                        </div>
+                        <div class="col-10 pl-0 pr-0 offset-2 hidden-sanction display-none">
+                            <span>{{ sanction.details }}</span>
+                        </div>
+                        <div class="sanction-buttons col-10 offset-2 mt-1"></div>
                     {% endfor %}
                 </div>
             </div>
 
-            <hr>
+            {#<hr>#}
 
-            <div class="row">
-                <div class="col-12 mb-4">
-                    SANCTIONS
-                </div>
+            {#<div class="row" id="comments">#}
+                {#<div class="col">#}
+                    {#<div id="comments-list">#}
+                        {#<div id="comments-title">#}
+                            {#<p>COMMENTS</p>#}
+                            {#{% if student.comments|length > 3 %}#}
+                                {#<div id="more-comments" class="pointer">#}
+                                    {#<img src="{{ asset('assets/images/arrow-down.png') }}" alt="+ de commentaires">#}
+                                {#</div>#}
+                            {#{% endif %}#}
+                        {#</div>#}
 
-                {% for sanction in student.sanctions %}
-                <div class="col-2">
-                    {{ sanction.date|date('d/m') }}
-                </div>
-                <div class="col-10">
-                    <strong class="bold">{{ sanction.reason | capitalize }}</strong>
-                </div>
-                <div class="col-10 offset-2">
-                    <span>{{ sanction.details }}</span>
-                </div>
-                {% endfor %}
+                        {#{% for comment in student.comments|slice(0,3) %}#}
+                            {#<p>#}
+                                {#{{ comment.text }}<br>#}
+                                {#<span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>#}
+                            {#</p>#}
+                        {#{% endfor %}#}
 
-            </div>
+                        {#{% for comment in student.comments|slice(3, student.comments|length - 3) %}#}
+                            {#<p class="hidden-comment display-none">#}
+                                {#{{ comment.text }}<br>#}
+                                {#<span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>#}
+                            {#</p>#}
+                        {#{% endfor %}#}
 
-            <hr>
+                    {#</div>#}
 
-            <div class="row" id="comments">
-                <div class="col">
-                    <div id="comments-list">
-                        <div id="comments-title">
-                            <p>COMMENTS</p>
-                            {% if student.comments|length > 3 %}
-                                <div id="more-comments" class="pointer">
-                                    <img src="{{ asset('assets/images/arrow-down.png') }}" alt="+ de commentaires">
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        {% for comment in student.comments|slice(0,3) %}
-                            <p>
-                                {{ comment.text }}<br>
-                                <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
-                            </p>
-                        {% endfor %}
-
-                        {% for comment in student.comments|slice(3, student.comments|length - 3) %}
-                            <p class="hidden-comment display-none">
-                                {{ comment.text }}<br>
-                                <span class="font-italic">{{ comment.creationDate|date('d/m/Y') }}</span>
-                            </p>
-                        {% endfor %}
-
-                    </div>
-
-                    <div id="comment-form">
-                        <input type="text" name="text" id="input-text" placeholder="enter comment here">
-                        <input type="hidden" id="input-id" value="{{ student.id }}">
-                        <button class="btn btn-success" id="save-comment">save</button>
-                        <button class="btn btn-danger" id="cancel-comment">cancel</button>
-                    </div>
-                    <img src="{{ asset('assets/images/plus.png') }}" id="add-comment" class="pointer">
-                </div>
-            </div>
+                    {#<div id="comment-form">#}
+                        {#<input type="text" name="text" id="input-text" placeholder="enter comment here">#}
+                        {#<input type="hidden" id="input-id" value="{{ student.id }}">#}
+                        {#<button class="btn btn-success" id="save-comment">save</button>#}
+                        {#<button class="btn btn-danger" id="cancel-comment">cancel</button>#}
+                    {#</div>#}
+                    {#<img src="{{ asset('assets/images/plus.png') }}" id="add-comment" class="pointer">#}
+                {#</div>#}
+            {#</div>#}
         </div>
 
         <div class="modal-footer modal-footer-student">
-            <p>CONTACT<img src="{{ asset('assets/images/pencil.png') }}" id="modify-contact" class="pointer small-icon"></p>
+            <p>CONTACT<img src="{{ asset('assets/images/pencil.png') }}" id="modify-contact" class="pointer small-icon grey-icon"></p>
             <div id="block-email" class="container-fluid">
                 <div class="col-1">
                     <a href="mailto:{{ student.email }}"><img id="send-email" src="{{ asset('assets/images/envelope.png') }}" alt="send-email"/></a>
                 </div>
             {% if student.email is not null %}
-                <em id="student-email" class="col-11" data-former-value="{{ student.email }}">{{ student.email }}</em>
+                <div id="student-email" class="col-11" data-former-value="{{ student.email }}">{{ student.email }}</div>
             {% else %}
-                <span id="student-email" class="col-11" data-former-value="{{ student.email }}">pas d'email enregistré</span>
+                <div id="student-email" class="col-11" data-former-value="{{ student.email }}">pas d'email enregistré</div>
             {% endif %}
             </div>
 

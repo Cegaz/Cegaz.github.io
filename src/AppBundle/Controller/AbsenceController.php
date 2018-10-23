@@ -29,7 +29,7 @@ class AbsenceController extends Controller
 
         $studentId = $request->request->get('student_id');
         $student = $em->getRepository('AppBundle:Student')->find($studentId);
-        $studentName = ucfirst($student->getSurname()) . ' ' . strtoupper($student->getName());
+        $studentName = ucfirst($student->getFirstName()) . ' ' . strtoupper($student->getLastName());
 
         $date = ($date == '') ? new \DateTime() : new \DateTime($date);
         $date = $date->setTime(0,0,0);

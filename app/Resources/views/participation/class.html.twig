@@ -41,14 +41,14 @@
                 <table id="students-list" class="table table-striped">
                     <tr>
                         <th>
-                            NAME
-                            <a href="/participation/sort-by-name">
+                            LAST NAME
+                            <a href="/participation/sort-by-last-name">
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
                         <th>
-                            SURNAME
-                            <a href="/participation/sort-by-surname">
+                            FIRST NAME
+                            <a href="/participation/sort-by-first-name">
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
@@ -70,7 +70,7 @@
                                 <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
                             </a>
                         </th>
-                        <th>
+                        <th class="column-icons">
                             <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hidden">
                             <img src="{{ asset('assets/images/remove-sign.png') }}" alt="cancel" class="icon" id="are-absent">
                             <img src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon" id="display-sanction">
@@ -79,13 +79,13 @@
 
                     {% for student in students %}
                         <tr {% if student.isAbsent %}class="display-none"{% endif %}>
-                            <td class="name">{{ student.name | upper }}</td>
-                            <td class="surname">{{ student.surname | capitalize }}</td>
+                            <td class="last-name">{{ student.lastName | upper }}</td>
+                            <td class="first-name">{{ student.firstName | capitalize }}</td>
                             <td class="lastParticipation">{{ student.lastParticipation }}</td>
                             <td class="participations">{{ student.participations|length }}</td>
                             <td class="participationsToday">{{ student.nbParticipationsToday }}</td>
                             {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                            <td class="right-columns" data-id="{{ student.id }}" data-name="{{ student.name }}" data-surname="{{ student.surname }}">
+                            <td class="right-columns" data-id="{{ student.id }}" data-last-name="{{ student.lastName }}" data-first-name="{{ student.firstName }}">
                                 <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hand-up">
                                 <img type="button" data-toggle="modal" data-target="#confirm-modal" src="{{ asset('assets/images/remove-sign.png') }}" alt="absent" class="icon confirm-modal-button hidden">
                                 <img type="button" data-toggle="modal" data-target="#sanctionModal" src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon sanctionModalButton hidden">

@@ -36,8 +36,8 @@ class StudentController extends Controller
         $idStudent = $request->request->get('idStudent');
         $email = $request->request->get('email', 'none');
         $phone = $request->request->get('phone', 'none');
-        $name = $request->request->get('lastName', 'none');
-        $surname = $request->request->get('surname', 'none');
+        $lastName = $request->request->get('lastName', 'none');
+        $firstName = $request->request->get('firstName', 'none');
 
         $em = $this->getDoctrine()->getManager();
         $student = $em->getRepository('AppBundle:Student')->find($idStudent);
@@ -52,11 +52,11 @@ class StudentController extends Controller
                 preg_match('/^0[1-79][\s\.-]?([0-9][\s\.-]?){8}$/', $phone)) {
                 $student->setPhoneNumber($phone);
             }
-            if($name !== 'none' && $name !== '') {
-                $student->setName($name);
+            if($lastName !== 'none' && $lastName !== '') {
+                $student->setLastName($lastName);
             }
-            if($surname !== 'none' && $surname !== '') {
-                $student->setSurname($surname);
+            if($firstName !== 'none' && $firstName !== '') {
+                $student->setFirstName($firstName);
             }
             $em->flush();
             $success = true;
@@ -80,7 +80,7 @@ class StudentController extends Controller
         $student->setIsDeleted(true);
         $em->flush();
 
-        $data['studentName'] = ucfirst(strtolower($student->getSurname())) . ' ' . strtoupper($student->getName());
+        $data['studentName'] = ucfirst(strtolower($student->getFirstName())) . ' ' . strtoupper($student->getLastName());
 
         return new JsonResponse($data);
     }

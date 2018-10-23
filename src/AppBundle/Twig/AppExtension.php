@@ -18,7 +18,4 @@ class AppExtension extends \Twig_Extension
         return Slug::slugify($text);
     }
 
-    public function dateFilter() {
-
-    }
 }

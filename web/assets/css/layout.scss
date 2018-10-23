@@ -129,7 +129,6 @@ a
 }
 .small-icon {
   width: 17px;
-  margin: auto 10px;
 }
 .pointer {
   cursor: pointer;
@@ -167,4 +166,7 @@ a
   &.active {
     background-color: $green-strong !important;
   }
+}
+.grey-icon {
+  filter: opacity(0.4);
 }

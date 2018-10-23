@@ -30,16 +30,16 @@
             <table id="students-list" class="table table-striped">
                 <tr>
                     <th>
-                        NAME
+                        LAST NAME
                     </th>
                     <th>
-                        SURNAME
+                        FIRST NAME
                     </th>
                 </tr>
                 {% for student in students %}
                     <tr class="student-row" data-id="{{ student.id }}" data-toggle="modal" data-target="#showStudent">
-                        <td class="name">{{ student.name | upper }}</a></td>
-                        <td class="surname">{{ student.surname | capitalize }}</td>
+                        <td class="last-name">{{ student.lastName | upper }}</a></td>
+                        <td class="first-name">{{ student.firstName | capitalize }}</td>
                     </tr>
                 {% endfor %}
             </table>

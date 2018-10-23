@@ -42,7 +42,7 @@ class SanctionController extends Controller
             usort($sanctionsAlert, function($a, $b) {
                 /**@var Sanction $a */
                 /**@var Sanction $b */
-                return $a->getStudent()->getName() > $b->getStudent()->getName();
+                return $a->getStudent()->getLastName() > $b->getStudent()->getLastName();
             });
         } else {
             $sanctionsAlert = [];

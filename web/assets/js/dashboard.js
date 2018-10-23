@@ -6,6 +6,11 @@ $(".dashboard").find(".student-row").click(function() {
     });
 });
 
+// pour régler le pb du 2è clic sur modale
+$('#showStudent').on('hide.bs.modal', function () {
+    $(this).off('hide.bs.modal');
+}); //TODO CG bofbof
+
 $("#comments").find("#add-comment").click(function() {
     $("#comment-form").css('display','block');
     $("#add-comment").css('display','none');
@@ -31,14 +36,56 @@ $("#save-comment").click(function() {
     });
 });
 
-$("#more-comments").click(function() {
-    $(".hidden-comment").toggleClass('display-none');
+// $("#more-comments").click(function() {
+//     $(".hidden-comment").toggleClass('display-none');
+//
+//     if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
+//         $(this).find('img').attr("src", "/assets/images/arrow-down.png");
+//     } else {
+//         $(this).find('img').attr("src", "/assets/images/arrow-top.png");
+//     }
+// });
+
+// sanctions on student modale : display more
+$("#more-sanctions").click(function() {
+    $(".hidden-sanction").toggleClass('display-none');
 
     if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
         $(this).find('img').attr("src", "/assets/images/arrow-down.png");
     } else {
         $(this).find('img').attr("src", "/assets/images/arrow-top.png");
     }
+});
+
+// modify sanction
+$('#sanctions-list').find('.modify-sanction').click(function() {
+    disableAllSanctionButtons();
+    var sanction = $(this).closest('.sanction');
+    var input = sanction.find('.details');
+    input.addClass('pseudo-input');
+    input.attr('contenteditable', 'true');
+    var buttons = sanction.find('.sanction-buttons');
+    buttons.html('<button class="btn btn-secondary" id="cancel-sanction">cancel</button>\n' +
+        '<button class="btn btn-success" id="save-sanction">save</button>');
+});
+
+function disableAllSanctionButtons()
+{
+    $('#sanctions-list').find('.sanction-buttons').html('');
+    var input = $('.details');
+    input.removeClass('pseudo-input');
+    input.attr('contenteditable', 'false');
+}
+
+// modify sanction : cancel
+$("#sanctions-list").find('#cancel-sanction').click(function() {
+    disableAllSanctionButtons();
+    //TODO CG debug
+});
+
+// modify sanction : save
+$("#sanctions-list").find('#save-sanction').click(function() {
+//TODO CG
 });
 
 $('#showStudent').find('#confirm-delete-student').click(function() {
@@ -175,16 +222,16 @@ $("#add-sanction").click(function() {
     $("#sanctions-form").removeClass('hidden');
     $(this).addClass('hidden');
 });
-$("#cancel-sanction").click(function() {
+$("#cancel-sanction-reason").click(function() {
     $("#sanctions-form").addClass('hidden');
     $("#add-sanction").removeClass('hidden');
 });
-$("#save-sanction").click(function() {
+$("#save-sanction-reason").click(function() {
     var params = {
         name: $("#sanctions-form").find("input").val(),
     };
     $.post("/sanction-reason/add", params, function(data) {
-        $("#sanctions-list").append(
+        $("#sanctions-reasons-list").append(
             "<button class='btn class-btn' data-sanctionid=" + data.sanctionReasonId + ">" + data.name + "</button>");
         $("#sanction-form").addClass('hidden');
         $("#add-sanction").removeClass('hidden');
@@ -193,7 +240,7 @@ $("#save-sanction").click(function() {
 
 // modify student name
 $("#showStudent").find("#modify-student-name").click(function() {
-    var elem = $('#showStudent').find('#student-last-name, #student-surname');
+    var elem = $('#showStudent').find('#student-last-name, #student-first-name');
     elem.addClass('pseudo-input');
     elem.attr('contenteditable', 'true');
     var elems = $('#cancel-name, #save-name');
@@ -203,18 +250,18 @@ $("#showStudent").find("#modify-student-name").click(function() {
 // modify student name : save
 $("#showStudent").find('#save-name').click(function() {
     var lastName = $('#student-last-name').text();
-    var surname = $('#student-surname').text();
+    var firstName = $('#student-first-name').text();
 
-    if(lastName !== '' && surname !== '') {
+    if(lastName !== '' && firstName !== '') {
         var params = {
             idStudent: $(this).data('id'),
             lastName: lastName,
-            surname: surname
+            firstName: firstName
         }
 
         $.post("/student/modify", params, function (res) {
             if (res) {
-                var elem = $("#student-last-name, #student-surname");
+                var elem = $("#student-last-name, #student-first-name");
                 elem.attr('contenteditable', 'false');
                 elem.removeClass('pseudo-input');
                 var elems = $("#save-name, #cancel-name");
@@ -231,7 +278,7 @@ $("#showStudent").find('#save-name').click(function() {
 
 // modify student name : cancel
 $("#showStudent").find('#cancel-name').click(function() {
-    var elem = $("#student-last-name, #student-surname");
+    var elem = $("#student-last-name, #student-first-name");
     elem.attr('contenteditable', 'false');
     elem.removeClass('pseudo-input');
 
@@ -239,8 +286,8 @@ $("#showStudent").find('#cancel-name').click(function() {
     elems.css('display', 'none');
 
     var lastNameElem = $('#student-last-name');
-    lastNameElem.text(lastNameElem.data('former-value'));
-    var surnameElem = $('#student-last-name');
-    surnameElem.text(lastNameElem.data('former-value'));
+    lastNameElem.text(lastNameElem.data('former-value')); //TODO CG passer en upper
+    var firstNameElem = $('#student-first-name');
+    firstNameElem.text(firstNameElem.data('former-value')); //TODO GC passer en lower+ucfirst
 });
 

@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="admin-sanctions">SANCTION REASONS</h5>
             </div>
-            <div class="modal-body container" id="sanctions-list">
+            <div class="modal-body container" id="sanctions-reasons-list">
                 {% for sanction in sanctionReasons %}
                     <div class="btn">
                         {{ sanction.name | capitalize }}
@@ -16,8 +16,8 @@
             <div class="modal-footer">
                 <div id="sanctions-form" class="hidden">
                     <input type="text" name="sanction" placeholder="enter sanction reason">
-                    <button class="btn btn-success" id="save-sanction">save</button>
-                    <button class="btn btn-danger" id="cancel-sanction">cancel</button>
+                    <button class="btn btn-success" id="save-sanction-reason">save</button>
+                    <button class="btn btn-danger" id="cancel-sanction-reason">cancel</button>
                 </div>
                 <img class="icon" src="{{ asset('assets/images/plus.png') }}" alt="add sanction" id="add-sanction">
             </div>
