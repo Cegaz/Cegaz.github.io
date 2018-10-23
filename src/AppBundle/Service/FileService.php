@@ -51,6 +51,20 @@ class FileService
                 $this->em->flush();
             }
 
+            if (isset($titles['ILOT'])) {
+                $islandLabel = $data[$i][$titles['ILOT']];
+                $islandRepository = $this->em->getRepository('AppBundle:Island');
+                $island = $islandRepository->findOneByLabel($islandLabel);
+                if (empty($island)) {
+                    $island = new Island();
+                    $island->setLabel($islandLabel)
+                        ->setClass($class);
+                    $this->em->persist($island);
+                    $this->em->flush();
+                }
+                $student->setIsland($island);
+            }
+
             $student
                 ->setLastName($data[$i][$titles['NOM']])
                 ->setFirstName($data[$i][$titles['PRENOM']])

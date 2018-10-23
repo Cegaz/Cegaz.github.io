@@ -40,6 +40,12 @@
             <div class="table-responsive">
                 <table id="students-list" class="table table-striped">
                     <tr>
+                        <th class="text-center">
+                            ISLAND
+                            <a href="/participation/sort-by-island">
+                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
+                            </a>
+                        </th>
                         <th>
                             LAST NAME
                             <a href="/participation/sort-by-last-name">
@@ -79,11 +85,12 @@
 
                     {% for student in students %}
                         <tr {% if student.isAbsent %}class="display-none"{% endif %}>
+                            <td class="island text-center">{% if student.island is not empty %}{{ student.island.label }}{% endif %}</td>
                             <td class="last-name">{{ student.lastName | upper }}</td>
                             <td class="first-name">{{ student.firstName | capitalize }}</td>
-                            <td class="lastParticipation">{{ student.lastParticipation }}</td>
-                            <td class="participations">{{ student.participations|length }}</td>
-                            <td class="participationsToday">{{ student.nbParticipationsToday }}</td>
+                            <td class="lastParticipation text-center">{{ student.lastParticipation }}</td>
+                            <td class="participations text-center">{{ student.participations|length }}</td>
+                            <td class="participationsToday text-center">{{ student.nbParticipationsToday }}</td>
                             {% if (app.user.classId is not defined or app.user.classId is empty) %}
                             <td class="right-columns" data-id="{{ student.id }}" data-last-name="{{ student.lastName }}" data-first-name="{{ student.firstName }}">
                                 <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hand-up">

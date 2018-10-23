@@ -26,7 +26,7 @@ class ClassService
      * @return mixed
      * @throws \Doctrine\ORM\ORMException
      */
-    public function getClass($classId, $sorting = 'name')
+    public function getClass($classId, $sorting = 'lastName')
     {
         $studentRepo = $this->em->getRepository('AppBundle:Student');
 

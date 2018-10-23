@@ -27,7 +27,7 @@ class ParticipationController extends Controller
      * @param $sorting string
      * @return RedirectResponse|Response
      */
-    public function homeAction($sorting = 'name', SessionInterface $session, Request $request)
+    public function homeAction($sorting = 'island', SessionInterface $session, Request $request)
     {
         $classId = null;
         $em = $this->getDoctrine()->getManager();
@@ -55,8 +55,7 @@ class ParticipationController extends Controller
         // rappels sanctions
         $sanctionsAlert = $em->getRepository('AppBundle:Sanction')->getSanctionsAlertsByClass($classId);
         usort($sanctionsAlert, function($a, $b) {
-            /**@var Sanction $a */
-            /**@var Sanction $b */
+            /**@var Sanction $a */ /**@var Sanction $b */
             return $a->getStudent()->getLastName() > $b->getStudent()->getLastName();
         });
 

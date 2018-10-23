@@ -13,7 +13,7 @@ class StudentRepository extends EntityRepository
      * @param string $sorting
      * @return array
      */
-    public function getStudentsByClassSorted($class, $sorting='last-name')
+    public function getStudentsByClassSorted($class, $sorting='lastName')
     {
         $qb = $this->createQueryBuilder('s')
             ->select('s', 'i', 'c', 'int', 'com', 'g', 'sa')
@@ -29,8 +29,8 @@ class StudentRepository extends EntityRepository
             ->leftJoin('s.grades', 'g');
 
         switch ($sorting) {
-            case 'last-name':
-            case 'first-name':
+            case 'lastName':
+            case 'firstName':
             case 'island':
                 $qb->orderBy('s.' . $sorting, 'ASC');
                 break;
