@@ -32,6 +32,7 @@ class StudentType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('island', EntityType::class, [
+                'required' => false,
                 'class'=>'AppBundle\Entity\Island',
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('i')

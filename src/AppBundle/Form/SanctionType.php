@@ -30,6 +30,7 @@ class SanctionType extends AbstractType
                 'placeholder' => 'select a reason...'
             ])
             ->add('details', TextareaType::class, [
+                'required' => false,
                 'attr' => ['class' => 'form-control',
                     'placeholder' => 'details...',
                     'maxlength' => 255,
