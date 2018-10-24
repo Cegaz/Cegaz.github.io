@@ -2,13 +2,13 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title"><span id="student-first-name" data-former-value="{{ student.firstName }}">{{ student.firstName|capitalize }}</span> <span id="student-last-name" data-former-value="{{ student.lastName }}">{{ student.lastName|upper }}</span></h5>
+            <h5 class="modal-title"><span id="student-first-name" data-former-value="{{ student.firstName | capitalize }}">{{ student.firstName | capitalize }}</span> <span id="student-last-name" data-former-value="{{ student.lastName | upper }}">{{ student.lastName | upper }}</span></h5>
             <div>
                 <img src="{{ asset('assets/images/pencil.png') }}" id="modify-student-name" alt="modify" class="pointer small-icon grey-icon">
             </div>
-            <div>
-                <button class="btn btn-secondary display-none" id="cancel-name">cancel</button>
-                <button class="btn btn-success display-none" id="save-name" data-id="{{ student.id }}">save</button>
+            <div class="ml-2">
+                <button class="btn btn-secondary hidden" id="cancel-name">cancel</button>
+                <button class="btn btn-success hidden" id="save-name" data-id="{{ student.id }}">save</button>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -19,7 +19,11 @@
                 <div class="col">
                     <div class="text-left">
                         class {{ student.class.label }} -
-                        island {% if student.island is not null %}{{ student.island.label }}{% endif %}</div>
+                        island {% if student.island is not null %}<span class="island" data-former-value="{{ student.island }}">{{ student.island.label }}</span>{% endif %}
+                        <img src="{{ asset('assets/images/pencil.png') }}" id="modify-island" alt="modify-island" class="pointer small-icon grey-icon">
+                        <button class="btn btn-secondary hidden" id="cancel-island">cancel</button>
+                        <button class="btn btn-success hidden" id="save-island" data-id="{{ student.id }}">save</button>
+                    </div>
                 </div>
             </div>
 

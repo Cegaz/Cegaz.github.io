@@ -36,15 +36,6 @@ $("#save-comment").click(function() {
     });
 });
 
-// $("#more-comments").click(function() {
-//     $(".hidden-comment").toggleClass('display-none');
-//
-//     if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
-//         $(this).find('img').attr("src", "/assets/images/arrow-down.png");
-//     } else {
-//         $(this).find('img').attr("src", "/assets/images/arrow-top.png");
-//     }
-// });
 
 // sanctions on student modale : display more
 $("#more-sanctions").click(function() {
@@ -238,17 +229,30 @@ $("#save-sanction-reason").click(function() {
     });
 });
 
-// modify student name
-$("#showStudent").find("#modify-student-name").click(function() {
-    var elem = $('#showStudent').find('#student-last-name, #student-first-name');
-    elem.addClass('pseudo-input');
-    elem.attr('contenteditable', 'true');
-    var elems = $('#cancel-name, #save-name');
-    elems.css('display', 'inline');
-});
 
-// modify student name : save
-$("#showStudent").find('#save-name').click(function() {
+// modify student name
+$("#showStudent").find("#modify-student-name").click('on', modifyStudentName);
+$("#showStudent").find("#cancel-name").click('on', cancelModifyStudentName);
+$("#showStudent").find("#save-name").click('on', doModifyStudentName);
+
+function modifyStudentName()
+{
+    var elem = $('#showStudent').find('#student-last-name, #student-first-name');
+    editable(elem);
+}
+
+function cancelModifyStudentName()
+{
+    var elem1 = $("#student-last-name");
+    elem1.text(elem1.data('former-value'));
+    uneditable(elem1);
+    var elem2 = $("#student-first-name");
+    uneditable(elem2);
+    elem2.text(elem2.data('former-value'));
+}
+
+function doModifyStudentName()
+{
     var lastName = $('#student-last-name').text();
     var firstName = $('#student-first-name').text();
 
@@ -262,10 +266,7 @@ $("#showStudent").find('#save-name').click(function() {
         $.post("/student/modify", params, function (res) {
             if (res) {
                 var elem = $("#student-last-name, #student-first-name");
-                elem.attr('contenteditable', 'false');
-                elem.removeClass('pseudo-input');
-                var elems = $("#save-name, #cancel-name");
-                elems.css('display', 'none');
+                uneditable(elem);
                 alert("La modification du nom de l'élève a bien été enregistrée.");
             } else {
                 alert("Une erreur est survenue lors de la modification de l'élève.");
@@ -274,20 +275,75 @@ $("#showStudent").find('#save-name').click(function() {
     } else {
         alert('Le nom et le prénom ne peuvent pas être vides.');
     }
-});
+}
 
-// modify student name : cancel
-$("#showStudent").find('#cancel-name').click(function() {
-    var elem = $("#student-last-name, #student-first-name");
-    elem.attr('contenteditable', 'false');
+// modify island
+$('#modify-island').click('on', modifyIsland);
+$('#cancel-island').click('on', cancelModifyIsland);
+$('#save-island').click('on', doModifyIsland);
+
+function modifyIsland()
+{
+    var island = $('#showStudent').find('.island');
+    editable(island);
+}
+
+function cancelModifyIsland()
+{
+    var island = $('#showStudent').find('.island');
+    island.text(island.data('former-value'));
+    uneditable(island);
+}
+
+function doModifyIsland()
+{
+    var island = $('#showStudent').find('.island');
+    var islandValue = island.text();
+
+    if(islandValue !== '') {
+        var params = {
+            idStudent: $(this).data('id'),
+            islandLabel: islandValue
+        }
+
+        $.post("/student/modify", params, function (res) {
+            if (res) {
+                island.text(islandValue);
+                uneditable(island);
+                alert("L'ilôt a bien été modifié.");
+            } else {
+                alert("Une erreur est survenue lors de la modification de l'ilôt.");
+            }
+        });
+    } else {
+        alert("Aucun ilôt n'a été enregistré pour cet élève.");
+    }
+}
+
+function editable(elem)
+{
+    elem.addClass('pseudo-input');
+    elem.attr('contenteditable', 'true');
+
+    var buttons = elem.closest('div').find('button');
+    buttons.css('visibility', 'visible');
+}
+
+function uneditable(elem)
+{
     elem.removeClass('pseudo-input');
+    elem.attr('contenteditable', 'false');
 
-    var elems = $("#save-name, #cancel-name");
-    elems.css('display', 'none');
+    var buttons = elem.closest('div').find('button');
+    buttons.css('visibility', 'hidden');
+}
 
-    var lastNameElem = $('#student-last-name');
-    lastNameElem.text(lastNameElem.data('former-value')); //TODO CG passer en upper
-    var firstNameElem = $('#student-first-name');
-    firstNameElem.text(firstNameElem.data('former-value')); //TODO GC passer en lower+ucfirst
-});
-
+// $("#more-comments").click(function() {
+//     $(".hidden-comment").toggleClass('display-none');
+//
+//     if($(this).find('img').attr("src") == "/assets/images/arrow-top.png") {
+//         $(this).find('img').attr("src", "/assets/images/arrow-down.png");
+//     } else {
+//         $(this).find('img').attr("src", "/assets/images/arrow-top.png");
+//     }
+// });
