@@ -68,7 +68,7 @@
 
                 <div id="sanctions-list" class="row">
                     {% for sanction in student.sanctions|slice(0,2) %}
-                        <div class="sanction col-12 row mb-2">
+                        <div class="sanction col-12 row mb-2"  data-id="{{ sanction.id }}">
                             <div class="col-2">
                                 {{ sanction.date|date('d/m') }}
                             </div>
@@ -78,14 +78,15 @@
                             <div class="col-1">
                                 <img src="{{ asset('assets/images/pencil.png') }}" alt="modify" class="pointer small-icon grey-icon modify-sanction">
                             </div>
-                            <div class="col-10 offset-2 details pl-0 pr-0">
-                                <span>{{ sanction.details }}</span>
+                            <div class="col-10 offset-2 details pl-0 pr-0" data-former-value="{{ sanction.details }}">
+                                <span class="sanction-details">{{ sanction.details }}</span>
                             </div>
                             <div class="sanction-buttons col-10 offset-2 mt-1"></div>
                         </div>
                     {% endfor %}
 
                     {% for sanction in student.sanctions|slice(2, student.sanctions|length - 2) %}
+                    <div class="sanction col-12 row mb-2" data-id="{{ sanction.id }}">
                         <div class="col-2 hidden-sanction display-none">
                             {{ sanction.date|date('d/m') }}
                         </div>
@@ -95,10 +96,11 @@
                         <div class="col-1 hidden-sanction display-none">
                             <img src="{{ asset('assets/images/pencil.png') }}" alt="modify" class="pointer small-icon grey-icon modify-sanction">
                         </div>
-                        <div class="col-10 pl-0 pr-0 offset-2 hidden-sanction display-none">
-                            <span>{{ sanction.details }}</span>
+                        <div class="col-10 offset-2 details pl-0 pr-0 hidden-sanction display-none" data-former-value="{{ sanction.details }}">
+                            <span class="sanction-details">{{ sanction.details }}</span>
                         </div>
                         <div class="sanction-buttons col-10 offset-2 mt-1"></div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>

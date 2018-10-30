@@ -1,16 +1,17 @@
 $("#students-list").find(".hand-up").click(function () {
-    var student_id = $(this).closest('td').data("id");
+    var student_id = $(this).closest('.right-columns').data("id");
     var params = {student_id: student_id};
-    var element = $(this).parent().parent();
+    var row = $(this).closest('.student-bloc');
 
     $.post("/participation/new", params, function (data) {
-        element.find('.participationsToday').text(data.nbToday);
-        element.find('.participations').text(data.nb);
-        element.find('.lastParticipation').text(data.lastParticipation);
-        element.addClass('green-line');
+        console.log(data);
+        row.find('.participationsToday').text(data.nbToday);
+        row.find('.participations').text(data.nb);
+        row.find('.lastParticipation').text(data.lastParticipation);
+        row.addClass('green-line');
         setTimeout(
             function () {
-                element.removeClass('green-line');
+                row.removeClass('green-line');
             }, 2000);
     });
 });
@@ -57,7 +58,7 @@ $('.is-absent').on('click', function() {
 });
 
 $('#are-absent').on('click', function() {
-    $('.confirm-modal-button').toggleClass('hidden');
+    $('.confirm-modal-button').toggleClass('d-none');
 });
 
 $('#absence-alert').on('click', function() {
@@ -66,7 +67,7 @@ $('#absence-alert').on('click', function() {
 });
 
 $('#display-sanction').on('click', function () {
-    $('.sanctionModalButton').toggleClass('hidden');
+    $('.sanctionModalButton').toggleClass('d-none');
 });
 
 $('.sanctionModalButton').on('click', function () {

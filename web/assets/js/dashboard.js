@@ -49,16 +49,42 @@ $("#more-sanctions").click(function() {
 });
 
 // modify sanction
-$('#sanctions-list').find('.modify-sanction').click(function() {
+$('#sanctions-list').find('.modify-sanction').click(modifySanction);
+
+function modifySanction() {
     disableAllSanctionButtons();
     var sanction = $(this).closest('.sanction');
     var input = sanction.find('.details');
     input.addClass('pseudo-input');
     input.attr('contenteditable', 'true');
     var buttons = sanction.find('.sanction-buttons');
-    buttons.html('<button class="btn btn-secondary" id="cancel-sanction">cancel</button>\n' +
-        '<button class="btn btn-success" id="save-sanction">save</button>');
-});
+    buttons.html('<div class="btn btn-secondary cancel-sanction">cancel</div>\n' +
+        '<div class="btn btn-success save-sanction">save</div>');
+    $("#sanctions-list").find(".cancel-sanction").click('on', cancelModifySanction);
+    $("#sanctions-list").find('.save-sanction').click(doModifySanction);
+}
+
+
+function cancelModifySanction() {
+    var $sanction = $(this).closest('.sanction');
+    var $details = $sanction.find('.details');
+    $details.find('.sanction-details').text($details.data('former-value'));
+    uneditable($details);
+    disableAllSanctionButtons();
+}
+
+function doModifySanction() {
+    var $sanction = $(this).closest('.sanction');
+
+    var params = {
+        sanctionId: $sanction.data('id'),
+        details: $sanction.find('.sanction-details').text()
+    };
+    $.post("/sanction/modify-details", params, function(result) {
+        console.log(result);
+    }, 'json');
+    uneditable($sanction.find('.details'));
+}
 
 function disableAllSanctionButtons()
 {
@@ -67,17 +93,6 @@ function disableAllSanctionButtons()
     input.removeClass('pseudo-input');
     input.attr('contenteditable', 'false');
 }
-
-// modify sanction : cancel
-$("#sanctions-list").find('#cancel-sanction').click(function() {
-    disableAllSanctionButtons();
-    //TODO CG debug
-});
-
-// modify sanction : save
-$("#sanctions-list").find('#save-sanction').click(function() {
-//TODO CG
-});
 
 $('#showStudent').find('#confirm-delete-student').click(function() {
     var studentId = $(this).attr('data-id');

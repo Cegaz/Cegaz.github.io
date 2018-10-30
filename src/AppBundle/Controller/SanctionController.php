@@ -53,4 +53,21 @@ class SanctionController extends Controller
 
         return $this->json(['html' => $html, 'nbSanctions' => count($sanctionsAlert)]);
     }
+
+    /**
+     * @Route("/modify-details")
+     */
+    public function modifyDetails(Request $request)
+    {
+        $sanctionId = $request->request->get('sanctionId');
+        $details = $request->request->get('details');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sanction = $em->getRepository('AppBundle:Sanction')->find($sanctionId); /**@var Sanction $sanction */
+        if (!empty($sanction)) $sanction->setDetails($details);
+        $em->flush();
+
+        return $this->json(['success' => true]);
+    }
 }

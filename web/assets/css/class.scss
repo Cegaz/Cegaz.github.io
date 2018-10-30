@@ -67,3 +67,26 @@
     top: -5px;
   }
 }
+
+.grouped-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.table-islands {
+  td {
+    border: none;
+  }
+  .island-bloc {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 50px 20px;
+  }
+  .student-bloc {
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+  }
+}

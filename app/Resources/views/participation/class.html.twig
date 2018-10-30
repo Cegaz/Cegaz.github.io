@@ -30,78 +30,35 @@
             </div>
 
             {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                <div class="col-1 offset-2">
-                    <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+                <div class="col-3 grouped-icons">
+                    <div>
+                        <img src="{{ asset('assets/images/rewind.png') }}" alt="cancel" class="icon" id="cancel">
+                    </div>
+                    <div>
+                        {% if 'last-name' in app.request.requestUri %}
+                            <a href="/participation/sort-by-island">
+                        {% else  %}
+                            <a href="/participation/sort-by-last-name">
+                        {% endif %}
+                            <img src="{{ asset('assets/images/list.png') }}" alt="display list" class="icon" id="change-display">
+                        </a>
+                    </div>
+                    <div>
+                        <img src="{{ asset('assets/images/remove-sign.png') }}" alt="cancel" class="icon" id="are-absent">
+                    </div>
+                    <div>
+                        <img src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon" id="display-sanction">
+                    </div>
                 </div>
             {% endif %}
         </header>
 
         <section>
-            <div class="table-responsive">
-                <table id="students-list" class="table table-striped">
-                    <tr>
-                        <th class="text-center">
-                            ISLAND
-                            <a href="/participation/sort-by-island">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th>
-                            LAST NAME
-                            <a href="/participation/sort-by-last-name">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th>
-                            FIRST NAME
-                            <a href="/participation/sort-by-first-name">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            LAST
-                            <a href="/participation/sort-by-last-participation">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            NB
-                            <a href="/participation/sort-by-nb-participations">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            NB TODAY
-                            <a href="/participation/sort-by-nb-participations-today">
-                                <img src="{{ asset('assets/images/sorting.png') }}" alt="sorting">
-                            </a>
-                        </th>
-                        <th class="column-icons">
-                            <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hidden">
-                            <img src="{{ asset('assets/images/remove-sign.png') }}" alt="cancel" class="icon" id="are-absent">
-                            <img src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon" id="display-sanction">
-                        </th>
-                    </tr>
-
-                    {% for student in students %}
-                        <tr {% if student.isAbsent %}class="display-none"{% endif %}>
-                            <td class="island text-center">{% if student.island is not empty %}{{ student.island.label }}{% endif %}</td>
-                            <td class="last-name">{{ student.lastName | upper }}</td>
-                            <td class="first-name">{{ student.firstName | capitalize }}</td>
-                            <td class="lastParticipation text-center">{{ student.lastParticipation }}</td>
-                            <td class="participations text-center">{{ student.participations|length }}</td>
-                            <td class="participationsToday text-center">{{ student.nbParticipationsToday }}</td>
-                            {% if (app.user.classId is not defined or app.user.classId is empty) %}
-                            <td class="right-columns" data-id="{{ student.id }}" data-last-name="{{ student.lastName }}" data-first-name="{{ student.firstName }}">
-                                <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hand-up">
-                                <img type="button" data-toggle="modal" data-target="#confirm-modal" src="{{ asset('assets/images/remove-sign.png') }}" alt="absent" class="icon confirm-modal-button hidden">
-                                <img type="button" data-toggle="modal" data-target="#sanctionModal" src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon sanctionModalButton hidden">
-                            </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+            {% if sorting == 'island' %}
+                {{ include ('participation/classByIslands.html.twig') }}
+            {% else %}
+                {{ include ('participation/classList.html.twig') }}
+            {% endif %}
         </section>
 
         {% include ('participation/confirmModal.html.twig') %}
@@ -112,3 +69,10 @@
 
     </div>
 {% endblock %}
+
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+    {#<script>#}
+        {#$( ".draggable" ).draggable();#}
+    {#</script>#}
+{#{% endblock %}#}

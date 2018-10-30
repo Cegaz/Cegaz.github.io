@@ -1,0 +1,36 @@
+<div class="table-islands" id="students-list">
+    <div id="students-list" class="table draggable">
+        {% set previousIsland = false %}
+        {% for student in students %}
+            {% if (student.island != previousIsland) %}
+                {% if not loop.first %}
+                    </div>
+                {% endif %}
+    <div class="island-bloc">
+            {% endif %}
+
+            <div class="island text-center">
+                {#{% if student.island is empty %} ---#}
+                {#{% elseif student.island != previousIsland %}#}
+                    {#{{ student.island.label }}#}
+                {#{% endif %}#}
+            </div>
+
+            <div {% if student.isAbsent %}display-none{% endif %} class="student-bloc">
+                <div class="name">{{ student.firstName | capitalize }} {{ student.lastName | first | upper }}</div>
+                {% if (app.user.classId is not defined or app.user.classId is empty) %}
+                    <div class="right-columns" data-id="{{ student.id }}" data-last-name="{{ student.lastName }}" data-first-name="{{ student.firstName }}">
+                        <span class="participationsToday">{{ student.nbParticipationsToday }}</span>
+                        <img src="{{ asset('assets/images/hand-up.png') }}" alt="participate" class="icon hand-up">
+                        <img type="button" data-toggle="modal" data-target="#confirm-modal" src="{{ asset('assets/images/remove-sign.png') }}" alt="absent" class="icon confirm-modal-button d-none">
+                        <img type="button" data-toggle="modal" data-target="#sanctionModal" src="{{ asset('assets/images/electricity.png') }}" alt="sanction" class="icon sanctionModalButton d-none">
+                    </div>
+                {% endif %}
+            </div>
+                {% if loop.last %}
+                    </div>
+                {% endif %}
+            {% set previousIsland = student.island %}
+        {% endfor %}
+    </div>
+</div>
