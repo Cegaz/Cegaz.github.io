@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <body>
+    {{ parent }}
     <section id="list-classes">
         <div>
             <p>Please select a class.</p>
@@ -12,5 +12,4 @@
             {% endfor %}
         </div>
     </section>
-    </body>
 {% endblock %}

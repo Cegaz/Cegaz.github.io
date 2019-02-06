@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<body>
+    {{ parent() }}
 <header>
     <h1>CLASS {{ class.label }}</h1>
     <a href="/"><img src="{{ asset('assets/images/home.png') }}" alt="home" class="icon"/></a>
@@ -32,5 +32,4 @@
         {% endfor %}
     </table>
 </section>
-</body>
 {% endblock %}

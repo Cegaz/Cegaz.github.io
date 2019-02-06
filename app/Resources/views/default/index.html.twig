@@ -1,26 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <body>
-    <section id="app-menu" class="container">
-        <div class="row">
-            <div class="col-12">
-                <img src="{{ asset('assets/images/class.png') }}">
-                <a href="{{ path('homepage-dashboard') }}"><button class="btn btn-dashboard">DASHBOARD</button></a>
-            </div>
-            <div class="col-12">
-                <img src="{{ asset('assets/images/hand-up.png') }}">
-                <a href="{{ path('homepage-participation') }}"><button class="btn btn-participation">PARTICIPATION</button></a>
-            </div>
-            <div class="col-12">
-                <img src="{{ asset('assets/images/star.png') }}">
-                <a href="{{ path('homepage-grades') }}"><button class="btn btn-grades">GRADES</button></a>
-            </div>
-            <div class="col-12">
-                <img src="{{ asset('assets/images/chat.png') }}">
-                <a href="https://my-english-class-chat.slack.com"><button class="btn btn-chat">CHAT</button></a>
-            </div>
+{{ parent() }}
+<section id="app-menu" class="container">
+    <div class="row">
+        <div class="col-12">
+            <img src="{{ asset('assets/images/class.png') }}">
+            <a href="{{ path('homepage-dashboard') }}"><button class="btn btn-dashboard">DASHBOARD</button></a>
         </div>
-    </section>
-    </body>
+        <div class="col-12">
+            <img src="{{ asset('assets/images/hand-up.png') }}">
+            <a href="{{ path('homepage-participation') }}"><button class="btn btn-participation">PARTICIPATION</button></a>
+        </div>
+        <div class="col-12">
+            <img src="{{ asset('assets/images/star.png') }}">
+            <a href="{{ path('homepage-grades') }}"><button class="btn btn-grades">GRADES</button></a>
+        </div>
+        <div class="col-12">
+            <img src="{{ asset('assets/images/chat.png') }}">
+            <a href="https://my-english-class-chat.slack.com"><button class="btn btn-chat">CHAT</button></a>
+        </div>
+    </div>
+</section>
 {% endblock %}

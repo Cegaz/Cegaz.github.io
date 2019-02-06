@@ -9,12 +9,12 @@
     <div class="island-bloc">
             {% endif %}
 
-            <div class="island text-center">
+            {#<div class="island text-center">#}
                 {#{% if student.island is empty %} ---#}
                 {#{% elseif student.island != previousIsland %}#}
                     {#{{ student.island.label }}#}
                 {#{% endif %}#}
-            </div>
+            {#</div>#}
 
             <div {% if student.isAbsent %}display-none{% endif %} class="student-bloc">
                 <div class="name">{{ student.firstName | capitalize }} {{ student.lastName | first | upper }}</div>

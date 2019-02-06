@@ -15,10 +15,11 @@
 {% endblock class %}
 
 {% block body %}
-    <div class="dashboard">
+{{ parent() }}
+<div class="dashboard">
     <header>
         <input type="text" class="search" name="student-name" id="student-name">
-        <img src="{{ asset('assets/images/search.png') }}" border="0" alt="search" class="icon" data-toggle="modal" data-target="#showStudent" id="search">
+        <img src="{{ asset('assets/images/search.png') }}" alt="search" class="icon" data-toggle="modal" data-target="#showStudent" id="search">
         <img src="{{ asset('assets/images/plus.png') }}" alt="add a student" class="icon" data-toggle="modal" data-target="#addStudent">
         <img src="{{ asset('assets/images/import.png') }}" alt="import a file" class="icon" data-toggle="modal" data-target="#importStudents">
         <img src="{{ asset('assets/images/electricity.png') }}" alt="admin sanctions" class="icon" id="admin-sanctions" data-toggle="modal" data-target="#admin-sanctions-modal">
@@ -52,7 +53,5 @@
     {% include('dashboard/addStudentModal.html.twig') %}
     {% include('dashboard/adminSanctionsModal.html.twig') %}
     {% include('dashboard/importStudentsModal.html.twig') %}
-
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</div>
 {% endblock %}

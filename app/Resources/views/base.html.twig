@@ -1,9 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block head %}{{ parent() }}{% endblock %}
-
-{% block navbar %}
-    <body>
+{% block body %}
     <nav class="navbar navbar-expand-lg navbar-dark dark">
         <a class="navbar-brand" href="/">
             <img src="{{ asset('assets/images/home.png') }}" alt="home" class="icon"/>
@@ -42,6 +39,7 @@
                         <a class="dropdown-item" href="mailto:cecilegaz@gmail.com">Contact me</a>
                         {#<a class="dropdown-item" href="#">Parameters</a>#}
                         <a class="dropdown-item pointer" data-toggle="modal" data-target="#doc">How to use the app ?</a>
+                    </div>
                 </li>
             </ul>
 
@@ -61,8 +59,6 @@
         </div>
     </nav>
     {% include('default/docModal.html.twig') %}
-    </body>
 {% endblock %}
 
-{% block javascripts %}{{ parent() }}{% endblock %}
-{% block footer %}{% endblock %}
+{#{% block javascripts %}{{ parent() }}{% endblock %}#}
