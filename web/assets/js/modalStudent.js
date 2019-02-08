@@ -5,40 +5,56 @@ $('#save-island').click('on', doModifyIsland);
 
 function modifyIsland()
 {
-    let island = $(this).closest('div').find('.island');
-    editable(island);
+    let parent = $(this).closest('div');
+    let island = parent.find('.island');
+    let classId = island.data('class-id');
+    $.post("/dashboard/list-islands", {classId: classId}, function (result) {
+        island.html(result);
+        let buttons = parent.find('button');
+        buttons.css('visibility', 'visible');
+    });
 }
 
 function cancelModifyIsland()
 {
-    var island = $('#showStudent').find('.island');
+    let parent = $(this).closest('div');
+    let island = parent.find('.island');
     island.text(island.data('former-value'));
     uneditable(island);
 }
 
 function doModifyIsland()
 {
-    var island = $('#showStudent').find('.island');
-    var islandValue = island.text();
+    let parent = $(this).closest('div');
+    let island = parent.find('.island');
+    let islandList = island.find('.islandsList');
+    let islandId = islandList.val();
+    let islandLabel = islandList.find('option:selected').text();
 
-    if(islandValue !== '') {
+    if (islandId == 0) {
+        addIsland();
+    } else if (typeof(islandId) == 'undefined' || islandId == '') {
+        alert("No island has been entered for this student.");
+    } else {
         let params = {
             idStudent: $(this).data('id'),
-            islandLabel: islandValue
+            islandId: islandId
         }
 
         $.post("/student/modify", params, function (res) {
             if (res) {
-                island.text(islandValue);
-                uneditable(island);
-                alert("The island has been modified.");
+                island.text(islandLabel);
             } else {
                 alert("An error occurred during the island modification.");
             }
         });
-    } else {
-        alert("No island is registered for this student.");
     }
+}
+
+function addIsland() {
+    //TODO CG
+    // envoyer label à student/modify
+
 }
 
 // sanctions on student modale : display more

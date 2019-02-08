@@ -1,0 +1,6 @@
+<select class="islandsList">
+    {% for island in islands %}
+        <option value="{{ island.id }}">{{ island.label }}</option>
+    {% endfor %}
+        {#<option value="0">new island</option>#}
+</select>

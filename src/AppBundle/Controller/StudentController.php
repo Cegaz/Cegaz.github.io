@@ -40,6 +40,7 @@ class StudentController extends Controller
         $lastName = $request->request->get('lastName', 'none');
         $firstName = $request->request->get('firstName', 'none');
         $islandLabel = $request->request->get('islandLabel', 'none');
+        $islandId = $request->request->get('islandId', 'none');
 
         $em = $this->getDoctrine()->getManager();
         $student = $em->getRepository('AppBundle:Student')->find($idStudent);
@@ -60,16 +61,16 @@ class StudentController extends Controller
             if($firstName !== 'none' && $firstName !== '') {
                 $student->setFirstName($firstName);
             }
-            if($islandLabel !== 'none' && $islandLabel !== '') {
-                $island = $em->getRepository('AppBundle:Island')->findOneByLabel($islandLabel);
-                if (empty($island)) {
-                    $island = new Island();
-                    $island->setLabel($islandLabel)
-                        ->setClass($student->getClass());
-                    $em->persist($island);
-                    $em->flush();
-                }
+            if($islandId !== 'none') {
+                $island = $em->getRepository('AppBundle:Island')->find($islandId);
                 $student->setIsland($island);
+            }
+            if($islandLabel !== 'none') {
+                $island = new Island();
+                $island->setLabel($islandLabel)
+                    ->setClass($student->getClass());
+                $em->persist($island);
+                $em->flush();
             }
             $em->flush();
             $success = true;

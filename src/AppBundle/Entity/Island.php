@@ -22,7 +22,7 @@ class Island
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="classs", inversedBy="islands")
+     * @ORM\ManyToOne(targetEntity="Classs", inversedBy="islands")
      */
     private $class;
 

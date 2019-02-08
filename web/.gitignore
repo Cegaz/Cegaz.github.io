@@ -16,7 +16,6 @@
 /vendor/
 /web/bundles/
 /node_modules/
-/assets/js/
 /assets/css/
 /.idea/
 webpack.config.js

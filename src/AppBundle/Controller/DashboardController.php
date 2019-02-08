@@ -77,4 +77,18 @@ class DashboardController extends Controller
         return $this->redirectToRoute("homepage-dashboard"); //TODO CG prévoir message retour
     }
 
+    /**
+     * @Route("/list-islands")
+     */
+    public function getIslandByClass(Request $request) {
+        $classId = $request->get('classId');
+
+        $em = $this->getDoctrine()->getManager();
+        $islands = $em->getRepository('AppBundle:Island')->findByClass($classId);
+
+        return $this->render('/dashboard/islandsDropdownList.html.twig', [
+            'islands' => $islands
+        ]);
+    }
+
 }

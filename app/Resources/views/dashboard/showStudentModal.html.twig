@@ -19,7 +19,9 @@
                 <div class="col">
                     <div class="text-left">
                         class {{ student.class.label }} -
-                        island {% if student.island is not null %}<span class="island" data-former-value="{{ student.island }}">{{ student.island.label }}</span>{% endif %}
+                        island <span class="island" data-former-value="{{ student.island }}" data-class-id="{{ student.class.id }}">
+                            {% if student.island is not null %}{{ student.island.label }}{% endif %}
+                        </span>
                         <img src="{{ asset('assets/images/pencil.png') }}" id="modify-island" alt="modify-island" class="pointer small-icon grey-icon">
                         <button class="btn btn-secondary hidden" id="cancel-island">cancel</button>
                         <button class="btn btn-success hidden" id="save-island" data-id="{{ student.id }}">save</button>
